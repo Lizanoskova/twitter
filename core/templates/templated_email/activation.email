@@ -1,0 +1,10 @@
+{% block subject %} Письмо {% endblock %}
+
+{% block html %}
+    <h1>Активация</h1>
+    <h2> {{ user.username }} тебя лайкнули </h2>
+    <a href="">Ссылка активации</a>
+{% endblock %}
+
+{% block text %}
+{% endblock %}
