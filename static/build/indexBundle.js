@@ -2743,6 +2743,585 @@ var _ButtonBase = _interopRequireDefault(__webpack_require__(/*! ./ButtonBase */
 
 /***/ }),
 
+/***/ "../node_modules/@material-ui/core/ListItem/ListItem.js":
+/*!**************************************************************!*\
+  !*** ../node_modules/@material-ui/core/ListItem/ListItem.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "../node_modules/@babel/runtime/helpers/extends.js"));
+
+var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread */ "../node_modules/@babel/runtime/helpers/objectSpread.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _getPrototypeOf = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/core-js/object/get-prototype-of */ "../node_modules/@babel/runtime/core-js/object/get-prototype-of.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
+
+var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "../node_modules/@material-ui/core/styles/withStyles.js"));
+
+var _ButtonBase = _interopRequireDefault(__webpack_require__(/*! ../ButtonBase */ "../node_modules/@material-ui/core/ButtonBase/index.js"));
+
+var _reactHelpers = __webpack_require__(/*! ../utils/reactHelpers */ "../node_modules/@material-ui/core/utils/reactHelpers.js");
+
+var styles = function styles(theme) {
+  return {
+    root: {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      position: 'relative',
+      textDecoration: 'none',
+      width: '100%',
+      boxSizing: 'border-box',
+      textAlign: 'left'
+    },
+    container: {
+      position: 'relative'
+    },
+    focusVisible: {
+      backgroundColor: theme.palette.action.hover
+    },
+    default: {
+      paddingTop: 12,
+      paddingBottom: 12
+    },
+    dense: {
+      paddingTop: theme.spacing.unit,
+      paddingBottom: theme.spacing.unit
+    },
+    disabled: {
+      opacity: 0.5
+    },
+    divider: {
+      borderBottom: "1px solid ".concat(theme.palette.divider),
+      backgroundClip: 'padding-box'
+    },
+    gutters: theme.mixins.gutters(),
+    button: {
+      transition: theme.transitions.create('background-color', {
+        duration: theme.transitions.duration.shortest
+      }),
+      '&:hover': {
+        textDecoration: 'none',
+        backgroundColor: theme.palette.action.hover,
+        // Reset on touch devices, it doesn't add specificity
+        '@media (hover: none)': {
+          backgroundColor: 'transparent'
+        }
+      }
+    },
+    secondaryAction: {
+      // Add some space to avoid collision as `ListItemSecondaryAction`
+      // is absolutely positionned.
+      paddingRight: theme.spacing.unit * 4
+    }
+  };
+};
+
+exports.styles = styles;
+
+var ListItem =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(ListItem, _React$Component);
+
+  function ListItem() {
+    (0, _classCallCheck2.default)(this, ListItem);
+    return (0, _possibleConstructorReturn2.default)(this, (ListItem.__proto__ || (0, _getPrototypeOf.default)(ListItem)).apply(this, arguments));
+  }
+
+  (0, _createClass2.default)(ListItem, [{
+    key: "getChildContext",
+    value: function getChildContext() {
+      return {
+        dense: this.props.dense || this.context.dense || false
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _classNames;
+
+      var _props = this.props,
+          button = _props.button,
+          childrenProp = _props.children,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          componentProp = _props.component,
+          ContainerComponent = _props.ContainerComponent,
+          _props$ContainerProps = _props.ContainerProps;
+      _props$ContainerProps = _props$ContainerProps === void 0 ? {} : _props$ContainerProps;
+      var ContainerClassName = _props$ContainerProps.className,
+          ContainerProps = (0, _objectWithoutProperties2.default)(_props$ContainerProps, ["className"]),
+          dense = _props.dense,
+          disabled = _props.disabled,
+          disableGutters = _props.disableGutters,
+          divider = _props.divider,
+          other = (0, _objectWithoutProperties2.default)(_props, ["button", "children", "classes", "className", "component", "ContainerComponent", "ContainerProps", "dense", "disabled", "disableGutters", "divider"]);
+      var isDense = dense || this.context.dense || false;
+
+      var children = _react.default.Children.toArray(childrenProp);
+
+      var hasAvatar = children.some(function (value) {
+        return (0, _reactHelpers.isMuiElement)(value, ['ListItemAvatar']);
+      });
+      var hasSecondaryAction = children.length && (0, _reactHelpers.isMuiElement)(children[children.length - 1], ['ListItemSecondaryAction']);
+      var className = (0, _classnames.default)(classes.root, isDense || hasAvatar ? classes.dense : classes.default, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes.gutters, !disableGutters), (0, _defineProperty2.default)(_classNames, classes.divider, divider), (0, _defineProperty2.default)(_classNames, classes.disabled, disabled), (0, _defineProperty2.default)(_classNames, classes.button, button), (0, _defineProperty2.default)(_classNames, classes.secondaryAction, hasSecondaryAction), _classNames), classNameProp);
+      var componentProps = (0, _objectSpread2.default)({
+        className: className,
+        disabled: disabled
+      }, other);
+      var Component = componentProp || 'li';
+
+      if (button) {
+        componentProps.component = componentProp || 'div';
+        componentProps.focusVisibleClassName = classes.focusVisible;
+        Component = _ButtonBase.default;
+      }
+
+      if (hasSecondaryAction) {
+        // Use div by default.
+        Component = !componentProps.component && !componentProp ? 'div' : Component; // Avoid nesting of li > li.
+
+        if (ContainerComponent === 'li') {
+          if (Component === 'li') {
+            Component = 'div';
+          } else if (componentProps.component === 'li') {
+            componentProps.component = 'div';
+          }
+        }
+
+        return _react.default.createElement(ContainerComponent, (0, _extends2.default)({
+          className: (0, _classnames.default)(classes.container, ContainerClassName)
+        }, ContainerProps), _react.default.createElement(Component, componentProps, children), children.pop());
+      }
+
+      return _react.default.createElement(Component, componentProps, children);
+    }
+  }]);
+  return ListItem;
+}(_react.default.Component);
+
+ListItem.propTypes =  true ? {
+  /**
+   * If `true`, the list item will be a button (using `ButtonBase`).
+   */
+  button: _propTypes.default.bool,
+
+  /**
+   * The content of the component.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   * By default, it's a `li` when `button` is `false` and a `div` when `button` is `true`.
+   */
+  component: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func]),
+
+  /**
+   * The container component used when a `ListItemSecondaryAction` is rendered.
+   */
+  ContainerComponent: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func]),
+
+  /**
+   * Properties applied to the container element when the component
+   * is used to display a `ListItemSecondaryAction`.
+   */
+  ContainerProps: _propTypes.default.object,
+
+  /**
+   * If `true`, compact vertical padding designed for keyboard and mouse input will be used.
+   */
+  dense: _propTypes.default.bool,
+
+  /**
+   * @ignore
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, the left and right padding is removed.
+   */
+  disableGutters: _propTypes.default.bool,
+
+  /**
+   * If `true`, a 1px light border is added to the bottom of the list item.
+   */
+  divider: _propTypes.default.bool
+} : undefined;
+ListItem.defaultProps = {
+  button: false,
+  ContainerComponent: 'li',
+  dense: false,
+  disabled: false,
+  disableGutters: false,
+  divider: false
+};
+ListItem.contextTypes = {
+  dense: _propTypes.default.bool
+};
+ListItem.childContextTypes = {
+  dense: _propTypes.default.bool
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiListItem'
+})(ListItem);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/ListItem/index.js":
+/*!***********************************************************!*\
+  !*** ../node_modules/@material-ui/core/ListItem/index.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _ListItem.default;
+  }
+});
+
+var _ListItem = _interopRequireDefault(__webpack_require__(/*! ./ListItem */ "../node_modules/@material-ui/core/ListItem/ListItem.js"));
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/ListItemIcon/ListItemIcon.js":
+/*!**********************************************************************!*\
+  !*** ../node_modules/@material-ui/core/ListItemIcon/ListItemIcon.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread */ "../node_modules/@babel/runtime/helpers/objectSpread.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
+
+var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "../node_modules/@material-ui/core/styles/withStyles.js"));
+
+var styles = function styles(theme) {
+  return {
+    root: {
+      marginRight: theme.spacing.unit * 2,
+      color: theme.palette.action.active,
+      flexShrink: 0
+    }
+  };
+};
+/**
+ * A simple wrapper to apply `List` styles to an `Icon` or `SvgIcon`.
+ */
+
+
+exports.styles = styles;
+
+function ListItemIcon(props) {
+  var children = props.children,
+      classes = props.classes,
+      classNameProp = props.className,
+      other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className"]);
+  return _react.default.cloneElement(children, (0, _objectSpread2.default)({
+    className: (0, _classnames.default)(classes.root, classNameProp, children.props.className)
+  }, other));
+}
+
+ListItemIcon.propTypes =  true ? {
+  /**
+   * The content of the component, normally `Icon`, `SvgIcon`,
+   * or a `@material-ui/icons` SVG icon element.
+   */
+  children: _propTypes.default.element.isRequired,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string
+} : undefined;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiListItemIcon'
+})(ListItemIcon);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/ListItemIcon/index.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/@material-ui/core/ListItemIcon/index.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _ListItemIcon.default;
+  }
+});
+
+var _ListItemIcon = _interopRequireDefault(__webpack_require__(/*! ./ListItemIcon */ "../node_modules/@material-ui/core/ListItemIcon/ListItemIcon.js"));
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/ListItemText/ListItemText.js":
+/*!**********************************************************************!*\
+  !*** ../node_modules/@material-ui/core/ListItemText/ListItemText.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "../node_modules/@babel/runtime/helpers/extends.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
+
+var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "../node_modules/@material-ui/core/styles/withStyles.js"));
+
+var _Typography = _interopRequireDefault(__webpack_require__(/*! ../Typography */ "../node_modules/@material-ui/core/Typography/index.js"));
+
+var styles = function styles(theme) {
+  return {
+    root: {
+      flex: '1 1 auto',
+      minWidth: 0,
+      padding: "0 ".concat(theme.spacing.unit * 2, "px"),
+      '&:first-child': {
+        paddingLeft: 0
+      }
+    },
+    inset: {
+      '&:first-child': {
+        paddingLeft: theme.spacing.unit * 7
+      }
+    },
+    dense: {
+      fontSize: theme.typography.pxToRem(13)
+    },
+    primary: {
+      '&$textDense': {
+        fontSize: 'inherit'
+      }
+    },
+    secondary: {
+      '&$textDense': {
+        fontSize: 'inherit'
+      }
+    },
+    textDense: {}
+  };
+};
+
+exports.styles = styles;
+
+function ListItemText(props, context) {
+  var _classNames3;
+
+  var children = props.children,
+      classes = props.classes,
+      classNameProp = props.className,
+      disableTypography = props.disableTypography,
+      inset = props.inset,
+      primaryProp = props.primary,
+      secondaryProp = props.secondary,
+      other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "disableTypography", "inset", "primary", "secondary"]);
+  var dense = context.dense;
+  var primary = primaryProp || children;
+
+  if (primary && !disableTypography) {
+    primary = _react.default.createElement(_Typography.default, {
+      variant: "subheading",
+      className: (0, _classnames.default)(classes.primary, (0, _defineProperty2.default)({}, classes.textDense, dense))
+    }, primary);
+  }
+
+  var secondary = secondaryProp;
+
+  if (secondary && !disableTypography) {
+    secondary = _react.default.createElement(_Typography.default, {
+      variant: "body1",
+      className: (0, _classnames.default)(classes.secondary, (0, _defineProperty2.default)({}, classes.textDense, dense)),
+      color: "textSecondary"
+    }, secondary);
+  }
+
+  return _react.default.createElement("div", (0, _extends2.default)({
+    className: (0, _classnames.default)(classes.root, (_classNames3 = {}, (0, _defineProperty2.default)(_classNames3, classes.dense, dense), (0, _defineProperty2.default)(_classNames3, classes.inset, inset), _classNames3), classNameProp)
+  }, other), primary, secondary);
+}
+
+ListItemText.propTypes =  true ? {
+  /**
+   * Alias for the `primary` property.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * If `true`, the children won't be wrapped by a typography component.
+   * For instance, that can be useful to can render an h4 instead of a
+   */
+  disableTypography: _propTypes.default.bool,
+
+  /**
+   * If `true`, the children will be indented.
+   * This should be used if there is no left avatar or left icon.
+   */
+  inset: _propTypes.default.bool,
+  primary: _propTypes.default.node,
+  secondary: _propTypes.default.node
+} : undefined;
+ListItemText.defaultProps = {
+  disableTypography: false,
+  inset: false
+};
+ListItemText.contextTypes = {
+  dense: _propTypes.default.bool
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiListItemText'
+})(ListItemText);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/ListItemText/index.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/@material-ui/core/ListItemText/index.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _ListItemText.default;
+  }
+});
+
+var _ListItemText = _interopRequireDefault(__webpack_require__(/*! ./ListItemText */ "../node_modules/@material-ui/core/ListItemText/ListItemText.js"));
+
+/***/ }),
+
 /***/ "../node_modules/@material-ui/core/Paper/Paper.js":
 /*!********************************************************!*\
   !*** ../node_modules/@material-ui/core/Paper/Paper.js ***!
@@ -7037,10 +7616,10 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "../node_modules/@material-ui/icons/Favorite.js":
-/*!******************************************************!*\
-  !*** ../node_modules/@material-ui/icons/Favorite.js ***!
-  \******************************************************/
+/***/ "../node_modules/@material-ui/core/utils/reactHelpers.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/@material-ui/core/utils/reactHelpers.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7052,23 +7631,41 @@ var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/inte
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.cloneElementWithClassName = cloneElementWithClassName;
+exports.cloneChildrenWithClassName = cloneChildrenWithClassName;
+exports.isMuiElement = isMuiElement;
+exports.isMuiComponent = isMuiComponent;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
 
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
 
-var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
-  d: "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-})), 'Favorite');
+/* eslint-disable import/prefer-default-export */
+function cloneElementWithClassName(child, className) {
+  return _react.default.cloneElement(child, {
+    className: (0, _classnames.default)(child.props.className, className)
+  });
+}
 
-exports.default = _default;
+function cloneChildrenWithClassName(children, className) {
+  return _react.default.Children.map(children, function (child) {
+    return _react.default.isValidElement(child) && cloneElementWithClassName(child, className);
+  });
+}
+
+function isMuiElement(element, muiNames) {
+  return _react.default.isValidElement(element) && muiNames.indexOf(element.type.muiName) !== -1;
+}
+
+function isMuiComponent(element, muiNames) {
+  return muiNames.indexOf(element.muiName) !== -1;
+}
 
 /***/ }),
 
-/***/ "../node_modules/@material-ui/icons/Help.js":
+/***/ "../node_modules/@material-ui/icons/Home.js":
 /*!**************************************************!*\
-  !*** ../node_modules/@material-ui/icons/Help.js ***!
+  !*** ../node_modules/@material-ui/icons/Home.js ***!
   \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -7088,132 +7685,16 @@ var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_mo
 var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
 
 var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
-  d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
-})), 'Help');
+  d: "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+})), 'Home');
 
 exports.default = _default;
 
 /***/ }),
 
-/***/ "../node_modules/@material-ui/icons/PersonPin.js":
-/*!*******************************************************!*\
-  !*** ../node_modules/@material-ui/icons/PersonPin.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
-
-var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
-  d: "M19 2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h4l3 3 3-3h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 3.3c1.49 0 2.7 1.21 2.7 2.7 0 1.49-1.21 2.7-2.7 2.7-1.49 0-2.7-1.21-2.7-2.7 0-1.49 1.21-2.7 2.7-2.7zM18 16H6v-.9c0-2 4-3.1 6-3.1s6 1.1 6 3.1v.9z"
-})), 'PersonPin');
-
-exports.default = _default;
-
-/***/ }),
-
-/***/ "../node_modules/@material-ui/icons/Phone.js":
-/*!***************************************************!*\
-  !*** ../node_modules/@material-ui/icons/Phone.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
-
-var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
-  d: "M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
-})), 'Phone');
-
-exports.default = _default;
-
-/***/ }),
-
-/***/ "../node_modules/@material-ui/icons/ShoppingBasket.js":
-/*!************************************************************!*\
-  !*** ../node_modules/@material-ui/icons/ShoppingBasket.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
-
-var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
-  d: "M17.21 9l-4.38-6.56c-.19-.28-.51-.42-.83-.42-.32 0-.64.14-.83.43L6.79 9H2c-.55 0-1 .45-1 1 0 .09.01.18.04.27l2.54 9.27c.23.84 1 1.46 1.92 1.46h13c.92 0 1.69-.62 1.93-1.46l2.54-9.27L23 10c0-.55-.45-1-1-1h-4.79zM9 9l3-4.4L15 9H9zm3 8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
-})), 'ShoppingBasket');
-
-exports.default = _default;
-
-/***/ }),
-
-/***/ "../node_modules/@material-ui/icons/ThumbDown.js":
-/*!*******************************************************!*\
-  !*** ../node_modules/@material-ui/icons/ThumbDown.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
-
-var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
-  d: "M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"
-})), 'ThumbDown');
-
-exports.default = _default;
-
-/***/ }),
-
-/***/ "../node_modules/@material-ui/icons/ThumbUp.js":
+/***/ "../node_modules/@material-ui/icons/Message.js":
 /*!*****************************************************!*\
-  !*** ../node_modules/@material-ui/icons/ThumbUp.js ***!
+  !*** ../node_modules/@material-ui/icons/Message.js ***!
   \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -7233,8 +7714,95 @@ var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_mo
 var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
 
 var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
-  d: "M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"
-})), 'ThumbUp');
+  d: "M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"
+})), 'Message');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/icons/Notifications.js":
+/*!***********************************************************!*\
+  !*** ../node_modules/@material-ui/icons/Notifications.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
+  d: "M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"
+})), 'Notifications');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/icons/Person.js":
+/*!****************************************************!*\
+  !*** ../node_modules/@material-ui/icons/Person.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
+  d: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+})), 'Person');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/icons/Settings.js":
+/*!******************************************************!*\
+  !*** ../node_modules/@material-ui/icons/Settings.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
+  d: "M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"
+})), 'Settings');
 
 exports.default = _default;
 
@@ -62208,6 +62776,10 @@ var _PostForm = __webpack_require__(/*! ./PostForm.jsx */ "./components/PostForm
 
 var _PostForm2 = _interopRequireDefault(_PostForm);
 
+var _NavBar = __webpack_require__(/*! ./NavBar.jsx */ "./components/NavBar.jsx");
+
+var _NavBar2 = _interopRequireDefault(_NavBar);
+
 var _propTypes = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -62244,37 +62816,25 @@ var _Tab = __webpack_require__(/*! @material-ui/core/Tab */ "../node_modules/@ma
 
 var _Tab2 = _interopRequireDefault(_Tab);
 
-var _Phone = __webpack_require__(/*! @material-ui/icons/Phone */ "../node_modules/@material-ui/icons/Phone.js");
+var _Home = __webpack_require__(/*! @material-ui/icons/Home */ "../node_modules/@material-ui/icons/Home.js");
 
-var _Phone2 = _interopRequireDefault(_Phone);
+var _Home2 = _interopRequireDefault(_Home);
 
-var _Favorite = __webpack_require__(/*! @material-ui/icons/Favorite */ "../node_modules/@material-ui/icons/Favorite.js");
+var _Message = __webpack_require__(/*! @material-ui/icons/Message */ "../node_modules/@material-ui/icons/Message.js");
 
-var _Favorite2 = _interopRequireDefault(_Favorite);
+var _Message2 = _interopRequireDefault(_Message);
 
-var _PersonPin = __webpack_require__(/*! @material-ui/icons/PersonPin */ "../node_modules/@material-ui/icons/PersonPin.js");
+var _Person = __webpack_require__(/*! @material-ui/icons/Person */ "../node_modules/@material-ui/icons/Person.js");
 
-var _PersonPin2 = _interopRequireDefault(_PersonPin);
+var _Person2 = _interopRequireDefault(_Person);
 
-var _Help = __webpack_require__(/*! @material-ui/icons/Help */ "../node_modules/@material-ui/icons/Help.js");
+var _Settings = __webpack_require__(/*! @material-ui/icons/Settings */ "../node_modules/@material-ui/icons/Settings.js");
 
-var _Help2 = _interopRequireDefault(_Help);
+var _Settings2 = _interopRequireDefault(_Settings);
 
-var _ShoppingBasket = __webpack_require__(/*! @material-ui/icons/ShoppingBasket */ "../node_modules/@material-ui/icons/ShoppingBasket.js");
+var _Notifications = __webpack_require__(/*! @material-ui/icons/Notifications */ "../node_modules/@material-ui/icons/Notifications.js");
 
-var _ShoppingBasket2 = _interopRequireDefault(_ShoppingBasket);
-
-var _ThumbDown = __webpack_require__(/*! @material-ui/icons/ThumbDown */ "../node_modules/@material-ui/icons/ThumbDown.js");
-
-var _ThumbDown2 = _interopRequireDefault(_ThumbDown);
-
-var _ThumbUp = __webpack_require__(/*! @material-ui/icons/ThumbUp */ "../node_modules/@material-ui/icons/ThumbUp.js");
-
-var _ThumbUp2 = _interopRequireDefault(_ThumbUp);
-
-var _Typography = __webpack_require__(/*! @material-ui/core/Typography */ "../node_modules/@material-ui/core/Typography/index.js");
-
-var _Typography2 = _interopRequireDefault(_Typography);
+var _Notifications2 = _interopRequireDefault(_Notifications);
 
 __webpack_require__(/*! typeface-roboto */ "../node_modules/typeface-roboto/index.css");
 
@@ -62287,14 +62847,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-//import ToolBar from '@material-ui/core/ToolBar';
-
-// import { MuiThemeProvider} from 'material-ui/styles';
-// import { createMuiTheme } from 'material-ui/styles';
-// import {grey, amber, red} from 'material-ui/styles/colors';
-// import { createPalette } from 'material-ui/styles';
-//import { withStyles } from 'material-ui/styles';
-
 
 var theme = (0, _styles.createMuiTheme)();
 var MyLink = _react2.default.createElement(
@@ -62331,12 +62883,6 @@ var App = function (_React$Component) {
 
     _createClass(App, [{
         key: 'render',
-
-
-        // handleChange = (event, value) => {
-        //     this.setState({ value });
-        // };
-
         value: function render() {
 
             return _react2.default.createElement(
@@ -62345,26 +62891,7 @@ var App = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     null,
-                    _react2.default.createElement(
-                        _Button2.default,
-                        { component: _reactRouterDom.Link, to: '/user_list/' },
-                        'Usr_List'
-                    ),
-                    _react2.default.createElement(
-                        _AppBar2.default,
-                        { position: 'static' },
-                        _react2.default.createElement(
-                            _Tabs2.default,
-                            null,
-                            _react2.default.createElement(_Tab2.default, { icon: _react2.default.createElement(_Phone2.default, null) }),
-                            _react2.default.createElement(_Tab2.default, { icon: _react2.default.createElement(_Favorite2.default, null) }),
-                            _react2.default.createElement(_Tab2.default, { icon: _react2.default.createElement(_PersonPin2.default, null) }),
-                            _react2.default.createElement(_Tab2.default, { icon: _react2.default.createElement(_Help2.default, null) }),
-                            _react2.default.createElement(_Tab2.default, { icon: _react2.default.createElement(_ShoppingBasket2.default, null) }),
-                            _react2.default.createElement(_Tab2.default, { icon: _react2.default.createElement(_ThumbDown2.default, null) }),
-                            _react2.default.createElement(_Tab2.default, { icon: _react2.default.createElement(_ThumbUp2.default, null) })
-                        )
-                    ),
+                    _react2.default.createElement(_NavBar2.default, null),
                     _react2.default.createElement(
                         _reactRouterDom.Link,
                         { to: '/notifications/' },
@@ -62552,6 +63079,206 @@ var MyForm = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = (0, _reactRedux.connect)(null)(MyForm);
+
+/***/ }),
+
+/***/ "./components/NavBar.jsx":
+/*!*******************************!*\
+  !*** ./components/NavBar.jsx ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _styles = __webpack_require__(/*! @material-ui/core/styles */ "../node_modules/@material-ui/core/styles/index.js");
+
+var _AppBar = __webpack_require__(/*! @material-ui/core/AppBar */ "../node_modules/@material-ui/core/AppBar/index.js");
+
+var _AppBar2 = _interopRequireDefault(_AppBar);
+
+var _Tabs = __webpack_require__(/*! @material-ui/core/Tabs */ "../node_modules/@material-ui/core/Tabs/index.js");
+
+var _Tabs2 = _interopRequireDefault(_Tabs);
+
+var _Home = __webpack_require__(/*! @material-ui/icons/Home */ "../node_modules/@material-ui/icons/Home.js");
+
+var _Home2 = _interopRequireDefault(_Home);
+
+var _Message = __webpack_require__(/*! @material-ui/icons/Message */ "../node_modules/@material-ui/icons/Message.js");
+
+var _Message2 = _interopRequireDefault(_Message);
+
+var _Person = __webpack_require__(/*! @material-ui/icons/Person */ "../node_modules/@material-ui/icons/Person.js");
+
+var _Person2 = _interopRequireDefault(_Person);
+
+var _Settings = __webpack_require__(/*! @material-ui/icons/Settings */ "../node_modules/@material-ui/icons/Settings.js");
+
+var _Settings2 = _interopRequireDefault(_Settings);
+
+var _Notifications = __webpack_require__(/*! @material-ui/icons/Notifications */ "../node_modules/@material-ui/icons/Notifications.js");
+
+var _Notifications2 = _interopRequireDefault(_Notifications);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "../node_modules/react-router-dom/es/index.js");
+
+var _ListItem = __webpack_require__(/*! @material-ui/core/ListItem */ "../node_modules/@material-ui/core/ListItem/index.js");
+
+var _ListItem2 = _interopRequireDefault(_ListItem);
+
+var _ListItemIcon = __webpack_require__(/*! @material-ui/core/ListItemIcon */ "../node_modules/@material-ui/core/ListItemIcon/index.js");
+
+var _ListItemIcon2 = _interopRequireDefault(_ListItemIcon);
+
+var _ListItemText = __webpack_require__(/*! @material-ui/core/ListItemText */ "../node_modules/@material-ui/core/ListItemText/index.js");
+
+var _ListItemText2 = _interopRequireDefault(_ListItemText);
+
+var _Paper = __webpack_require__(/*! @material-ui/core/Paper */ "../node_modules/@material-ui/core/Paper/index.js");
+
+var _Paper2 = _interopRequireDefault(_Paper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var styles = function styles(theme) {
+  return {
+    root: {
+      flexGrow: 1,
+      width: "100%",
+      backgroundColor: theme.palette.background.paper
+    }
+  };
+};
+
+var ListItemLink = function (_React$Component) {
+  _inherits(ListItemLink, _React$Component);
+
+  function ListItemLink() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, ListItemLink);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ListItemLink.__proto__ || Object.getPrototypeOf(ListItemLink)).call.apply(_ref, [this].concat(args))), _this), _this.renderLink = function (itemProps) {
+      return _react2.default.createElement(_reactRouterDom.Link, _extends({ to: _this.props.to }, itemProps));
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(ListItemLink, [{
+    key: "render",
+    value: function render() {
+      var _props = this.props,
+          icon = _props.icon,
+          primary = _props.primary;
+
+      return _react2.default.createElement(
+        _ListItem2.default,
+        { button: true, component: this.renderLink },
+        _react2.default.createElement(
+          _ListItemIcon2.default,
+          null,
+          icon
+        ),
+        _react2.default.createElement(_ListItemText2.default, { primary: primary })
+      );
+    }
+  }]);
+
+  return ListItemLink;
+}(_react2.default.Component);
+
+ListItemLink.propTypes = {
+  icon: _propTypes2.default.node.isRequired,
+  primary: _propTypes2.default.node.isRequired,
+  to: _propTypes2.default.string.isRequired
+};
+
+var NavBar = function (_React$Component2) {
+  _inherits(NavBar, _React$Component2);
+
+  function NavBar() {
+    var _ref2;
+
+    var _temp2, _this2, _ret2;
+
+    _classCallCheck(this, NavBar);
+
+    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+
+    return _ret2 = (_temp2 = (_this2 = _possibleConstructorReturn(this, (_ref2 = NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call.apply(_ref2, [this].concat(args))), _this2), _this2.state = {
+      value: 0
+    }, _this2.handleChange = function (event, value) {
+      _this2.setState({ value: value });
+    }, _temp2), _possibleConstructorReturn(_this2, _ret2);
+  }
+
+  _createClass(NavBar, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        _AppBar2.default,
+        { position: "fixed",
+          color: "default"
+        },
+        _react2.default.createElement(
+          _Tabs2.default,
+          {
+            value: this.state.value,
+            onChange: this.handleChange,
+            fullWidth: true,
+            indicatorColor: "primary",
+            textColor: "primary",
+            scrollButtons: "on"
+          },
+          _react2.default.createElement(ListItemLink, { to: "/", primary: "Home", icon: _react2.default.createElement(_Home2.default, null) }),
+          _react2.default.createElement(ListItemLink, { to: "/user_list/", primary: "Profile", icon: _react2.default.createElement(_Person2.default, null) }),
+          _react2.default.createElement(ListItemLink, { to: "/", primary: "Messages", icon: _react2.default.createElement(_Message2.default, null) }),
+          _react2.default.createElement(ListItemLink, { to: "/", primary: "Notifications", icon: _react2.default.createElement(_Notifications2.default, null) }),
+          _react2.default.createElement(ListItemLink, { to: "/", primary: "Settings", icon: _react2.default.createElement(_Settings2.default, null) })
+        )
+      );
+    }
+  }]);
+
+  return NavBar;
+}(_react2.default.Component);
+
+NavBar.propTypes = {
+  classes: _propTypes2.default.object.isRequired
+};
+
+exports.default = (0, _styles.withStyles)(styles)(NavBar);
 
 /***/ }),
 
