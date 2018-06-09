@@ -12,8 +12,3 @@ class Event(TitledMixin, AuthoredMixin, BaseModel):
     object_id = models.PositiveIntegerField()
     content_type = models.ForeignKey(ContentType)
     object = GenericForeignKey()
-    #subject_id = models.PositiveIntegerField()
-    #subject_content_type = models.ForeignKey(ContentType)
-    # subject = GenericForeignKey()
-
-# Create your models here.

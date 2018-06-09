@@ -44,6 +44,6 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Like
-        fields = ('author', 'content_type', 'object', 'object_id')
+        fields = ('author', 'content_type', 'object', 'object_id','id',)
 
 
