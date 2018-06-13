@@ -17,49 +17,24 @@ import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CommentIcon from '@material-ui/icons/Comment';
+import { Link } from 'react-router-dom';
 
-const styles = theme => ({
-    card: {
-      maxWidth: 400,
-    },
-    media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-    },
-    actions: {
-      display: 'flex',
-    },
-    expand: {
-      transform: 'rotate(0deg)',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
-      marginLeft: 'auto',
-    },
-    expandOpen: {
-      transform: 'rotate(180deg)',
-    },
-    avatar: {
-      backgroundColor: red[500],
-    },
-  });
-  
-  
 class Event extends React.Component{
+    
     static propTypes = {
         id: PropTypes.number,
         author: PropTypes.number,
         content_type: PropTypes.string,
         object: PropTypes.object,
-        // object: PropTypes.shape({
-        //     author: PropTypes.number,
-        //     content_type:PropTypes.string,
-        // }),
-    
+         //maybe shape is better   
     }
+    state = {
+        liked: false,
+      };
     render(){
-        // const { classes } = this.props;
+        const { liked } = this.state;
 
         return( 
 
@@ -67,19 +42,37 @@ class Event extends React.Component{
             <div>
                 <Card >
                 <CardHeader
+                    avatar={
+                        <Avatar aria-label="Recipe">
+                          R
+                        </Avatar>
+                      }
                     action={
                     <IconButton>
-                        <MoreVertIcon />
+                        <DeleteIcon />
                     </IconButton>
                     }
-                    title={ this.props.object.title}
-                    subheader={ this.props.object.created_at }
+                    title= {<Link to={"/user/1"}>
+                        <User id = { this.props.author }/> 
+                        </Link>}
+                    subheader={ new Date(this.props.object.created_at).toDateString() }
                 />
                 <CardContent>
                     <Typography component="p">
                         { this.props.object.text } 
                     </Typography>
                 </CardContent>
+                <CardActions  disableActionSpacing>
+                    <IconButton aria-label="Like" onClick={() => { this.setState({ liked : true, })}} >
+                        <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="Share">
+                        <ShareIcon />
+                    </IconButton>
+                    <IconButton aria-label="Comment">
+                        <CommentIcon/>
+                    </IconButton>
+                </CardActions>
                 {/* <CardActions className={classes.actions} disableActionSpacing>
                     <IconButton aria-label="Add to favorites">
                     <FavoriteIcon />

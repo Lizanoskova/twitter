@@ -11,9 +11,6 @@ class UserList extends React.Component{
    static propTypes = {
         isLoading: PropTypes.bool,
         userList: PropTypes.arrayOf(PropTypes.number),
-        // postList: PropTypes.arrayOf(
-        //     PropTypes.shape(Post.propTypes),
-        // ),
     }
   
   
@@ -24,14 +21,6 @@ class UserList extends React.Component{
     
     componentDidMount() {
         this.props.loadUsers(apiUrls.users);
-        // this.setState({ isLoading: true });
-        // fetch(apiUrls.posts, {
-        //     credentials: 'include',
-        // }).then(
-        //     body => body.json()
-        // ).then(
-        //     json => this.setState({ postList:json, isLoading:false }),
-        // );
     }
     
     render(){

@@ -17,7 +17,7 @@ class Like extends React.Component{
                 <div className="like__author">
                     <User id = { this.props.author }/>
                 </div>
-                <div className="like__content">{ this.props.text }</div> 
+            
             </div>
         );
     }

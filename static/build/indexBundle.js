@@ -8767,6 +8767,64 @@ function isMuiComponent(element, muiNames) {
 
 /***/ }),
 
+/***/ "../node_modules/@material-ui/icons/Comment.js":
+/*!*****************************************************!*\
+  !*** ../node_modules/@material-ui/icons/Comment.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
+  d: "M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"
+})), 'Comment');
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/icons/Delete.js":
+/*!****************************************************!*\
+  !*** ../node_modules/@material-ui/icons/Delete.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
+  d: "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+})), 'Delete');
+
+exports.default = _default;
+
+/***/ }),
+
 /***/ "../node_modules/@material-ui/icons/ExpandMore.js":
 /*!********************************************************!*\
   !*** ../node_modules/@material-ui/icons/ExpandMore.js ***!
@@ -8878,35 +8936,6 @@ var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/crea
 var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
   d: "M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"
 })), 'Message');
-
-exports.default = _default;
-
-/***/ }),
-
-/***/ "../node_modules/@material-ui/icons/MoreVert.js":
-/*!******************************************************!*\
-  !*** ../node_modules/@material-ui/icons/MoreVert.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "../node_modules/@material-ui/icons/utils/createSvgIcon.js"));
-
-var _default = (0, _createSvgIcon.default)(_react.default.createElement("g", null, _react.default.createElement("path", {
-  d: "M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
-})), 'MoreVert');
 
 exports.default = _default;
 
@@ -60930,9 +60959,15 @@ var _ExpandMore = __webpack_require__(/*! @material-ui/icons/ExpandMore */ "../n
 
 var _ExpandMore2 = _interopRequireDefault(_ExpandMore);
 
-var _MoreVert = __webpack_require__(/*! @material-ui/icons/MoreVert */ "../node_modules/@material-ui/icons/MoreVert.js");
+var _Delete = __webpack_require__(/*! @material-ui/icons/Delete */ "../node_modules/@material-ui/icons/Delete.js");
 
-var _MoreVert2 = _interopRequireDefault(_MoreVert);
+var _Delete2 = _interopRequireDefault(_Delete);
+
+var _Comment = __webpack_require__(/*! @material-ui/icons/Comment */ "../node_modules/@material-ui/icons/Comment.js");
+
+var _Comment2 = _interopRequireDefault(_Comment);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "../node_modules/react-router-dom/es/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60942,47 +60977,32 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var styles = function styles(theme) {
-    return {
-        card: {
-            maxWidth: 400
-        },
-        media: {
-            height: 0,
-            paddingTop: '56.25%' // 16:9
-        },
-        actions: {
-            display: 'flex'
-        },
-        expand: {
-            transform: 'rotate(0deg)',
-            transition: theme.transitions.create('transform', {
-                duration: theme.transitions.duration.shortest
-            }),
-            marginLeft: 'auto'
-        },
-        expandOpen: {
-            transform: 'rotate(180deg)'
-        },
-        avatar: {
-            backgroundColor: _red2.default[500]
-        }
-    };
-};
-
 var Event = function (_React$Component) {
     _inherits(Event, _React$Component);
 
     function Event() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
         _classCallCheck(this, Event);
 
-        return _possibleConstructorReturn(this, (Event.__proto__ || Object.getPrototypeOf(Event)).apply(this, arguments));
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Event.__proto__ || Object.getPrototypeOf(Event)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+            liked: false
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(Event, [{
         key: 'render',
         value: function render() {
-            // const { classes } = this.props;
+            var _this2 = this;
+
+            var liked = this.state.liked;
+
 
             return _react2.default.createElement(
                 'div',
@@ -60991,13 +61011,22 @@ var Event = function (_React$Component) {
                     _Card2.default,
                     null,
                     _react2.default.createElement(_CardHeader2.default, {
+                        avatar: _react2.default.createElement(
+                            _Avatar2.default,
+                            { 'aria-label': 'Recipe' },
+                            'R'
+                        ),
                         action: _react2.default.createElement(
                             _IconButton2.default,
                             null,
-                            _react2.default.createElement(_MoreVert2.default, null)
+                            _react2.default.createElement(_Delete2.default, null)
                         ),
-                        title: this.props.object.title,
-                        subheader: this.props.object.created_at
+                        title: _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: "/user/1" },
+                            _react2.default.createElement(_User2.default, { id: this.props.author })
+                        ),
+                        subheader: new Date(this.props.object.created_at).toDateString()
                     }),
                     _react2.default.createElement(
                         _CardContent2.default,
@@ -61006,6 +61035,27 @@ var Event = function (_React$Component) {
                             _Typography2.default,
                             { component: 'p' },
                             this.props.object.text
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _CardActions2.default,
+                        { disableActionSpacing: true },
+                        _react2.default.createElement(
+                            _IconButton2.default,
+                            { 'aria-label': 'Like', onClick: function onClick() {
+                                    _this2.setState({ liked: true });
+                                } },
+                            _react2.default.createElement(_Favorite2.default, null)
+                        ),
+                        _react2.default.createElement(
+                            _IconButton2.default,
+                            { 'aria-label': 'Share' },
+                            _react2.default.createElement(_Share2.default, null)
+                        ),
+                        _react2.default.createElement(
+                            _IconButton2.default,
+                            { 'aria-label': 'Comment' },
+                            _react2.default.createElement(_Comment2.default, null)
                         )
                     )
                 )
@@ -61035,14 +61085,10 @@ Event.propTypes = {
     author: _propTypes2.default.number,
     content_type: _propTypes2.default.string,
     object: _propTypes2.default.object
-    // object: PropTypes.shape({
-    //     author: PropTypes.number,
-    //     content_type:PropTypes.string,
-    // }),
-
+    //maybe shape is better   
 };
-var mapStateToProps = function mapStateToProps(_ref, ownProps) {
-    var events = _ref.events;
+var mapStateToProps = function mapStateToProps(_ref2, ownProps) {
+    var events = _ref2.events;
 
     return _extends({}, events.events[ownProps.id]);
 };
@@ -61546,9 +61592,6 @@ var PostList = function (_React$Component) {
 PostList.propTypes = {
     isLoading: _propTypes2.default.bool,
     postList: _propTypes2.default.arrayOf(_propTypes2.default.number)
-    // postList: PropTypes.arrayOf(
-    //     PropTypes.shape(Post.propTypes),
-    // ),
 };
 PostList.defaultProps = {
     postList: [],
@@ -61624,11 +61667,6 @@ var User = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'user' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'user__id' },
-                    this.props.id
-                ),
                 _react2.default.createElement(
                     'div',
                     { className: 'username' },
@@ -61720,14 +61758,6 @@ var UserList = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.props.loadUsers(_apiUrls2.default.users);
-            // this.setState({ isLoading: true });
-            // fetch(apiUrls.posts, {
-            //     credentials: 'include',
-            // }).then(
-            //     body => body.json()
-            // ).then(
-            //     json => this.setState({ postList:json, isLoading:false }),
-            // );
         }
     }, {
         key: 'render',
@@ -61757,9 +61787,6 @@ var UserList = function (_React$Component) {
 UserList.propTypes = {
     isLoading: _propTypes2.default.bool,
     userList: _propTypes2.default.arrayOf(_propTypes2.default.number)
-    // postList: PropTypes.arrayOf(
-    //     PropTypes.shape(Post.propTypes),
-    // ),
 };
 UserList.defaultProps = {
     userList: [],
@@ -61952,6 +61979,10 @@ var _events = __webpack_require__(/*! ./events */ "./reducers/events.js");
 
 var _events2 = _interopRequireDefault(_events);
 
+var _likes = __webpack_require__(/*! ./likes */ "./reducers/likes.js");
+
+var _likes2 = _interopRequireDefault(_likes);
+
 var _reactReduxForm = __webpack_require__(/*! react-redux-form */ "../node_modules/react-redux-form/lib/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -61960,12 +61991,25 @@ var initialPost = { text: '', author: 'admin', blog: '1' };
 exports.default = (0, _redux.combineReducers)(_extends({
     posts: _posts2.default,
     users: _users2.default,
-    events: _events2.default
+    events: _events2.default,
+    likes: _likes2.default
 }, (0, _reactReduxForm.createForms)({
     post: initialPost
 }), {
     routing: _reactRouterRedux.routerReducer
 }));
+
+/***/ }),
+
+/***/ "./reducers/likes.js":
+/*!***************************!*\
+  !*** ./reducers/likes.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /***/ }),
 
