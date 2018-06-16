@@ -1,10 +1,12 @@
 import { CALL_API, apiMiddleware, getJSON } from 'redux-api-middleware';
 import { normalize } from 'normalizr';
 import { user } from './../utils/schemas.jsx';
+
+
+
 export const START_USER_LOADING = 'START_USER_LOADING';
 export const SUCCESS_USER_LOADING = 'SUCCESS_USER_LOADING';
 export const ERROR_USER_LOADING = 'ERROR_USER_LOADING';
-
 
 export const loadUsers = (url) => {
     return {
@@ -29,3 +31,5 @@ export const loadUsers = (url) => {
         },
     };
 };
+
+ 

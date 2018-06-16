@@ -43,6 +43,7 @@ router.register(r'events', event_views.EventViewSet)
 router.register(r'chats', chat_views.ChatViewSet)
 router.register(r'messages', message_views.MessageViewSet)
 router.register(r'users', user_views.UserViewSet)
+router.register(r'me', core_views.SessionUserViewSet)
 
 
 urlpatterns = [

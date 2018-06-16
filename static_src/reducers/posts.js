@@ -30,6 +30,17 @@ export default function posts(store = initialState, action){
                 isLoading: { $set: false },
             });
         }
+        case 'START_POST_SENDING':{
+            return true;
+        }
+
+        case 'SUCCESS_POST_SENDING':{
+            return true;
+        }
+
+        case 'ERROR_POST_SENDING':{
+            return true;
+        }
         default:
             return store;
     }

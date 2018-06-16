@@ -1,6 +1,8 @@
+import Cookies from 'js-cookie';
 export const logger = store => next => (action) => {
-    console.log('1 dispatching', action);
+    console.log('dispatching', action);
+    console.log(Cookies.get('sessionid')); 
     const result = next(action);
-    console.log('1 next state', store.getState());
+    console.log('next state', store.getState());
     return result;
 };

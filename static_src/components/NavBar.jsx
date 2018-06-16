@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 import HomeIcon from "@material-ui/icons/Home";
 import MessageIcon from '@material-ui/icons/Message';
 import PersonIcon from '@material-ui/icons/Person';
@@ -13,6 +14,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
+import { connect } from 'react-redux';
+
 
 
 const styles = theme => ({
@@ -53,8 +56,19 @@ class NavBar extends React.Component {
   };
 
   render() {
+    let account;
+    if (this.props.isLogined) {
+        account =
+          <ListItemLink to="/" primary="Profile" icon={<PersonIcon />} />
+    }
+    else {
+        account =
+            (
+              <ListItemLink to="/login/" primary="Login/Registration" icon={<PersonIcon />} />
+            );
+ }
     return (
-        <AppBar position="fixed"
+        <AppBar position="sticky"
                 color="default"
         > 
           <Tabs
@@ -65,19 +79,30 @@ class NavBar extends React.Component {
             textColor="primary"
             scrollButtons='on'
           >
-            <ListItemLink to="/" primary="Home" icon={<HomeIcon />} />
-            <ListItemLink to="/user_list/" primary="Profile" icon={<PersonIcon />} />
+            <ListItemLink to="/" primary="News" icon={<HomeIcon />} />
             <ListItemLink to="/" primary="Messages" icon={<MessageIcon />} />
             <ListItemLink to="/" primary="Notifications" icon={<Notifications />} />
             <ListItemLink to="/" primary="Settings" icon={<SettingsIcon />} />
+            { account }
           </Tabs>
+            
         </AppBar>
     );
   }
 }
 
-NavBar.propTypes = {
-  classes: PropTypes.object.isRequired
+const mapDispatchToProps = (dispatch) => {
+  return {
+      loginModalShow: () => dispatch(loginModalShow(true))
+  };
 };
 
-export default withStyles(styles)(NavBar);
+const mapStateToProps = (state) => {
+  return {
+      // sessionInfo: state.sessionInfo,
+      login: state.login
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+// export default withStyles(styles)(NavBar);

@@ -5,5 +5,6 @@ export default {
     likes: '/api/likes/',
     blogs: '/api/blogs/',
     submissions: '/api/submissions/',
+    // sessionUserInfo: "/api/me",
     events: '/api/events/',
 };

@@ -96,19 +96,7 @@ class Event extends React.Component{
     );
   }
 }
-//             <div className="event">
-//                 <div className="event__author">
-//                     <User id = { this.props.author }/>
-//                 </div>
-//                 <div className="event__content">{ this.props.content_type }</div> 
-//                 <div className="event__content">{ this.props.object.title}</div>
-//                 <div className="event__content">{ this.props.object.text } by { this.props.object.author.username } ---------------</div>
-//                 <div className="event__content">{ this.props.object.created_at }</div>
-//                 <div className="event__content">{ this.props.object.content_type }</div>
-//             </div>
-//         );
-//     }
-// }
+
 const mapStateToProps = ({ events }, ownProps ) => {
     return {
         ...events.events[ownProps.id],
