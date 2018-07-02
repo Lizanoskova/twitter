@@ -75475,13 +75475,6 @@ var App = function (_React$Component) {
             eventList: [],
             userList: [],
             isLoading: false
-
-            // onPostCreate = (post) => {
-            //     this.setState({
-            //         postList: [post, ...this.state.postList],
-            //     });
-            // }
-
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
@@ -76622,6 +76615,8 @@ var _posts = __webpack_require__(/*! ../actions/posts */ "./actions/posts.js");
 
 var _posts2 = _interopRequireDefault(_posts);
 
+var _redux = __webpack_require__(/*! redux */ "../node_modules/redux/es/redux.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -76690,9 +76685,7 @@ var PostForm = function (_React$Component) {
                         { className: 'form-field-wrapper' },
                         _react2.default.createElement(
                             'button',
-                            { onClick: function onClick() {
-                                    return dispatch((0, _posts2.default)(url, data));
-                                } },
+                            { onClick: this.onClick },
                             'Create'
                         )
                     )
@@ -76704,6 +76697,13 @@ var PostForm = function (_React$Component) {
     return PostForm;
 }(_react2.default.Component);
 
+PostForm.propTypes = {};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({ send: _posts2.default }, dispatch);
+};
+
+// export default connect(null,mapDispatchToProps)(PostForm);
 // const mapDispatchToProps = (dispatch) => {
 
 //   return {
@@ -76711,10 +76711,10 @@ var PostForm = function (_React$Component) {
 //   };
 // };
 
-// export default connect(null,mapDispatchToProps)(PostForm);
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(PostForm);
 
-PostForm.propTypes = {};
-exports.default = PostForm;
+// export default PostForm;
+
 
 // import React from "react";
 // import PropTypes from "prop-types";
@@ -77291,10 +77291,6 @@ var _events = __webpack_require__(/*! ./events */ "./reducers/events.js");
 
 var _events2 = _interopRequireDefault(_events);
 
-var _likes = __webpack_require__(/*! ./likes */ "./reducers/likes.js");
-
-var _likes2 = _interopRequireDefault(_likes);
-
 var _reactReduxForm = __webpack_require__(/*! react-redux-form */ "../node_modules/react-redux-form/lib/index.js");
 
 var _loginReducers = __webpack_require__(/*! ./loginReducers */ "./reducers/loginReducers.js");
@@ -77315,25 +77311,12 @@ exports.default = (0, _redux.combineReducers)(_extends({
     }),
     posts: _posts2.default,
     users: _users2.default,
-    events: _events2.default,
-    likes: _likes2.default
+    events: _events2.default
 }, (0, _reactReduxForm.createForms)({
     post: initialPost
 }), {
     routing: _reactRouterRedux.routerReducer
 }));
-
-/***/ }),
-
-/***/ "./reducers/likes.js":
-/*!***************************!*\
-  !*** ./reducers/likes.js ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 
 /***/ }),
 

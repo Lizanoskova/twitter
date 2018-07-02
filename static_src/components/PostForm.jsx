@@ -3,7 +3,7 @@ import apiUrls from './../constants/apiUrls.js'
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import send from '../actions/posts';
-
+import { bindActionCreators } from 'redux';
 
 
 class PostForm extends React.Component{
@@ -41,7 +41,7 @@ class PostForm extends React.Component{
                         <input onChange={ this.onChange } value={ this.state.blog }className="form-field" name="blog_id" placeholder="Blog"/>
                     </div>
                     <div className="form-field-wrapper">
-                        <button onClick={() => dispatch(send(url,data)) }>Create</button>
+                        <button onClick={ this.onClick }>Create</button>
                     </div>
                 </form>
             </div>
@@ -49,7 +49,11 @@ class PostForm extends React.Component{
         );
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({ send }, dispatch)
+}
 
+// export default connect(null,mapDispatchToProps)(PostForm);
 // const mapDispatchToProps = (dispatch) => {
    
 //   return {
@@ -57,9 +61,9 @@ class PostForm extends React.Component{
 //   };
 // };
 
-// export default connect(null,mapDispatchToProps)(PostForm);
+ export default connect(null,mapDispatchToProps)(PostForm);
 
-export default PostForm;
+// export default PostForm;
 
 
 // import React from "react";
