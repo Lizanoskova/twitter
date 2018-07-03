@@ -9,7 +9,6 @@ import { Switch, Route, Link } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import 'typeface-roboto';
 import MyAccount from './MyAccount.jsx';
-import LoginModal from './LoginModal.jsx';
 
 
 
