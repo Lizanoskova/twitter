@@ -3,8 +3,7 @@ import Cookies from "js-cookie";
 import update from 'react-addons-update';
 
 const initialState = {
-    isLogined: false,
-    modalIsVisible: false
+    isLogined: false
 };
 function loginReducer(store=initialState, action) {
 
@@ -34,7 +33,6 @@ function loginReducer(store=initialState, action) {
 
             return update(store, {
                 isLogined: { $set: true },
-                modalIsVisible: { $set: true },
             });
                   
         case actionsList.LOG_OUT:

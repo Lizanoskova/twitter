@@ -57,9 +57,9 @@ class NavBar extends React.Component {
 
   render() {
     let account;
-    if (this.props.isLogined) {
+    if (this.props.sessionInfo.isLogined) {
         account =
-          <ListItemLink to="/" primary="Profile" icon={<PersonIcon />} />
+          <ListItemLink to="/profile" primary="Profile" icon={<PersonIcon />} />
     }
     else {
         account =
@@ -80,7 +80,7 @@ class NavBar extends React.Component {
             scrollButtons='on'
           >
             <ListItemLink to="/" primary="News" icon={<HomeIcon />} />
-            <ListItemLink to="/" primary="Messages" icon={<MessageIcon />} />
+            <ListItemLink to="/post_list/" primary="Messages" icon={<MessageIcon />} />
             <ListItemLink to="/" primary="Notifications" icon={<Notifications />} />
             <ListItemLink to="/" primary="Settings" icon={<SettingsIcon />} />
             { account }
@@ -93,14 +93,13 @@ class NavBar extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      loginModalShow: () => dispatch(loginModalShow(true))
   };
 };
 
 const mapStateToProps = (state) => {
   return {
-      // sessionInfo: state.sessionInfo,
-      login: state.login
+      sessionInfo: state.sessionInfo,
+      // login: state.login
   };
 };
 

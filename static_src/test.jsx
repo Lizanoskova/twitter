@@ -19,17 +19,18 @@ const initialState = {
             {
                 id: 1,
                 username:''
-            }
+            },
+        isLogined: false,
     }
 };
 
 const store = initStore(initialState);
 
-store.dispatch(checkLogin());
+// store.dispatch(checkLogin());
 
 // if (store.getState().login)
 
-//     store.dispatch(loadSessionUserInfo(apiUrl.sessionUserInfo));
+store.dispatch(loadSessionUserInfo(apiUrl.sessionUserInfo));
 
 ReactDOM.render(
     <Provider store={ store }>

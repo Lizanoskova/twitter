@@ -73177,19 +73177,48 @@ var loadEvents = exports.loadEvents = function loadEvents(url) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.loadSessionUserInfo = undefined;
 exports.checkLogin = checkLogin;
 exports.logIn = logIn;
 exports.logOut = logOut;
 
 var _reduxApiMiddleware = __webpack_require__(/*! redux-api-middleware */ "../node_modules/redux-api-middleware/lib/index.js");
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // import { RSAA } from 'redux-api-middleware';
+
+
 var actionsList = {
     CHECK_LOG_IN: 'CHECK_LOG_IN',
     LOG_IN: 'LOG_IN',
-    LOG_OUT: 'LOG_OUT'
+    LOG_OUT: 'LOG_OUT',
+    SUCCESS_SESSION_LOADING: 'SUCCESS_SESSION_LOADING',
+    ERROR_SESSION_LOADING: 'ERROR_SESSION_LOADING',
+    START_SESSION_LOADING: 'START_SESSION_LOADING'
 
 };
+var loadSessionUserInfo = exports.loadSessionUserInfo = function loadSessionUserInfo(url) {
+    return _defineProperty({}, _reduxApiMiddleware.CALL_API, {
+        credentials: 'include',
+        endpoint: url,
+        method: 'GET',
+        types: [actionsList.START_SESSION_LOADING, actionsList.SUCCESS_SESSION_LOADING, actionsList.ERROR_SESSION_LOADING]
+    });
+};
+// export function loadSessionUserInfo (url, method = 'GET') {
 
+//     return {
+//         [RSAA]:
+//             {
+//                 credentials: 'include',
+//                 endpoint: url,
+//                 method: method,
+//                 types: [
+//                     actionsList.SUCCESS_SESSION_LOADING,
+//                     actionsList.ERROR_SESSION_LOADING,
+//                 ],
+//             },
+//     };
+// }
 function checkLogin() {
     return {
         type: actionsList.CHECK_LOG_IN
@@ -73994,9 +74023,10 @@ var MyAccount = function (_React$Component) {
     _createClass(MyAccount, [{
         key: 'render',
         value: function render() {
-            if (!this.props.login) {
-                return _react2.default.createElement(_Redirect2.default, { push: true, to: '/' });
-            }
+            // if (!this.props.sessionInfo.isLogined) {
+            //     return <Redirect push to="/" />
+
+            // }
 
             var info = this.props.sessionInfo.data;
             return _react2.default.createElement(
@@ -74007,12 +74037,6 @@ var MyAccount = function (_React$Component) {
                     null,
                     info.username
                 ),
-                '\u0418\u043C\u044F: ',
-                info.first_name,
-                _react2.default.createElement('br', null),
-                '\u0424\u0430\u043C\u0438\u043B\u0438\u044F: ',
-                info.last_name,
-                _react2.default.createElement('br', null),
                 'email: ',
                 info.email,
                 _react2.default.createElement('br', null),
@@ -74032,19 +74056,6 @@ var MyAccount = function (_React$Component) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
-        loginModalShow: function (_loginModalShow) {
-            function loginModalShow() {
-                return _loginModalShow.apply(this, arguments);
-            }
-
-            loginModalShow.toString = function () {
-                return _loginModalShow.toString();
-            };
-
-            return loginModalShow;
-        }(function () {
-            return dispatch(loginModalShow(true));
-        }),
         logOut: function logOut() {
             return dispatch(_loginActions.logOut);
         }
@@ -74053,8 +74064,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        sessionInfo: state.sessionInfo,
-        login: state.login
+        sessionInfo: state.sessionInfo
+        // login: state.login
     };
 };
 
@@ -74233,8 +74244,8 @@ var NavBar = function (_React$Component2) {
     key: "render",
     value: function render() {
       var account = void 0;
-      if (this.props.isLogined) {
-        account = _react2.default.createElement(ListItemLink, { to: "/", primary: "Profile", icon: _react2.default.createElement(_Person2.default, null) });
+      if (this.props.sessionInfo.isLogined) {
+        account = _react2.default.createElement(ListItemLink, { to: "/profile", primary: "Profile", icon: _react2.default.createElement(_Person2.default, null) });
       } else {
         account = _react2.default.createElement(ListItemLink, { to: "/login/", primary: "Login/Registration", icon: _react2.default.createElement(_Person2.default, null) });
       }
@@ -74254,7 +74265,7 @@ var NavBar = function (_React$Component2) {
             scrollButtons: "on"
           },
           _react2.default.createElement(ListItemLink, { to: "/", primary: "News", icon: _react2.default.createElement(_Home2.default, null) }),
-          _react2.default.createElement(ListItemLink, { to: "/", primary: "Messages", icon: _react2.default.createElement(_Message2.default, null) }),
+          _react2.default.createElement(ListItemLink, { to: "/post_list/", primary: "Messages", icon: _react2.default.createElement(_Message2.default, null) }),
           _react2.default.createElement(ListItemLink, { to: "/", primary: "Notifications", icon: _react2.default.createElement(_Notifications2.default, null) }),
           _react2.default.createElement(ListItemLink, { to: "/", primary: "Settings", icon: _react2.default.createElement(_Settings2.default, null) }),
           account
@@ -74267,27 +74278,13 @@ var NavBar = function (_React$Component2) {
 }(_react2.default.Component);
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    loginModalShow: function (_loginModalShow) {
-      function loginModalShow() {
-        return _loginModalShow.apply(this, arguments);
-      }
-
-      loginModalShow.toString = function () {
-        return _loginModalShow.toString();
-      };
-
-      return loginModalShow;
-    }(function () {
-      return dispatch(loginModalShow(true));
-    })
-  };
+  return {};
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    // sessionInfo: state.sessionInfo,
-    login: state.login
+    sessionInfo: state.sessionInfo
+    // login: state.login
   };
 };
 
@@ -74454,6 +74451,8 @@ var PostForm = function (_React$Component) {
             blog_id: '',
             isLoading: false
         }, _this.onChange = function (e) {
+            _this.setState(_defineProperty({}, e.target.name, e.target.value));
+        }, _this.onClick = function (e) {
             _this.setState(_defineProperty({}, e.target.name, e.target.value));
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
@@ -74933,7 +74932,7 @@ exports.default = {
     likes: '/api/likes/',
     blogs: '/api/blogs/',
     submissions: '/api/submissions/',
-    // sessionUserInfo: "/api/me",
+    sessionUserInfo: "/api/me",
     events: '/api/events/'
 };
 
@@ -75096,12 +75095,16 @@ var _loginReducers = __webpack_require__(/*! ./loginReducers */ "./reducers/logi
 
 var _loginReducers2 = _interopRequireDefault(_loginReducers);
 
+var _session = __webpack_require__(/*! ./session.js */ "./reducers/session.js");
+
+var _session2 = _interopRequireDefault(_session);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var initialPost = { text: '', author: 'admin', blog: '1' };
 exports.default = (0, _redux.combineReducers)(_extends({
-    login: _loginReducers2.default,
-
+    // login: loginReducer,
+    sessionInfo: _session2.default,
     posts: _posts2.default,
     users: _users2.default,
     events: _events2.default
@@ -75142,8 +75145,7 @@ var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var initialState = {
-    isLogined: false,
-    modalIsVisible: false
+    isLogined: false
 };
 function loginReducer() {
     var store = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -75172,8 +75174,7 @@ function loginReducer() {
         case _loginActions2.default.LOG_IN:
 
             return (0, _reactAddonsUpdate2.default)(store, {
-                isLogined: { $set: true },
-                modalIsVisible: { $set: true }
+                isLogined: { $set: true }
             });
 
         case _loginActions2.default.LOG_OUT:
@@ -75259,6 +75260,66 @@ function posts() {
         case 'ERROR_POST_SENDING':
             {
                 return true;
+            }
+        default:
+            return store;
+    }
+}
+
+/***/ }),
+
+/***/ "./reducers/session.js":
+/*!*****************************!*\
+  !*** ./reducers/session.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = session;
+
+var _reactAddonsUpdate = __webpack_require__(/*! react-addons-update */ "../node_modules/react-addons-update/index.js");
+
+var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
+
+__webpack_require__(/*! ./../actions/loginActions.js */ "./actions/loginActions.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import actionList from "../actions/loginActions";
+var initialState = {
+    isLogined: false,
+    data: {}
+};
+
+function session() {
+    var store = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'START_SESSION_LOADING':
+            {
+                return store;
+            }
+        case 'SUCCESS_SESSION_LOADING':
+            {
+                console.log('logined');
+                return (0, _reactAddonsUpdate2.default)(store, {
+                    isLogined: { $set: true },
+                    data: { $set: action.payload }
+                });
+            }
+        case 'ERROR_SESSION_LOADING':
+            {
+                console.log('need to login');
+                return (0, _reactAddonsUpdate2.default)(store, {
+                    isLogined: { $set: false }
+                });
             }
         default:
             return store;
@@ -75391,17 +75452,18 @@ var initialState = {
         data: {
             id: 1,
             username: ''
-        }
+        },
+        isLogined: false
     }
 };
 
 var store = (0, _store2.default)(initialState);
 
-store.dispatch((0, _loginActions.checkLogin)());
+// store.dispatch(checkLogin());
 
 // if (store.getState().login)
 
-//     store.dispatch(loadSessionUserInfo(apiUrl.sessionUserInfo));
+store.dispatch((0, _loginActions.loadSessionUserInfo)(_apiUrls2.default.sessionUserInfo));
 
 _reactDom2.default.render(_react2.default.createElement(
     _reactRedux.Provider,

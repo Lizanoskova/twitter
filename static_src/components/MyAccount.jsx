@@ -9,10 +9,10 @@ import Redirect from 'react-router-dom/es/Redirect';
 class MyAccount extends React.Component {
 
     render() {
-        if (!this.props.login) {
-            return <Redirect push to="/" />
+        // if (!this.props.sessionInfo.isLogined) {
+        //     return <Redirect push to="/" />
 
-        }
+        // }
 
         const info = this.props.sessionInfo.data;
         return (
@@ -20,8 +20,6 @@ class MyAccount extends React.Component {
                 
                    
                         <h3>{info.username}</h3>
-                        Имя: {info.first_name}<br/>
-                        Фамилия: {info.last_name}<br/>
                         email: {info.email}<br/>
                         <Button onClick={()=>store.dispatch(logOut())}>Выйти из аккаунта</Button>
                    
@@ -34,7 +32,6 @@ class MyAccount extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginModalShow: () => dispatch(loginModalShow(true)),
         logOut: () => dispatch(logOut)
     };
 };
@@ -42,8 +39,9 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         sessionInfo: state.sessionInfo,
-        login: state.login
+        // login: state.login
     };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyAccount);
+

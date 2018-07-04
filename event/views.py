@@ -6,6 +6,8 @@ from rest_framework import viewsets
 from event.models import Event
 from event.serializers import EventSerializer
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 
 # Create your views here.
@@ -13,6 +15,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 class EventViewSet(viewsets.ModelViewSet):
 
     serializer_class = EventSerializer
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
     queryset = Event.objects.all()
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
     filter_backends = (DjangoFilterBackend,)
