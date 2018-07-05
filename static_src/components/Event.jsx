@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import User from './User.jsx';
+import Like from './Like.jsx';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
@@ -30,11 +31,11 @@ class Event extends React.Component{
         object: PropTypes.object,
          //maybe shape is better   
     }
-    state = {
-        liked: false,
-      };
+    // state = {
+    //     liked: false,
+    //   };
     render(){
-        const { liked } = this.state;
+        // const { liked } = this.state;
 
         return( 
 
@@ -66,6 +67,7 @@ class Event extends React.Component{
                     <IconButton aria-label="Like" onClick={() => { this.setState({ liked : true, })}} >
                         <FavoriteIcon />
                     </IconButton>
+                    {/* <Like/> */}
                     <IconButton aria-label="Share">
                         <ShareIcon />
                     </IconButton>

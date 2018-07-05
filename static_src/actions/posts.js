@@ -34,6 +34,7 @@ export const loadPosts = (url) => {
 };
 
 export const send = (url,data) => {
+    console.log('SEND')
     return {
         [RSAA]: {
             credentials: 'include',
@@ -43,15 +44,6 @@ export const send = (url,data) => {
                 {
                     type: SUCCESS_POST_SENDING,
                     body: data,
-                    // payload: (action, state, res) =>{
-                    //     return getJSON(res).then(
-                    //         (json) => {
-                    //             const normalizedData = normalize(json, [post]);
-                    //             // delete json;
-                    //             return Object.assign({}, json, normalizedData);
-                    //         },
-                    //     );
-                    // },
                 }, 
                     ERROR_POST_SENDING],
         },

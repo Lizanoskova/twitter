@@ -2,7 +2,7 @@ import React from 'react';
 import apiUrls from './../constants/apiUrls.js'
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
-import send from '../actions/posts';
+import { send } from '../actions/posts';
 import { bindActionCreators } from 'redux';
 
 
@@ -15,22 +15,15 @@ class PostForm extends React.Component{
         blog_id: '',
         isLoading: false,
     }
-
     onChange = (e) => {
         this.setState({ [e.target.name]:e.target.value });
     }
-    onClick = (e) => {
-        this.setState({ [e.target.name]:e.target.value });
+    onClick=()=> {
+        this.props.send(apiUrls.posts,{text:this.state.text,blog_id: this.state.blog_id })
     }
 
-
     render(){
-        const url = apiUrls.posts;
-        var data = {
-          text: this.props.text,
-          blog_id: this.props.blog_id,
-        };
-
+       
         return( 
             <div className="create-form">
                 <h2>Create post</h2>
@@ -54,16 +47,22 @@ class PostForm extends React.Component{
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ send }, dispatch)
 }
+export default connect(null,mapDispatchToProps)(PostForm);
 
-// export default connect(null,mapDispatchToProps)(PostForm);
+   // url = apiUrls.posts;
+    // data = {
+    //   text: this.state.text,
+    //   blog_id: this.state.blog_id,
+    // };
+
+
+ // export default connect(null,mapDispatchToProps)(PostForm);
 // const mapDispatchToProps = (dispatch) => {
    
 //   return {
 //       send: () => dispatch(send)
 //   };
 // };
-
- export default connect(null,mapDispatchToProps)(PostForm);
 
 // export default PostForm;
 

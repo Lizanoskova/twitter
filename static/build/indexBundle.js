@@ -73290,6 +73290,7 @@ var loadPosts = exports.loadPosts = function loadPosts(url) {
 };
 
 var send = exports.send = function send(url, data) {
+    console.log('SEND');
     return _defineProperty({}, _reduxApiMiddleware.RSAA, {
         credentials: 'include',
         endpoint: url,
@@ -73297,15 +73298,6 @@ var send = exports.send = function send(url, data) {
         types: [START_POST_SENDING, {
             type: SUCCESS_POST_SENDING,
             body: data
-            // payload: (action, state, res) =>{
-            //     return getJSON(res).then(
-            //         (json) => {
-            //             const normalizedData = normalize(json, [post]);
-            //             // delete json;
-            //             return Object.assign({}, json, normalizedData);
-            //         },
-            //     );
-            // },
         }, ERROR_POST_SENDING]
     });
 };
@@ -73511,6 +73503,10 @@ var _User = __webpack_require__(/*! ./User.jsx */ "./components/User.jsx");
 
 var _User2 = _interopRequireDefault(_User);
 
+var _Like = __webpack_require__(/*! ./Like.jsx */ "./components/Like.jsx");
+
+var _Like2 = _interopRequireDefault(_Like);
+
 var _styles = __webpack_require__(/*! @material-ui/core/styles */ "../node_modules/@material-ui/core/styles/index.js");
 
 var _classnames = __webpack_require__(/*! classnames */ "../node_modules/classnames/index.js");
@@ -73591,19 +73587,9 @@ var Event = function (_React$Component) {
     _inherits(Event, _React$Component);
 
     function Event() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
         _classCallCheck(this, Event);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Event.__proto__ || Object.getPrototypeOf(Event)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            liked: false
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+        return _possibleConstructorReturn(this, (Event.__proto__ || Object.getPrototypeOf(Event)).apply(this, arguments));
     }
 
     _createClass(Event, [{
@@ -73611,8 +73597,7 @@ var Event = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            var liked = this.state.liked;
-
+            // const { liked } = this.state;
 
             return _react2.default.createElement(
                 'div',
@@ -73682,11 +73667,15 @@ Event.propTypes = {
     content_type: _propTypes2.default.string,
     object: _propTypes2.default.object
     //maybe shape is better   
+
+    // state = {
+    //     liked: false,
+    //   };
 };
 
 
-var mapStateToProps = function mapStateToProps(_ref2, ownProps) {
-    var events = _ref2.events;
+var mapStateToProps = function mapStateToProps(_ref, ownProps) {
+    var events = _ref.events;
 
     return _extends({}, events.events[ownProps.id]);
 };
@@ -73821,6 +73810,102 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({ loadEvents: _events.loadEvents }, dispatch);
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(EventList);
+
+/***/ }),
+
+/***/ "./components/Like.jsx":
+/*!*****************************!*\
+  !*** ./components/Like.jsx ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "../node_modules/react-redux/es/index.js");
+
+var _User = __webpack_require__(/*! ./User.jsx */ "./components/User.jsx");
+
+var _User2 = _interopRequireDefault(_User);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Like = function (_React$Component) {
+    _inherits(Like, _React$Component);
+
+    function Like() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, Like);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Like.__proto__ || Object.getPrototypeOf(Like)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+            liked: false
+        }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(Like, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    IconButton,
+                    { 'aria-label': 'Like', onClick: function onClick() {
+                            _this2.setState({ liked: true });
+                        } },
+                    _react2.default.createElement(FavoriteIcon, null)
+                )
+            );
+        }
+    }]);
+
+    return Like;
+}(_react2.default.Component);
+// const mapStateToProps = ({ likes }, ownProps ) => {
+//     return {
+//         ...likes.likes[ownProps.id],
+//     }
+// }
+
+Like.propTypes = {
+    id: _propTypes2.default.number,
+    author: _propTypes2.default.number
+
+};
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {};
+};
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Like);
 
 /***/ }),
 
@@ -74418,8 +74503,6 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "../node_modules/react-
 
 var _posts = __webpack_require__(/*! ../actions/posts */ "./actions/posts.js");
 
-var _posts2 = _interopRequireDefault(_posts);
-
 var _redux = __webpack_require__(/*! redux */ "../node_modules/redux/es/redux.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -74452,19 +74535,14 @@ var PostForm = function (_React$Component) {
             isLoading: false
         }, _this.onChange = function (e) {
             _this.setState(_defineProperty({}, e.target.name, e.target.value));
-        }, _this.onClick = function (e) {
-            _this.setState(_defineProperty({}, e.target.name, e.target.value));
+        }, _this.onClick = function () {
+            _this.props.send(_apiUrls2.default.posts, { text: _this.state.text, blog_id: _this.state.blog_id });
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(PostForm, [{
         key: 'render',
         value: function render() {
-            var url = _apiUrls2.default.posts;
-            var data = {
-                text: this.props.text,
-                blog_id: this.props.blog_id
-            };
 
             return _react2.default.createElement(
                 'div',
@@ -74507,8 +74585,16 @@ var PostForm = function (_React$Component) {
 PostForm.propTypes = {};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)({ send: _posts2.default }, dispatch);
+    return (0, _redux.bindActionCreators)({ send: _posts.send }, dispatch);
 };
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(PostForm);
+
+// url = apiUrls.posts;
+// data = {
+//   text: this.state.text,
+//   blog_id: this.state.blog_id,
+// };
+
 
 // export default connect(null,mapDispatchToProps)(PostForm);
 // const mapDispatchToProps = (dispatch) => {
@@ -74517,8 +74603,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 //       send: () => dispatch(send)
 //   };
 // };
-
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(PostForm);
 
 // export default PostForm;
 

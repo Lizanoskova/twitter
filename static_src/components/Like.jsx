@@ -10,25 +10,27 @@ class Like extends React.Component{
         author: PropTypes.number,
     
     }
+    state = {
+        liked: false
+    };
     render(){
 
         return( 
-            <div className="like">
-                <div className="like__author">
-                    <User id = { this.props.author }/>
-                </div>
-            
+            <div>
+                <IconButton aria-label="Like" onClick={() => { this.setState({ liked : true })}} >
+                    <FavoriteIcon />
+                </IconButton>
             </div>
-        );
+        );  
     }
 }
-const mapStateToProps = ({ likes }, ownProps ) => {
-    return {
-        ...likes.likes[ownProps.id],
-    }
-}
+// const mapStateToProps = ({ likes }, ownProps ) => {
+//     return {
+//         ...likes.likes[ownProps.id],
+//     }
+// }
 
 const mapDispatchToProps = (dispatch) => {
     return {};
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Like);
+export default connect(null, mapDispatchToProps)(Like);
