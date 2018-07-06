@@ -73262,6 +73262,12 @@ var _normalizr = __webpack_require__(/*! normalizr */ "../node_modules/normalizr
 
 var _schemas = __webpack_require__(/*! ./../utils/schemas.jsx */ "./utils/schemas.jsx");
 
+var _jsCookie = __webpack_require__(/*! js-cookie */ "../node_modules/js-cookie/src/js.cookie.js");
+
+var _jsCookie2 = _interopRequireDefault(_jsCookie);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var START_TASK_LOADING = exports.START_TASK_LOADING = 'START_TASK_LOADING';
@@ -73295,10 +73301,13 @@ var send = exports.send = function send(url, data) {
         credentials: 'include',
         endpoint: url,
         method: 'POST',
-        types: [START_POST_SENDING, {
-            type: SUCCESS_POST_SENDING,
-            body: data
-        }, ERROR_POST_SENDING]
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRFToken': _jsCookie2.default.get("csrftoken")
+        },
+        types: [START_POST_SENDING, SUCCESS_POST_SENDING, ERROR_POST_SENDING]
     });
 };
 
@@ -74530,12 +74539,15 @@ var PostForm = function (_React$Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PostForm.__proto__ || Object.getPrototypeOf(PostForm)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+            // author: 'admin',
             text: '',
             blog_id: '',
             isLoading: false
         }, _this.onChange = function (e) {
+            console.log('onChange');
             _this.setState(_defineProperty({}, e.target.name, e.target.value));
-        }, _this.onClick = function () {
+        }, _this.onClick = function (e) {
+            console.log('onClick');
             _this.props.send(_apiUrls2.default.posts, { text: _this.state.text, blog_id: _this.state.blog_id });
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
@@ -74543,7 +74555,7 @@ var PostForm = function (_React$Component) {
     _createClass(PostForm, [{
         key: 'render',
         value: function render() {
-
+            // const csrf = Cookies.get("csrftoken");
             return _react2.default.createElement(
                 'div',
                 { className: 'create-form' },

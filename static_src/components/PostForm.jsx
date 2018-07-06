@@ -11,23 +11,27 @@ class PostForm extends React.Component{
 
     }
     state = {
+        // author: 'admin',
         text: '',
         blog_id: '',
         isLoading: false,
     }
     onChange = (e) => {
+        console.log('onChange')
         this.setState({ [e.target.name]:e.target.value });
     }
-    onClick=()=> {
-        this.props.send(apiUrls.posts,{text:this.state.text,blog_id: this.state.blog_id })
+    onClick=(e)=> {
+        console.log('onClick')
+        this.props.send(apiUrls.posts,{text:this.state.text,blog_id: this.state.blog_id });
     }
 
     render(){
-       
+        // const csrf = Cookies.get("csrftoken");
         return( 
             <div className="create-form">
                 <h2>Create post</h2>
                 <form>
+                    {/* <input type="hidden" name="csrfmiddlewaretoken" value={csrf}/> */}
                     <div className="form-field-wrapper">
                         <textarea onChange={ this.onChange } value={ this.state.text }className="form-field" type="text" name="text" placeholder="Text"/>
                     </div>
