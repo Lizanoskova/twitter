@@ -7,7 +7,7 @@ module.exports = {
   entry: {
    // testBundle: './Test.jsx',
     indexBundle: './test.jsx',
-    testRedux: './testRedux.jsx',
+    // testRedux: './testRedux.jsx',
   },
    context: `${__dirname}/static_src`,
    output: {

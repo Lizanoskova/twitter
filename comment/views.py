@@ -12,10 +12,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 class CommentViewSet(viewsets.ModelViewSet):
 
     serializer_class = CommentSerializer
-    queryset = Comment.objects.all()
     queryset = Comment.objects.select_related(
         'author', 'content_type',
-    )
+    ).order_by('-created_at')
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('author', 'content_type', 'object_id')

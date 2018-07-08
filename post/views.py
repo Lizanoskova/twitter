@@ -15,7 +15,7 @@ class PostViewSet(viewsets.ModelViewSet):
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     queryset = Post.objects.select_related(
         'author', 'blog__author',
-    )
+    ).order_by('-created_at')
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('author', 'blog', )

@@ -80,7 +80,7 @@ class NavBar extends React.Component {
             scrollButtons='on'
           >
             <ListItemLink to="/" primary="News" icon={<HomeIcon />} />
-            <ListItemLink to="/post_list/" primary="Messages" icon={<MessageIcon />} />
+            <ListItemLink to="/chat_list/" primary="Messages" icon={<MessageIcon />} />
             <ListItemLink to="/" primary="Notifications" icon={<Notifications />} />
             <ListItemLink to="/" primary="Settings" icon={<SettingsIcon />} />
             { account }

@@ -4,6 +4,12 @@ import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import { send } from '../actions/posts';
 import { bindActionCreators } from 'redux';
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import Button from "@material-ui/core/Button";
+import Icon from "@material-ui/core/Icon";
 
 
 class PostForm extends React.Component{
@@ -26,8 +32,33 @@ class PostForm extends React.Component{
     }
 
     render(){
-        // const csrf = Cookies.get("csrftoken");
         return( 
+            // <div>
+            //     <div>Create Post</div>
+            //         <FormControl >
+            //         <InputLabel htmlFor="name-simple">Blog</InputLabel>
+            //         <Input
+            //             id="name-simple"
+            //             value={this.state.blog}
+            //             onChange={this.onChange}
+            //         />
+            //         <InputLabel htmlFor="name-helper">Text</InputLabel>
+            //         <Input
+            //             id="name-helper"
+            //             value={this.state.text}
+            //             onChange={this.onChange}
+            //         />
+            //         <FormHelperText id="name-helper-text">
+            //             no more 256 symbols
+            //         </FormHelperText>
+                    
+            //         <Button color="primary" onClick={ this.onClick } >
+            //         Send
+            //         <Icon >send</Icon>
+            //         </Button>
+            //         </FormControl>
+            // </div>
+          
             <div className="create-form">
                 <h2>Create post</h2>
                 <form>
@@ -113,35 +144,35 @@ export default connect(null,mapDispatchToProps)(PostForm);
 
 //     return (
        
-//       <div className={classes.container}>
-//          <div>Create Post</div>
-//         <FormControl className={classes.formControl}>
-//           <InputLabel htmlFor="name-simple">Blog</InputLabel>
-//           <Input
-//             id="name-simple"
-//             value={this.state.blog}
-//             onChange={this.handleChange}
-//           />
-//         </FormControl>
-//         <FormControl
-//           className={classes.formControl}
-//           aria-describedby="name-helper-text"
-//         >
-//           <InputLabel htmlFor="name-helper">Text</InputLabel>
-//           <Input
-//             id="name-helper"
-//             value={this.state.text}
-//             onChange={this.handleChange}
-//           />
-//           <FormHelperText id="name-helper-text">
-//             no more 256 symbols
-//           </FormHelperText>
-//         </FormControl>
-//         <Button variant="contained" color="primary" className={classes.button}>
-//           Send
-//           <Icon className={classes.rightIcon}>send</Icon>
-//         </Button>
-//       </div>
+    //   <div className={classes.container}>
+    //      <div>Create Post</div>
+    //     <FormControl className={classes.formControl}>
+    //       <InputLabel htmlFor="name-simple">Blog</InputLabel>
+    //       <Input
+    //         id="name-simple"
+    //         value={this.state.blog}
+    //         onChange={this.handleChange}
+    //       />
+    //     </FormControl>
+    //     <FormControl
+    //       className={classes.formControl}
+    //       aria-describedby="name-helper-text"
+    //     >
+    //       <InputLabel htmlFor="name-helper">Text</InputLabel>
+    //       <Input
+    //         id="name-helper"
+    //         value={this.state.text}
+    //         onChange={this.handleChange}
+    //       />
+    //       <FormHelperText id="name-helper-text">
+    //         no more 256 symbols
+    //       </FormHelperText>
+    //     </FormControl>
+    //     <Button variant="contained" color="primary" className={classes.button}>
+    //       Send
+    //       <Icon className={classes.rightIcon}>send</Icon>
+    //     </Button>
+    //   </div>
 //     );
 //   }
 // }
@@ -150,4 +181,7 @@ export default connect(null,mapDispatchToProps)(PostForm);
 //   classes: PropTypes.object.isRequired
 // };
 
-// export default withStyles(styles)(PostForm);
+//  const mapDispatchToProps = (dispatch) => {
+//     return bindActionCreators({ send }, dispatch)
+// }
+// export default connect(null,mapDispatchToProps)(PostForm);

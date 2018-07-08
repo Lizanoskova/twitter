@@ -9,7 +9,7 @@ from chat.serializers import ChatSerializer
 # Create your views here.
 class ChatViewSet(viewsets.ModelViewSet):
     serializer_class = ChatSerializer
-    queryset = Chat.objects.all()
+    queryset = Chat.objects.all().order_by('-created_at')
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
 

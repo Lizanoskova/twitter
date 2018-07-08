@@ -16,7 +16,7 @@ class EventViewSet(viewsets.ModelViewSet):
 
     serializer_class = EventSerializer
     authentication_classes = (SessionAuthentication, BasicAuthentication)
-    queryset = Event.objects.all()
+    queryset = Event.objects.all().order_by('-created_at')
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('author','object_id', 'content_type')

@@ -22,12 +22,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CommentIcon from '@material-ui/icons/Comment';
 import { Link } from 'react-router-dom';
 
-class Post extends React.Component{
+class Chat extends React.Component{
     
     static propTypes = {
-        id: PropTypes.number,
-        author: PropTypes.number,
-        blog: PropTypes.number,
+        user_1: PropTypes.number,
+        user_2: PropTypes.number,
+        messages_count: PropTypes.number,
     }
     render(){
 
@@ -48,40 +48,28 @@ class Post extends React.Component{
                     </IconButton>
                     }
                     title= {<Link to={"/user/1"}>
-                        <User id = { this.props.author }/> 
+                        <User id = { this.props.user_2 }/> 
                         </Link>}
                     subheader={ new Date(this.props.created_at).toDateString() }
                 />
-                <CardContent>
+                {/* <CardContent>
                     <Typography component="p">
                         { this.props.text } 
                     </Typography>
-                </CardContent>
-                <CardActions  disableActionSpacing>
-                    <IconButton aria-label="Like" onClick={() => { this.setState({ liked : true, })}} >
-                        <FavoriteIcon />
-                    </IconButton>
-                    {/* <Like/> */}
-                    <IconButton aria-label="Share">
-                        <ShareIcon />
-                    </IconButton>
-                    <IconButton aria-label="Comment">
-                        <CommentIcon/>
-                    </IconButton>
-                </CardActions>
+                </CardContent> */}
             </Card>
         </div>
     );
   }
 }
 
-const mapStateToProps = ({ posts }, ownProps ) => {
+const mapStateToProps = ({ chats }, ownProps ) => {
     return {
-        ...posts.posts[ownProps.id],
+        ...chats.chats[ownProps.id],
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {};
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

@@ -14,7 +14,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 class BlogViewSet(viewsets.ModelViewSet):
     serializer_class = BlogSerializer
-    queryset = Blog.objects.all()
+    queryset = Blog.objects.all().order_by('-created_at')
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('author',)

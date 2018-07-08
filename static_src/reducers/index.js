@@ -3,6 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import posts from './posts';
 import users from './users';
 import events from './events';
+import chats from './chats';
 import { createForms } from 'react-redux-form';
 import loginReducer from './loginReducers';
 import session from './session.js';
@@ -15,6 +16,7 @@ export default combineReducers({
     posts,
     users,
     events,
+    chats,
     ...createForms({
         post: initialPost
       }),

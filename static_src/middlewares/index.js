@@ -1,10 +1,5 @@
-// import { apiMiddleware } from 'redux-api-middleware';
-import { logger } from './test';
-
+import { logger } from './logger';
 
 export default [
      logger,
-     //apiMiddleware,
-   
-
 ];

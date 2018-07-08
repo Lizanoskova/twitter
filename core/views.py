@@ -24,14 +24,8 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
 class SessionUserViewSet(viewsets.ViewSet):
-    # queryset = User.objects.all()
-    # serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (SessionAuthentication, BasicAuthentication)
-    # def list(self, request):
-    #     queryset = User.objects.all().filter(id=self.request.user.id)
-    #     serializer = UserSerializer(queryset, many=True)
-    #     return Response(serializer.data)
     def list(self, request):
         if request.method == 'GET':
             queryset = User.objects.filter(id=request.user.id).first()

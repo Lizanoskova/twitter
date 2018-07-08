@@ -3979,6 +3979,720 @@ var _Collapse = _interopRequireDefault(__webpack_require__(/*! ./Collapse */ "..
 
 /***/ }),
 
+/***/ "../node_modules/@material-ui/core/FormControl/FormControl.js":
+/*!********************************************************************!*\
+  !*** ../node_modules/@material-ui/core/FormControl/FormControl.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "../node_modules/@babel/runtime/helpers/extends.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _getPrototypeOf = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/core-js/object/get-prototype-of */ "../node_modules/@babel/runtime/core-js/object/get-prototype-of.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js"));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
+
+var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "../node_modules/@material-ui/core/styles/withStyles.js"));
+
+var _Input = __webpack_require__(/*! ../Input/Input */ "../node_modules/@material-ui/core/Input/Input.js");
+
+var _helpers = __webpack_require__(/*! ../utils/helpers */ "../node_modules/@material-ui/core/utils/helpers.js");
+
+var _reactHelpers = __webpack_require__(/*! ../utils/reactHelpers */ "../node_modules/@material-ui/core/utils/reactHelpers.js");
+
+var styles = function styles(theme) {
+  return {
+    root: {
+      display: 'inline-flex',
+      flexDirection: 'column',
+      position: 'relative',
+      // Reset fieldset default style
+      minWidth: 0,
+      padding: 0,
+      margin: 0,
+      border: 0
+    },
+    marginNormal: {
+      marginTop: theme.spacing.unit * 2,
+      marginBottom: theme.spacing.unit
+    },
+    marginDense: {
+      marginTop: theme.spacing.unit,
+      marginBottom: theme.spacing.unit / 2
+    },
+    fullWidth: {
+      width: '100%'
+    }
+  };
+};
+/**
+ * Provides context such as filled/focused/error/required for form inputs.
+ * Relying on the context provides high flexibilty and ensures that the state always stay
+ * consitent across the children of the `FormControl`.
+ * This context is used by the following components:
+ *  - FormLabel
+ *  - FormHelperText
+ *  - Input
+ *  - InputLabel
+ */
+
+
+exports.styles = styles;
+
+var FormControl =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(FormControl, _React$Component);
+
+  function FormControl(props, context) {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, FormControl);
+    _this = (0, _possibleConstructorReturn2.default)(this, (FormControl.__proto__ || (0, _getPrototypeOf.default)(FormControl)).call(this, props, context)); // We need to iterate through the children and find the Input in order
+    // to fully support server side rendering.
+
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "state", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: {
+        adornedStart: false,
+        filled: false,
+        focused: false
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleFocus", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(event) {
+        if (_this.props.onFocus) {
+          _this.props.onFocus(event);
+        }
+
+        _this.setState(function (state) {
+          return !state.focused ? {
+            focused: true
+          } : null;
+        });
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleBlur", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(event) {
+        // The event might be undefined.
+        // For instance, a child component might call this hook
+        // when an input is disabled but still having the focus.
+        if (_this.props.onBlur && event) {
+          _this.props.onBlur(event);
+        }
+
+        _this.setState(function (state) {
+          return state.focused ? {
+            focused: false
+          } : null;
+        });
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleDirty", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        if (!_this.state.filled) {
+          _this.setState({
+            filled: true
+          });
+        }
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleClean", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value() {
+        if (_this.state.filled) {
+          _this.setState({
+            filled: false
+          });
+        }
+      }
+    });
+    var children = _this.props.children;
+
+    if (children) {
+      _react.default.Children.forEach(children, function (child) {
+        if (!(0, _reactHelpers.isMuiElement)(child, ['Input', 'Select', 'NativeSelect'])) {
+          return;
+        }
+
+        if ((0, _Input.isFilled)(child.props, true)) {
+          _this.state.filled = true;
+        }
+
+        var input = (0, _reactHelpers.isMuiElement)(child, ['Select', 'NativeSelect']) ? child.props.input : child;
+
+        if (input && (0, _Input.isAdornedStart)(input.props)) {
+          _this.state.adornedStart = true;
+        }
+      });
+    }
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(FormControl, [{
+    key: "getChildContext",
+    value: function getChildContext() {
+      var _props = this.props,
+          disabled = _props.disabled,
+          error = _props.error,
+          required = _props.required,
+          margin = _props.margin;
+      var _state = this.state,
+          adornedStart = _state.adornedStart,
+          filled = _state.filled,
+          focused = _state.focused;
+      return {
+        muiFormControl: {
+          adornedStart: adornedStart,
+          disabled: disabled,
+          error: error,
+          filled: filled,
+          focused: focused,
+          margin: margin,
+          onBlur: this.handleBlur,
+          onEmpty: this.handleClean,
+          onFilled: this.handleDirty,
+          onFocus: this.handleFocus,
+          required: required
+        }
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _classNames;
+
+      var _props2 = this.props,
+          classes = _props2.classes,
+          className = _props2.className,
+          Component = _props2.component,
+          disabled = _props2.disabled,
+          error = _props2.error,
+          fullWidth = _props2.fullWidth,
+          margin = _props2.margin,
+          required = _props2.required,
+          other = (0, _objectWithoutProperties2.default)(_props2, ["classes", "className", "component", "disabled", "error", "fullWidth", "margin", "required"]);
+      return _react.default.createElement(Component, (0, _extends2.default)({
+        className: (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes["margin".concat((0, _helpers.capitalize)(margin))], margin !== 'none'), (0, _defineProperty2.default)(_classNames, classes.fullWidth, fullWidth), _classNames), className)
+      }, other, {
+        onFocus: this.handleFocus,
+        onBlur: this.handleBlur
+      }));
+    }
+  }]);
+  return FormControl;
+}(_react.default.Component);
+
+FormControl.propTypes =  true ? {
+  /**
+   * The contents of the form control.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
+  component: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func]),
+
+  /**
+   * If `true`, the label, input and helper text should be displayed in a disabled state.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, the label should be displayed in an error state.
+   */
+  error: _propTypes.default.bool,
+
+  /**
+   * If `true`, the component will take up the full width of its container.
+   */
+  fullWidth: _propTypes.default.bool,
+
+  /**
+   * If `dense` or `normal`, will adjust vertical spacing of this and contained components.
+   */
+  margin: _propTypes.default.oneOf(['none', 'dense', 'normal']),
+
+  /**
+   * @ignore
+   */
+  onBlur: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onFocus: _propTypes.default.func,
+
+  /**
+   * If `true`, the label will indicate that the input is required.
+   */
+  required: _propTypes.default.bool
+} : undefined;
+FormControl.defaultProps = {
+  component: 'div',
+  disabled: false,
+  error: false,
+  fullWidth: false,
+  margin: 'none',
+  required: false
+};
+FormControl.childContextTypes = {
+  muiFormControl: _propTypes.default.object
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiFormControl'
+})(FormControl);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/FormControl/index.js":
+/*!**************************************************************!*\
+  !*** ../node_modules/@material-ui/core/FormControl/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _FormControl.default;
+  }
+});
+
+var _FormControl = _interopRequireDefault(__webpack_require__(/*! ./FormControl */ "../node_modules/@material-ui/core/FormControl/FormControl.js"));
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/FormHelperText/FormHelperText.js":
+/*!**************************************************************************!*\
+  !*** ../node_modules/@material-ui/core/FormHelperText/FormHelperText.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "../node_modules/@babel/runtime/helpers/extends.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
+
+var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "../node_modules/@material-ui/core/styles/withStyles.js"));
+
+var styles = function styles(theme) {
+  return {
+    root: {
+      color: theme.palette.text.secondary,
+      fontFamily: theme.typography.fontFamily,
+      fontSize: theme.typography.pxToRem(12),
+      textAlign: 'left',
+      marginTop: theme.spacing.unit,
+      lineHeight: '1em',
+      minHeight: '1em',
+      margin: 0,
+      '&$error': {
+        color: theme.palette.error.main
+      },
+      '&$disabled': {
+        color: theme.palette.text.disabled
+      }
+    },
+    error: {},
+    disabled: {},
+    marginDense: {
+      marginTop: theme.spacing.unit / 2
+    }
+  };
+};
+
+exports.styles = styles;
+
+function FormHelperText(props, context) {
+  var _classNames;
+
+  var classes = props.classes,
+      classNameProp = props.className,
+      disabledProp = props.disabled,
+      errorProp = props.error,
+      marginProp = props.margin,
+      Component = props.component,
+      other = (0, _objectWithoutProperties2.default)(props, ["classes", "className", "disabled", "error", "margin", "component"]);
+  var muiFormControl = context.muiFormControl;
+  var disabled = disabledProp;
+  var error = errorProp;
+  var margin = marginProp;
+
+  if (muiFormControl) {
+    if (typeof disabled === 'undefined') {
+      disabled = muiFormControl.disabled;
+    }
+
+    if (typeof error === 'undefined') {
+      error = muiFormControl.error;
+    }
+
+    if (typeof margin === 'undefined') {
+      margin = muiFormControl.margin;
+    }
+  }
+
+  var className = (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes.disabled, disabled), (0, _defineProperty2.default)(_classNames, classes.error, error), (0, _defineProperty2.default)(_classNames, classes.marginDense, margin === 'dense'), _classNames), classNameProp);
+  return _react.default.createElement(Component, (0, _extends2.default)({
+    className: className
+  }, other));
+}
+
+FormHelperText.propTypes =  true ? {
+  /**
+   * The content of the component.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
+  component: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func]),
+
+  /**
+   * If `true`, the helper text should be displayed in a disabled state.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, helper text should be displayed in an error state.
+   */
+  error: _propTypes.default.bool,
+
+  /**
+   * If `dense`, will adjust vertical spacing. This is normally obtained via context from
+   * FormControl.
+   */
+  margin: _propTypes.default.oneOf(['dense'])
+} : undefined;
+FormHelperText.defaultProps = {
+  component: 'p'
+};
+FormHelperText.contextTypes = {
+  muiFormControl: _propTypes.default.object
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiFormHelperText'
+})(FormHelperText);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/FormHelperText/index.js":
+/*!*****************************************************************!*\
+  !*** ../node_modules/@material-ui/core/FormHelperText/index.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _FormHelperText.default;
+  }
+});
+
+var _FormHelperText = _interopRequireDefault(__webpack_require__(/*! ./FormHelperText */ "../node_modules/@material-ui/core/FormHelperText/FormHelperText.js"));
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/FormLabel/FormLabel.js":
+/*!****************************************************************!*\
+  !*** ../node_modules/@material-ui/core/FormLabel/FormLabel.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "../node_modules/@babel/runtime/helpers/extends.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
+
+var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "../node_modules/@material-ui/core/styles/withStyles.js"));
+
+var styles = function styles(theme) {
+  return {
+    root: {
+      fontFamily: theme.typography.fontFamily,
+      color: theme.palette.text.secondary,
+      fontSize: theme.typography.pxToRem(16),
+      lineHeight: 1,
+      padding: 0,
+      '&$focused': {
+        color: theme.palette.primary[theme.palette.type === 'light' ? 'dark' : 'light']
+      },
+      '&$disabled': {
+        color: theme.palette.text.disabled
+      },
+      '&$error': {
+        color: theme.palette.error.main
+      }
+    },
+    focused: {},
+    disabled: {},
+    error: {},
+    asterisk: {
+      '&$error': {
+        color: theme.palette.error.main
+      }
+    }
+  };
+};
+
+exports.styles = styles;
+
+function FormLabel(props, context) {
+  var _classNames;
+
+  var children = props.children,
+      classes = props.classes,
+      classNameProp = props.className,
+      Component = props.component,
+      disabledProp = props.disabled,
+      errorProp = props.error,
+      focusedProp = props.focused,
+      requiredProp = props.required,
+      other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "component", "disabled", "error", "focused", "required"]);
+  var muiFormControl = context.muiFormControl;
+  var required = requiredProp;
+  var focused = focusedProp;
+  var disabled = disabledProp;
+  var error = errorProp;
+
+  if (muiFormControl) {
+    if (typeof required === 'undefined') {
+      required = muiFormControl.required;
+    }
+
+    if (typeof focused === 'undefined') {
+      focused = muiFormControl.focused;
+    }
+
+    if (typeof disabled === 'undefined') {
+      disabled = muiFormControl.disabled;
+    }
+
+    if (typeof error === 'undefined') {
+      error = muiFormControl.error;
+    }
+  }
+
+  var className = (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes.focused, focused), (0, _defineProperty2.default)(_classNames, classes.disabled, disabled), (0, _defineProperty2.default)(_classNames, classes.error, error), _classNames), classNameProp);
+  return _react.default.createElement(Component, (0, _extends2.default)({
+    className: className
+  }, other), children, required && _react.default.createElement("span", {
+    className: (0, _classnames.default)(classes.asterisk, (0, _defineProperty2.default)({}, classes.error, error))
+  }, "\u2009*"));
+}
+
+FormLabel.propTypes =  true ? {
+  /**
+   * The content of the component.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
+  component: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func]),
+
+  /**
+   * If `true`, the label should be displayed in a disabled state.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, the label should be displayed in an error state.
+   */
+  error: _propTypes.default.bool,
+
+  /**
+   * If `true`, the input of this label is focused (used by `FormGroup` components).
+   */
+  focused: _propTypes.default.bool,
+
+  /**
+   * If `true`, the label will indicate that the input is required.
+   */
+  required: _propTypes.default.bool
+} : undefined;
+FormLabel.defaultProps = {
+  component: 'label'
+};
+FormLabel.contextTypes = {
+  muiFormControl: _propTypes.default.object
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiFormLabel'
+})(FormLabel);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/FormLabel/index.js":
+/*!************************************************************!*\
+  !*** ../node_modules/@material-ui/core/FormLabel/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _FormLabel.default;
+  }
+});
+
+var _FormLabel = _interopRequireDefault(__webpack_require__(/*! ./FormLabel */ "../node_modules/@material-ui/core/FormLabel/FormLabel.js"));
+
+/***/ }),
+
 /***/ "../node_modules/@material-ui/core/Grid/Grid.js":
 /*!******************************************************!*\
   !*** ../node_modules/@material-ui/core/Grid/Grid.js ***!
@@ -4381,6 +5095,144 @@ var _Grid = _interopRequireDefault(__webpack_require__(/*! ./Grid */ "../node_mo
 
 /***/ }),
 
+/***/ "../node_modules/@material-ui/core/Icon/Icon.js":
+/*!******************************************************!*\
+  !*** ../node_modules/@material-ui/core/Icon/Icon.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "../node_modules/@babel/runtime/helpers/extends.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
+
+var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "../node_modules/@material-ui/core/styles/withStyles.js"));
+
+var _helpers = __webpack_require__(/*! ../utils/helpers */ "../node_modules/@material-ui/core/utils/helpers.js");
+
+var styles = function styles(theme) {
+  return {
+    root: {
+      userSelect: 'none',
+      fontSize: 24,
+      width: '1em',
+      height: '1em',
+      // Chrome fix for https://bugs.chromium.org/p/chromium/issues/detail?id=820541
+      // To remove at some point.
+      overflow: 'hidden',
+      flexShrink: 0
+    },
+    colorPrimary: {
+      color: theme.palette.primary.main
+    },
+    colorSecondary: {
+      color: theme.palette.secondary.main
+    },
+    colorAction: {
+      color: theme.palette.action.active
+    },
+    colorError: {
+      color: theme.palette.error.main
+    },
+    colorDisabled: {
+      color: theme.palette.action.disabled
+    }
+  };
+};
+
+exports.styles = styles;
+
+function Icon(props) {
+  var children = props.children,
+      classes = props.classes,
+      className = props.className,
+      color = props.color,
+      other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "color"]);
+  return _react.default.createElement("span", (0, _extends2.default)({
+    className: (0, _classnames.default)('material-icons', classes.root, (0, _defineProperty2.default)({}, classes["color".concat((0, _helpers.capitalize)(color))], color !== 'inherit'), className),
+    "aria-hidden": "true"
+  }, other), children);
+}
+
+Icon.propTypes =  true ? {
+  /**
+   * The name of the icon font ligature.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: _propTypes.default.oneOf(['inherit', 'primary', 'secondary', 'action', 'error', 'disabled'])
+} : undefined;
+Icon.defaultProps = {
+  color: 'inherit'
+};
+Icon.muiName = 'Icon';
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiIcon'
+})(Icon);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/Icon/index.js":
+/*!*******************************************************!*\
+  !*** ../node_modules/@material-ui/core/Icon/index.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _Icon.default;
+  }
+});
+
+var _Icon = _interopRequireDefault(__webpack_require__(/*! ./Icon */ "../node_modules/@material-ui/core/Icon/Icon.js"));
+
+/***/ }),
+
 /***/ "../node_modules/@material-ui/core/IconButton/IconButton.js":
 /*!******************************************************************!*\
   !*** ../node_modules/@material-ui/core/IconButton/IconButton.js ***!
@@ -4574,6 +5426,1332 @@ Object.defineProperty(exports, "default", {
 });
 
 var _IconButton = _interopRequireDefault(__webpack_require__(/*! ./IconButton */ "../node_modules/@material-ui/core/IconButton/IconButton.js"));
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/Input/Input.js":
+/*!********************************************************!*\
+  !*** ../node_modules/@material-ui/core/Input/Input.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.hasValue = hasValue;
+exports.isFilled = isFilled;
+exports.isAdornedStart = isAdornedStart;
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "../node_modules/@babel/runtime/helpers/extends.js"));
+
+var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread */ "../node_modules/@babel/runtime/helpers/objectSpread.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _getPrototypeOf = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/core-js/object/get-prototype-of */ "../node_modules/@babel/runtime/core-js/object/get-prototype-of.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js"));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
+
+var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "../node_modules/@material-ui/core/styles/withStyles.js"));
+
+var _Textarea = _interopRequireDefault(__webpack_require__(/*! ./Textarea */ "../node_modules/@material-ui/core/Input/Textarea.js"));
+
+// Supports determination of isControlled().
+// Controlled input accepts its current value as a prop.
+//
+// @see https://facebook.github.io/react/docs/forms.html#controlled-components
+// @param value
+// @returns {boolean} true if string (including '') or number (including zero)
+function hasValue(value) {
+  return value != null && !(Array.isArray(value) && value.length === 0);
+} // Determine if field is empty or filled.
+// Response determines if label is presented above field or as placeholder.
+//
+// @param obj
+// @param SSR
+// @returns {boolean} False when not present or empty string.
+//                    True when any number or string with length.
+
+
+function isFilled(obj) {
+  var SSR = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  return obj && (hasValue(obj.value) && obj.value !== '' || SSR && hasValue(obj.defaultValue) && obj.defaultValue !== '');
+} // Determine if an Input is adorned on start.
+// It's corresponding to the left with LTR.
+//
+// @param obj
+// @returns {boolean} False when no adornments.
+//                    True when adorned at the start.
+
+
+function isAdornedStart(obj) {
+  return obj.startAdornment;
+}
+
+var styles = function styles(theme) {
+  var light = theme.palette.type === 'light';
+  var placeholder = {
+    color: 'currentColor',
+    opacity: light ? 0.42 : 0.5,
+    transition: theme.transitions.create('opacity', {
+      duration: theme.transitions.duration.shorter
+    })
+  };
+  var placeholderHidden = {
+    opacity: 0
+  };
+  var placeholderVisible = {
+    opacity: light ? 0.42 : 0.5
+  };
+  var bottomLineColor = light ? 'rgba(0, 0, 0, 0.42)' : 'rgba(255, 255, 255, 0.7)';
+  return {
+    root: {
+      // Mimics the default input display property used by browsers for an input.
+      display: 'inline-flex',
+      position: 'relative',
+      fontFamily: theme.typography.fontFamily,
+      color: light ? 'rgba(0, 0, 0, 0.87)' : theme.palette.common.white,
+      fontSize: theme.typography.pxToRem(16),
+      lineHeight: '1.1875em',
+      // Reset (19px), match the native input line-height
+      '&$disabled': {
+        color: theme.palette.text.disabled
+      }
+    },
+    formControl: {
+      'label + &': {
+        marginTop: theme.spacing.unit * 2
+      }
+    },
+    focused: {},
+    disabled: {},
+    underline: {
+      '&:after': {
+        borderBottom: "2px solid ".concat(theme.palette.primary[light ? 'dark' : 'light']),
+        left: 0,
+        bottom: 0,
+        // Doing the other way around crash on IE11 "''" https://github.com/cssinjs/jss/issues/242
+        content: '""',
+        position: 'absolute',
+        right: 0,
+        transform: 'scaleX(0)',
+        transition: theme.transitions.create('transform', {
+          duration: theme.transitions.duration.shorter,
+          easing: theme.transitions.easing.easeOut
+        }),
+        pointerEvents: 'none' // Transparent to the hover style.
+
+      },
+      '&$focused:after': {
+        transform: 'scaleX(1)'
+      },
+      '&$error:after': {
+        borderBottomColor: theme.palette.error.main,
+        transform: 'scaleX(1)' // error is always underlined in red
+
+      },
+      '&:before': {
+        borderBottom: "1px solid ".concat(bottomLineColor),
+        left: 0,
+        bottom: 0,
+        // Doing the other way around crash on IE11 "''" https://github.com/cssinjs/jss/issues/242
+        content: '"need text here to prevent subpixel zoom issue"',
+        color: 'transparent',
+        position: 'absolute',
+        right: 0,
+        transition: theme.transitions.create('border-bottom-color', {
+          duration: theme.transitions.duration.shorter
+        }),
+        pointerEvents: 'none' // Transparent to the hover style.
+
+      },
+      '&:hover:not($disabled):not($focused):not($error):before': {
+        borderBottom: "2px solid ".concat(theme.palette.text.primary)
+      },
+      '&$disabled:before': {
+        borderBottom: "1px dotted ".concat(bottomLineColor)
+      }
+    },
+    error: {},
+    multiline: {
+      padding: "".concat(theme.spacing.unit - 2, "px 0 ").concat(theme.spacing.unit - 1, "px")
+    },
+    fullWidth: {
+      width: '100%'
+    },
+    input: {
+      font: 'inherit',
+      color: 'currentColor',
+      padding: "".concat(theme.spacing.unit - 2, "px 0 ").concat(theme.spacing.unit - 1, "px"),
+      border: 0,
+      boxSizing: 'content-box',
+      verticalAlign: 'middle',
+      background: 'none',
+      margin: 0,
+      // Reset for Safari
+      // Remove grey highlight
+      WebkitTapHighlightColor: 'transparent',
+      display: 'block',
+      // Make the flex item shrink with Firefox
+      minWidth: 0,
+      flexGrow: 1,
+      '&::-webkit-input-placeholder': placeholder,
+      '&::-moz-placeholder': placeholder,
+      // Firefox 19+
+      '&:-ms-input-placeholder': placeholder,
+      // IE 11
+      '&::-ms-input-placeholder': placeholder,
+      // Edge
+      '&:focus': {
+        outline: 0
+      },
+      // Reset Firefox invalid required input style
+      '&:invalid': {
+        boxShadow: 'none'
+      },
+      '&::-webkit-search-decoration': {
+        // Remove the padding when type=search.
+        '-webkit-appearance': 'none'
+      },
+      // Show and hide the placeholder logic
+      'label[data-shrink=false] + $formControl &': {
+        '&::-webkit-input-placeholder': placeholderHidden,
+        '&::-moz-placeholder': placeholderHidden,
+        // Firefox 19+
+        '&:-ms-input-placeholder': placeholderHidden,
+        // IE 11
+        '&::-ms-input-placeholder': placeholderHidden,
+        // Edge
+        '&:focus::-webkit-input-placeholder': placeholderVisible,
+        '&:focus::-moz-placeholder': placeholderVisible,
+        // Firefox 19+
+        '&:focus:-ms-input-placeholder': placeholderVisible,
+        // IE 11
+        '&:focus::-ms-input-placeholder': placeholderVisible // Edge
+
+      },
+      '&$disabled': {
+        opacity: 1 // Reset iOS opacity
+
+      }
+    },
+    inputMarginDense: {
+      paddingTop: theme.spacing.unit / 2 - 1
+    },
+    inputMultiline: {
+      resize: 'none',
+      padding: 0
+    },
+    inputType: {
+      // type="date" or type="time", etc. have specific styles we need to reset.
+      height: '1.1875em' // Reset (19px), match the native input line-height
+
+    },
+    inputTypeSearch: {
+      // Improve type search style.
+      '-moz-appearance': 'textfield',
+      '-webkit-appearance': 'textfield'
+    }
+  };
+};
+
+exports.styles = styles;
+
+function formControlState(props, context) {
+  var disabled = props.disabled;
+  var error = props.error;
+  var margin = props.margin;
+
+  if (context && context.muiFormControl) {
+    if (typeof disabled === 'undefined') {
+      disabled = context.muiFormControl.disabled;
+    }
+
+    if (typeof error === 'undefined') {
+      error = context.muiFormControl.error;
+    }
+
+    if (typeof margin === 'undefined') {
+      margin = context.muiFormControl.margin;
+    }
+  }
+
+  return {
+    disabled: disabled,
+    error: error,
+    margin: margin
+  };
+}
+
+var Input =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(Input, _React$Component);
+
+  function Input(props, context) {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, Input);
+    _this = (0, _possibleConstructorReturn2.default)(this, (Input.__proto__ || (0, _getPrototypeOf.default)(Input)).call(this, props, context));
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "state", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: {
+        focused: false
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "isControlled", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: _this.props.value != null
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "input", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: null
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleFocus", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(event) {
+        // Fix an bug with IE11 where the focus/blur events are triggered
+        // while the input is disabled.
+        if (formControlState(_this.props, _this.context).disabled) {
+          event.stopPropagation();
+          return;
+        }
+
+        _this.setState({
+          focused: true
+        });
+
+        if (_this.props.onFocus) {
+          _this.props.onFocus(event);
+        }
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleBlur", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(event) {
+        _this.setState({
+          focused: false
+        });
+
+        if (_this.props.onBlur) {
+          _this.props.onBlur(event);
+        }
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(event) {
+        if (!_this.isControlled) {
+          _this.checkDirty(_this.input);
+        } // Perform in the willUpdate
+
+
+        if (_this.props.onChange) {
+          _this.props.onChange(event);
+        }
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleRefInput", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(node) {
+        _this.input = node;
+
+        if (_this.props.inputRef) {
+          _this.props.inputRef(node);
+        } else if (_this.props.inputProps && _this.props.inputProps.ref) {
+          _this.props.inputProps.ref(node);
+        }
+      }
+    });
+
+    if (_this.isControlled) {
+      _this.checkDirty(props);
+    }
+
+    var componentWillReceiveProps = function componentWillReceiveProps(nextProps, nextContext) {
+      // The blur won't fire when the disabled state is set on a focused input.
+      // We need to book keep the focused state manually.
+      if (!formControlState(_this.props, _this.context).disabled && formControlState(nextProps, nextContext).disabled) {
+        _this.setState({
+          focused: false
+        });
+      }
+    };
+
+    var componentWillUpdate = function componentWillUpdate(nextProps, nextState, nextContext) {
+      // Book keep the focused state.
+      if (!formControlState(_this.props, _this.context).disabled && formControlState(nextProps, nextContext).disabled) {
+        var muiFormControl = _this.context.muiFormControl;
+
+        if (muiFormControl && muiFormControl.onBlur) {
+          muiFormControl.onBlur();
+        }
+      }
+    }; // Support for react >= 16.3.0 && < 17.0.0
+
+    /* istanbul ignore else */
+
+
+    if (_react.default.createContext) {
+      _this.UNSAFE_componentWillReceiveProps = componentWillReceiveProps;
+      _this.UNSAFE_componentWillUpdate = componentWillUpdate;
+    } else {
+      _this.componentWillReceiveProps = componentWillReceiveProps;
+      _this.componentWillUpdate = componentWillUpdate;
+    }
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(Input, [{
+    key: "getChildContext",
+    value: function getChildContext() {
+      // We are consuming the parent muiFormControl context.
+      // We don't want a child to consume it a second time.
+      return {
+        muiFormControl: null
+      };
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (!this.isControlled) {
+        this.checkDirty(this.input);
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.isControlled) {
+        this.checkDirty(this.props);
+      } // else performed in the onChange
+
+    }
+  }, {
+    key: "checkDirty",
+    value: function checkDirty(obj) {
+      var muiFormControl = this.context.muiFormControl;
+
+      if (isFilled(obj)) {
+        if (muiFormControl && muiFormControl.onFilled) {
+          muiFormControl.onFilled();
+        }
+
+        if (this.props.onFilled) {
+          this.props.onFilled();
+        }
+
+        return;
+      }
+
+      if (muiFormControl && muiFormControl.onEmpty) {
+        muiFormControl.onEmpty();
+      }
+
+      if (this.props.onEmpty) {
+        this.props.onEmpty();
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _classNames, _classNames2;
+
+      var _props = this.props,
+          autoComplete = _props.autoComplete,
+          autoFocus = _props.autoFocus,
+          classes = _props.classes,
+          classNameProp = _props.className,
+          defaultValue = _props.defaultValue,
+          disabledProp = _props.disabled,
+          disableUnderline = _props.disableUnderline,
+          endAdornment = _props.endAdornment,
+          errorProp = _props.error,
+          fullWidth = _props.fullWidth,
+          id = _props.id,
+          inputComponent = _props.inputComponent,
+          _props$inputProps = _props.inputProps;
+      _props$inputProps = _props$inputProps === void 0 ? {} : _props$inputProps;
+      var inputPropsClassName = _props$inputProps.className,
+          inputPropsProp = (0, _objectWithoutProperties2.default)(_props$inputProps, ["className"]),
+          inputRef = _props.inputRef,
+          marginProp = _props.margin,
+          multiline = _props.multiline,
+          name = _props.name,
+          onBlur = _props.onBlur,
+          onChange = _props.onChange,
+          onEmpty = _props.onEmpty,
+          onFilled = _props.onFilled,
+          onFocus = _props.onFocus,
+          onKeyDown = _props.onKeyDown,
+          onKeyUp = _props.onKeyUp,
+          placeholder = _props.placeholder,
+          readOnly = _props.readOnly,
+          rows = _props.rows,
+          rowsMax = _props.rowsMax,
+          startAdornment = _props.startAdornment,
+          type = _props.type,
+          value = _props.value,
+          other = (0, _objectWithoutProperties2.default)(_props, ["autoComplete", "autoFocus", "classes", "className", "defaultValue", "disabled", "disableUnderline", "endAdornment", "error", "fullWidth", "id", "inputComponent", "inputProps", "inputRef", "margin", "multiline", "name", "onBlur", "onChange", "onEmpty", "onFilled", "onFocus", "onKeyDown", "onKeyUp", "placeholder", "readOnly", "rows", "rowsMax", "startAdornment", "type", "value"]);
+      var muiFormControl = this.context.muiFormControl;
+
+      var _formControlState = formControlState(this.props, this.context),
+          disabled = _formControlState.disabled,
+          error = _formControlState.error,
+          margin = _formControlState.margin;
+
+      var className = (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes.disabled, disabled), (0, _defineProperty2.default)(_classNames, classes.error, error), (0, _defineProperty2.default)(_classNames, classes.fullWidth, fullWidth), (0, _defineProperty2.default)(_classNames, classes.focused, this.state.focused), (0, _defineProperty2.default)(_classNames, classes.formControl, muiFormControl), (0, _defineProperty2.default)(_classNames, classes.multiline, multiline), (0, _defineProperty2.default)(_classNames, classes.underline, !disableUnderline), _classNames), classNameProp);
+      var inputClassName = (0, _classnames.default)(classes.input, (_classNames2 = {}, (0, _defineProperty2.default)(_classNames2, classes.disabled, disabled), (0, _defineProperty2.default)(_classNames2, classes.inputType, type !== 'text'), (0, _defineProperty2.default)(_classNames2, classes.inputTypeSearch, type === 'search'), (0, _defineProperty2.default)(_classNames2, classes.inputMultiline, multiline), (0, _defineProperty2.default)(_classNames2, classes.inputMarginDense, margin === 'dense'), _classNames2), inputPropsClassName);
+      var required = muiFormControl && muiFormControl.required === true;
+      var InputComponent = 'input';
+      var inputProps = (0, _objectSpread2.default)({}, inputPropsProp, {
+        ref: this.handleRefInput
+      });
+
+      if (inputComponent) {
+        InputComponent = inputComponent;
+        inputProps = (0, _objectSpread2.default)({
+          // Rename ref to inputRef as we don't know the
+          // provided `inputComponent` structure.
+          inputRef: this.handleRefInput
+        }, inputProps, {
+          ref: null
+        });
+      } else if (multiline) {
+        if (rows && !rowsMax) {
+          InputComponent = 'textarea';
+        } else {
+          inputProps = (0, _objectSpread2.default)({
+            rowsMax: rowsMax,
+            textareaRef: this.handleRefInput
+          }, inputProps, {
+            ref: null
+          });
+          InputComponent = _Textarea.default;
+        }
+      }
+
+      return _react.default.createElement("div", (0, _extends2.default)({
+        className: className
+      }, other), startAdornment, _react.default.createElement(InputComponent, (0, _extends2.default)({
+        "aria-invalid": error,
+        "aria-required": required,
+        autoComplete: autoComplete,
+        autoFocus: autoFocus,
+        className: inputClassName,
+        defaultValue: defaultValue,
+        disabled: disabled,
+        id: id,
+        name: name,
+        onBlur: this.handleBlur,
+        onChange: this.handleChange,
+        onFocus: this.handleFocus,
+        onKeyDown: onKeyDown,
+        onKeyUp: onKeyUp,
+        placeholder: placeholder,
+        readOnly: readOnly,
+        required: required ? true : undefined,
+        rows: rows,
+        type: type,
+        value: value
+      }, inputProps)), endAdornment);
+    }
+  }]);
+  return Input;
+}(_react.default.Component);
+
+Input.propTypes =  true ? {
+  /**
+   * This property helps users to fill forms faster, especially on mobile devices.
+   * The name can be confusing, as it's more like an autofill.
+   * You can learn more about it here:
+   * https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill
+   */
+  autoComplete: _propTypes.default.string,
+
+  /**
+   * If `true`, the input will be focused during the first mount.
+   */
+  autoFocus: _propTypes.default.bool,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * The CSS class name of the wrapper element.
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The default input value, useful when not controlling the component.
+   */
+  defaultValue: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
+
+  /**
+   * If `true`, the input will be disabled.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, the input will not have an underline.
+   */
+  disableUnderline: _propTypes.default.bool,
+
+  /**
+   * End `InputAdornment` for this component.
+   */
+  endAdornment: _propTypes.default.node,
+
+  /**
+   * If `true`, the input will indicate an error. This is normally obtained via context from
+   * FormControl.
+   */
+  error: _propTypes.default.bool,
+
+  /**
+   * If `true`, the input will take up the full width of its container.
+   */
+  fullWidth: _propTypes.default.bool,
+
+  /**
+   * The id of the `input` element.
+   */
+  id: _propTypes.default.string,
+
+  /**
+   * The component used for the native input.
+   * Either a string to use a DOM element or a component.
+   */
+  inputComponent: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.func]),
+
+  /**
+   * Properties applied to the `input` element.
+   */
+  inputProps: _propTypes.default.object,
+
+  /**
+   * Use that property to pass a ref callback to the native input component.
+   */
+  inputRef: _propTypes.default.func,
+
+  /**
+   * If `dense`, will adjust vertical spacing. This is normally obtained via context from
+   * FormControl.
+   */
+  margin: _propTypes.default.oneOf(['dense', 'none']),
+
+  /**
+   * If `true`, a textarea element will be rendered.
+   */
+  multiline: _propTypes.default.bool,
+
+  /**
+   * Name attribute of the `input` element.
+   */
+  name: _propTypes.default.string,
+
+  /**
+   * @ignore
+   */
+  onBlur: _propTypes.default.func,
+
+  /**
+   * Callback fired when the value is changed.
+   *
+   * @param {object} event The event source of the callback.
+   * You can pull out the new value by accessing `event.target.value`.
+   */
+  onChange: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onEmpty: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onFilled: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onFocus: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onKeyDown: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  onKeyUp: _propTypes.default.func,
+
+  /**
+   * The short hint displayed in the input before the user enters a value.
+   */
+  placeholder: _propTypes.default.string,
+
+  /**
+   * @ignore
+   */
+  readOnly: _propTypes.default.bool,
+
+  /**
+   * Number of rows to display when multiline option is set to true.
+   */
+  rows: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
+
+  /**
+   * Maximum number of rows to display when multiline option is set to true.
+   */
+  rowsMax: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
+
+  /**
+   * Start `InputAdornment` for this component.
+   */
+  startAdornment: _propTypes.default.node,
+
+  /**
+   * Type of the input element. It should be a valid HTML5 input type.
+   */
+  type: _propTypes.default.string,
+
+  /**
+   * The input value, required for a controlled component.
+   */
+  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.arrayOf(_propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]))])
+} : undefined;
+Input.muiName = 'Input';
+Input.defaultProps = {
+  disableUnderline: false,
+  fullWidth: false,
+  multiline: false,
+  type: 'text'
+};
+Input.contextTypes = {
+  muiFormControl: _propTypes.default.object
+};
+Input.childContextTypes = {
+  muiFormControl: _propTypes.default.object
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiInput'
+})(Input);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/Input/Textarea.js":
+/*!***********************************************************!*\
+  !*** ../node_modules/@material-ui/core/Input/Textarea.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "../node_modules/@babel/runtime/helpers/extends.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _getPrototypeOf = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/core-js/object/get-prototype-of */ "../node_modules/@babel/runtime/core-js/object/get-prototype-of.js"));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "../node_modules/@babel/runtime/helpers/classCallCheck.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "../node_modules/@babel/runtime/helpers/createClass.js"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "../node_modules/@babel/runtime/helpers/possibleConstructorReturn.js"));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ "../node_modules/@babel/runtime/helpers/inherits.js"));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "../node_modules/@babel/runtime/helpers/assertThisInitialized.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
+
+var _debounce = _interopRequireDefault(__webpack_require__(/*! lodash/debounce */ "../node_modules/lodash/debounce.js"));
+
+var _reactEventListener = _interopRequireDefault(__webpack_require__(/*! react-event-listener */ "../node_modules/react-event-listener/dist/react-event-listener.esm.js"));
+
+var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "../node_modules/@material-ui/core/styles/withStyles.js"));
+
+var ROWS_HEIGHT = 19;
+var styles = {
+  root: {
+    position: 'relative',
+    // because the shadow has position: 'absolute',
+    width: '100%'
+  },
+  textarea: {
+    width: '100%',
+    height: '100%',
+    resize: 'none',
+    font: 'inherit',
+    padding: 0,
+    cursor: 'inherit',
+    boxSizing: 'border-box',
+    lineHeight: 'inherit',
+    border: 'none',
+    outline: 'none',
+    background: 'transparent'
+  },
+  shadow: {
+    resize: 'none',
+    // Overflow also needed to here to remove the extra row
+    // added to textareas in Firefox.
+    overflow: 'hidden',
+    // Visibility needed to hide the extra text area on ipads
+    visibility: 'hidden',
+    position: 'absolute',
+    height: 'auto',
+    whiteSpace: 'pre-wrap'
+  }
+};
+/**
+ * @ignore - internal component.
+ */
+
+exports.styles = styles;
+
+var Textarea =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(Textarea, _React$Component);
+
+  function Textarea(props, context) {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, Textarea);
+    _this = (0, _possibleConstructorReturn2.default)(this, (Textarea.__proto__ || (0, _getPrototypeOf.default)(Textarea)).call(this, props, context)); // <Input> expects the components it renders to respond to 'value'
+    // so that it can check whether they are filled.
+
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "state", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: {
+        height: null
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "shadow", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: null
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "singlelineShadow", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: null
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "input", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: null
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "value", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: null
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleResize", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: (0, _debounce.default)(function () {
+        _this.syncHeightWithShadow();
+      }, 166)
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleRefInput", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(node) {
+        _this.input = node;
+
+        if (_this.props.textareaRef) {
+          _this.props.textareaRef(node);
+        }
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleRefSinglelineShadow", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(node) {
+        _this.singlelineShadow = node;
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleRefShadow", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(node) {
+        _this.shadow = node;
+      }
+    });
+    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "handleChange", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: function value(event) {
+        _this.value = event.target.value;
+
+        if (typeof _this.props.value === 'undefined' && _this.shadow) {
+          // The component is not controlled, we need to update the shallow value.
+          _this.shadow.value = _this.value;
+
+          _this.syncHeightWithShadow();
+        }
+
+        if (_this.props.onChange) {
+          _this.props.onChange(event);
+        }
+      }
+    });
+    _this.value = props.value || props.defaultValue || '';
+    _this.state = {
+      height: Number(props.rows) * ROWS_HEIGHT
+    };
+    return _this;
+  }
+
+  (0, _createClass2.default)(Textarea, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.syncHeightWithShadow();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.syncHeightWithShadow();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.handleResize.cancel();
+    }
+  }, {
+    key: "syncHeightWithShadow",
+    // Corresponds to 10 frames at 60 Hz.
+    value: function syncHeightWithShadow() {
+      var props = this.props;
+
+      if (!this.shadow || !this.singlelineShadow) {
+        return;
+      } // The component is controlled, we need to update the shallow value.
+
+
+      if (typeof props.value !== 'undefined') {
+        this.shadow.value = props.value == null ? '' : String(props.value);
+      }
+
+      var lineHeight = this.singlelineShadow.scrollHeight;
+      var newHeight = this.shadow.scrollHeight; // Guarding for jsdom, where scrollHeight isn't present.
+      // See https://github.com/tmpvar/jsdom/issues/1013
+
+      if (newHeight === undefined) {
+        return;
+      }
+
+      if (Number(props.rowsMax) >= Number(props.rows)) {
+        newHeight = Math.min(Number(props.rowsMax) * lineHeight, newHeight);
+      }
+
+      newHeight = Math.max(newHeight, lineHeight); // Need a large enough different to update the height.
+      // This prevents infinite rendering loop.
+
+      if (Math.abs(this.state.height - newHeight) > 1) {
+        this.setState({
+          height: newHeight
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _props = this.props,
+          classes = _props.classes,
+          className = _props.className,
+          defaultValue = _props.defaultValue,
+          onChange = _props.onChange,
+          rows = _props.rows,
+          rowsMax = _props.rowsMax,
+          textareaRef = _props.textareaRef,
+          value = _props.value,
+          other = (0, _objectWithoutProperties2.default)(_props, ["classes", "className", "defaultValue", "onChange", "rows", "rowsMax", "textareaRef", "value"]);
+      return _react.default.createElement("div", {
+        className: classes.root,
+        style: {
+          height: this.state.height
+        }
+      }, _react.default.createElement(_reactEventListener.default, {
+        target: "window",
+        onResize: this.handleResize
+      }), _react.default.createElement("textarea", {
+        ref: this.handleRefSinglelineShadow,
+        className: (0, _classnames.default)(classes.shadow, classes.textarea),
+        tabIndex: -1,
+        rows: "1",
+        readOnly: true,
+        "aria-hidden": "true",
+        value: ""
+      }), _react.default.createElement("textarea", {
+        ref: this.handleRefShadow,
+        className: (0, _classnames.default)(classes.shadow, classes.textarea),
+        tabIndex: -1,
+        rows: rows,
+        "aria-hidden": "true",
+        readOnly: true,
+        defaultValue: defaultValue,
+        value: value
+      }), _react.default.createElement("textarea", (0, _extends2.default)({
+        rows: rows,
+        className: (0, _classnames.default)(classes.textarea, className),
+        defaultValue: defaultValue,
+        value: value,
+        onChange: this.handleChange,
+        ref: this.handleRefInput
+      }, other)));
+    }
+  }]);
+  return Textarea;
+}(_react.default.Component);
+
+Textarea.propTypes =  true ? {
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * @ignore
+   */
+  defaultValue: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
+
+  /**
+   * @ignore
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * @ignore
+   */
+  onChange: _propTypes.default.func,
+
+  /**
+   * Number of rows to display when multiline option is set to true.
+   */
+  rows: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
+
+  /**
+   * Maximum number of rows to display when multiline option is set to true.
+   */
+  rowsMax: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
+
+  /**
+   * Use that property to pass a ref callback to the native textarea element.
+   */
+  textareaRef: _propTypes.default.func,
+
+  /**
+   * @ignore
+   */
+  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number])
+} : undefined;
+Textarea.defaultProps = {
+  rows: 1
+};
+
+var _default = (0, _withStyles.default)(styles)(Textarea);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/Input/index.js":
+/*!********************************************************!*\
+  !*** ../node_modules/@material-ui/core/Input/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _Input.default;
+  }
+});
+
+var _Input = _interopRequireDefault(__webpack_require__(/*! ./Input */ "../node_modules/@material-ui/core/Input/Input.js"));
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/InputLabel/InputLabel.js":
+/*!******************************************************************!*\
+  !*** ../node_modules/@material-ui/core/InputLabel/InputLabel.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "../node_modules/@babel/runtime/helpers/extends.js"));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "../node_modules/@babel/runtime/helpers/objectWithoutProperties.js"));
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "../node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js"));
+
+var _classnames = _interopRequireDefault(__webpack_require__(/*! classnames */ "../node_modules/classnames/index.js"));
+
+var _withStyles = _interopRequireDefault(__webpack_require__(/*! ../styles/withStyles */ "../node_modules/@material-ui/core/styles/withStyles.js"));
+
+var _FormLabel = _interopRequireDefault(__webpack_require__(/*! ../FormLabel */ "../node_modules/@material-ui/core/FormLabel/index.js"));
+
+// @inheritedComponent FormLabel
+var styles = function styles(theme) {
+  return {
+    root: {
+      transformOrigin: 'top left'
+    },
+    formControl: {
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      // slight alteration to spec spacing to match visual spec result
+      transform: "translate(0, ".concat(theme.spacing.unit * 3, "px) scale(1)")
+    },
+    marginDense: {
+      // Compensation for the `Input.inputDense` style.
+      transform: "translate(0, ".concat(theme.spacing.unit * 2.5 + 1, "px) scale(1)")
+    },
+    shrink: {
+      transform: 'translate(0, 1.5px) scale(0.75)',
+      transformOrigin: 'top left'
+    },
+    animated: {
+      transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shorter,
+        easing: theme.transitions.easing.easeOut
+      })
+    }
+  };
+};
+
+exports.styles = styles;
+
+function InputLabel(props, context) {
+  var _classNames;
+
+  var children = props.children,
+      classes = props.classes,
+      classNameProp = props.className,
+      disableAnimation = props.disableAnimation,
+      FormLabelClasses = props.FormLabelClasses,
+      marginProp = props.margin,
+      shrinkProp = props.shrink,
+      other = (0, _objectWithoutProperties2.default)(props, ["children", "classes", "className", "disableAnimation", "FormLabelClasses", "margin", "shrink"]);
+  var muiFormControl = context.muiFormControl;
+  var shrink = shrinkProp;
+
+  if (typeof shrink === 'undefined' && muiFormControl) {
+    shrink = muiFormControl.filled || muiFormControl.focused || muiFormControl.adornedStart;
+  }
+
+  var margin = marginProp;
+
+  if (typeof margin === 'undefined' && muiFormControl) {
+    margin = muiFormControl.margin;
+  }
+
+  var className = (0, _classnames.default)(classes.root, (_classNames = {}, (0, _defineProperty2.default)(_classNames, classes.formControl, muiFormControl), (0, _defineProperty2.default)(_classNames, classes.animated, !disableAnimation), (0, _defineProperty2.default)(_classNames, classes.shrink, shrink), (0, _defineProperty2.default)(_classNames, classes.marginDense, margin === 'dense'), _classNames), classNameProp);
+  return _react.default.createElement(_FormLabel.default, (0, _extends2.default)({
+    "data-shrink": shrink,
+    className: className,
+    classes: FormLabelClasses
+  }, other), children);
+}
+
+InputLabel.propTypes =  true ? {
+  /**
+   * The contents of the `InputLabel`.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css-api) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * If `true`, the transition animation is disabled.
+   */
+  disableAnimation: _propTypes.default.bool,
+
+  /**
+   * If `true`, apply disabled class.
+   */
+  disabled: _propTypes.default.bool,
+
+  /**
+   * If `true`, the label will be displayed in an error state.
+   */
+  error: _propTypes.default.bool,
+
+  /**
+   * If `true`, the input of this label is focused.
+   */
+  focused: _propTypes.default.bool,
+
+  /**
+   * `classes` property applied to the `FormLabel` element.
+   */
+  FormLabelClasses: _propTypes.default.object,
+
+  /**
+   * If `dense`, will adjust vertical spacing. This is normally obtained via context from
+   * FormControl.
+   */
+  margin: _propTypes.default.oneOf(['dense']),
+
+  /**
+   * if `true`, the label will indicate that the input is required.
+   */
+  required: _propTypes.default.bool,
+
+  /**
+   * If `true`, the label is shrunk.
+   */
+  shrink: _propTypes.default.bool
+} : undefined;
+InputLabel.defaultProps = {
+  disableAnimation: false
+};
+InputLabel.contextTypes = {
+  muiFormControl: _propTypes.default.object
+};
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiInputLabel'
+})(InputLabel);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "../node_modules/@material-ui/core/InputLabel/index.js":
+/*!*************************************************************!*\
+  !*** ../node_modules/@material-ui/core/InputLabel/index.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _InputLabel.default;
+  }
+});
+
+var _InputLabel = _interopRequireDefault(__webpack_require__(/*! ./InputLabel */ "../node_modules/@material-ui/core/InputLabel/InputLabel.js"));
 
 /***/ }),
 
@@ -73117,6 +75295,59 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./actions/chats.js":
+/*!**************************!*\
+  !*** ./actions/chats.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.loadChats = exports.ERROR_CHAT_LOADING = exports.SUCCESS_CHAT_LOADING = exports.START_CHAT_LOADING = undefined;
+
+var _reduxApiMiddleware = __webpack_require__(/*! redux-api-middleware */ "../node_modules/redux-api-middleware/lib/index.js");
+
+var _normalizr = __webpack_require__(/*! normalizr */ "../node_modules/normalizr/dist/src/index.js");
+
+var _schemas = __webpack_require__(/*! ./../utils/schemas.jsx */ "./utils/schemas.jsx");
+
+var _jsCookie = __webpack_require__(/*! js-cookie */ "../node_modules/js-cookie/src/js.cookie.js");
+
+var _jsCookie2 = _interopRequireDefault(_jsCookie);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var START_CHAT_LOADING = exports.START_CHAT_LOADING = 'START_CHAT_LOADING';
+var SUCCESS_CHAT_LOADING = exports.SUCCESS_CHAT_LOADING = 'SUCCESS_CHAT_LOADING';
+var ERROR_CHAT_LOADING = exports.ERROR_CHAT_LOADING = 'ERROR_CHAT_LOADING';
+
+var loadChats = exports.loadChats = function loadChats(url) {
+    return _defineProperty({}, _reduxApiMiddleware.CALL_API, {
+        credentials: 'include',
+        endpoint: url,
+        method: 'GET',
+        types: [START_CHAT_LOADING, {
+            type: SUCCESS_CHAT_LOADING,
+            payload: function payload(action, state, res) {
+                return (0, _reduxApiMiddleware.getJSON)(res).then(function (json) {
+                    var normalizedData = (0, _normalizr.normalize)(json, [_schemas.chat]);
+                    // delete json;
+                    return Object.assign({}, json, normalizedData);
+                });
+            }
+        }, ERROR_CHAT_LOADING]
+    });
+};
+
+/***/ }),
+
 /***/ "./actions/events.js":
 /*!***************************!*\
   !*** ./actions/events.js ***!
@@ -73392,6 +75623,10 @@ var _EventList = __webpack_require__(/*! ./EventList.jsx */ "./components/EventL
 
 var _EventList2 = _interopRequireDefault(_EventList);
 
+var _ChatList = __webpack_require__(/*! ./ChatList.jsx */ "./components/ChatList.jsx");
+
+var _ChatList2 = _interopRequireDefault(_ChatList);
+
 var _Login = __webpack_require__(/*! ./Login.jsx */ "./components/Login.jsx");
 
 var _Login2 = _interopRequireDefault(_Login);
@@ -73442,6 +75677,7 @@ var App = function (_React$Component) {
             postList: [],
             eventList: [],
             userList: [],
+            chatList: [],
             isLoading: false
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
@@ -73461,6 +75697,7 @@ var App = function (_React$Component) {
                         _reactRouterDom.Switch,
                         null,
                         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _EventList2.default }),
+                        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/chat_list', component: _ChatList2.default }),
                         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/user_list/', component: _UserList2.default }),
                         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/post_list/', component: _PostList2.default }),
                         _react2.default.createElement(_reactRouterDom.Route, { path: '/profile', component: _MyAccount2.default }),
@@ -73477,6 +75714,309 @@ var App = function (_React$Component) {
 
 App.propTypes = {};
 exports.default = App;
+
+/***/ }),
+
+/***/ "./components/Chat.jsx":
+/*!*****************************!*\
+  !*** ./components/Chat.jsx ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "../node_modules/react-redux/es/index.js");
+
+var _User = __webpack_require__(/*! ./User.jsx */ "./components/User.jsx");
+
+var _User2 = _interopRequireDefault(_User);
+
+var _Like = __webpack_require__(/*! ./Like.jsx */ "./components/Like.jsx");
+
+var _Like2 = _interopRequireDefault(_Like);
+
+var _styles = __webpack_require__(/*! @material-ui/core/styles */ "../node_modules/@material-ui/core/styles/index.js");
+
+var _classnames = __webpack_require__(/*! classnames */ "../node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _Card = __webpack_require__(/*! @material-ui/core/Card */ "../node_modules/@material-ui/core/Card/index.js");
+
+var _Card2 = _interopRequireDefault(_Card);
+
+var _CardHeader = __webpack_require__(/*! @material-ui/core/CardHeader */ "../node_modules/@material-ui/core/CardHeader/index.js");
+
+var _CardHeader2 = _interopRequireDefault(_CardHeader);
+
+var _CardMedia = __webpack_require__(/*! @material-ui/core/CardMedia */ "../node_modules/@material-ui/core/CardMedia/index.js");
+
+var _CardMedia2 = _interopRequireDefault(_CardMedia);
+
+var _CardContent = __webpack_require__(/*! @material-ui/core/CardContent */ "../node_modules/@material-ui/core/CardContent/index.js");
+
+var _CardContent2 = _interopRequireDefault(_CardContent);
+
+var _CardActions = __webpack_require__(/*! @material-ui/core/CardActions */ "../node_modules/@material-ui/core/CardActions/index.js");
+
+var _CardActions2 = _interopRequireDefault(_CardActions);
+
+var _Collapse = __webpack_require__(/*! @material-ui/core/Collapse */ "../node_modules/@material-ui/core/Collapse/index.js");
+
+var _Collapse2 = _interopRequireDefault(_Collapse);
+
+var _Avatar = __webpack_require__(/*! @material-ui/core/Avatar */ "../node_modules/@material-ui/core/Avatar/index.js");
+
+var _Avatar2 = _interopRequireDefault(_Avatar);
+
+var _IconButton = __webpack_require__(/*! @material-ui/core/IconButton */ "../node_modules/@material-ui/core/IconButton/index.js");
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _Typography = __webpack_require__(/*! @material-ui/core/Typography */ "../node_modules/@material-ui/core/Typography/index.js");
+
+var _Typography2 = _interopRequireDefault(_Typography);
+
+var _red = __webpack_require__(/*! @material-ui/core/colors/red */ "../node_modules/@material-ui/core/colors/red.js");
+
+var _red2 = _interopRequireDefault(_red);
+
+var _Favorite = __webpack_require__(/*! @material-ui/icons/Favorite */ "../node_modules/@material-ui/icons/Favorite.js");
+
+var _Favorite2 = _interopRequireDefault(_Favorite);
+
+var _Share = __webpack_require__(/*! @material-ui/icons/Share */ "../node_modules/@material-ui/icons/Share.js");
+
+var _Share2 = _interopRequireDefault(_Share);
+
+var _ExpandMore = __webpack_require__(/*! @material-ui/icons/ExpandMore */ "../node_modules/@material-ui/icons/ExpandMore.js");
+
+var _ExpandMore2 = _interopRequireDefault(_ExpandMore);
+
+var _Delete = __webpack_require__(/*! @material-ui/icons/Delete */ "../node_modules/@material-ui/icons/Delete.js");
+
+var _Delete2 = _interopRequireDefault(_Delete);
+
+var _Comment = __webpack_require__(/*! @material-ui/icons/Comment */ "../node_modules/@material-ui/icons/Comment.js");
+
+var _Comment2 = _interopRequireDefault(_Comment);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "../node_modules/react-router-dom/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Chat = function (_React$Component) {
+    _inherits(Chat, _React$Component);
+
+    function Chat() {
+        _classCallCheck(this, Chat);
+
+        return _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).apply(this, arguments));
+    }
+
+    _createClass(Chat, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _Card2.default,
+                    null,
+                    _react2.default.createElement(_CardHeader2.default, {
+                        avatar: _react2.default.createElement(
+                            _Avatar2.default,
+                            { 'aria-label': 'Recipe' },
+                            'R'
+                        ),
+                        action: _react2.default.createElement(
+                            _IconButton2.default,
+                            null,
+                            _react2.default.createElement(_Delete2.default, null)
+                        ),
+                        title: _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: "/user/1" },
+                            _react2.default.createElement(_User2.default, { id: this.props.user_2 })
+                        ),
+                        subheader: new Date(this.props.created_at).toDateString()
+                    })
+                )
+            );
+        }
+    }]);
+
+    return Chat;
+}(_react2.default.Component);
+
+Chat.propTypes = {
+    user_1: _propTypes2.default.number,
+    user_2: _propTypes2.default.number,
+    messages_count: _propTypes2.default.number
+};
+
+
+var mapStateToProps = function mapStateToProps(_ref, ownProps) {
+    var chats = _ref.chats;
+
+    return _extends({}, chats.chats[ownProps.id]);
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {};
+};
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Chat);
+
+/***/ }),
+
+/***/ "./components/ChatList.jsx":
+/*!*********************************!*\
+  !*** ./components/ChatList.jsx ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Chat = __webpack_require__(/*! ./Chat.jsx */ "./components/Chat.jsx");
+
+var _Chat2 = _interopRequireDefault(_Chat);
+
+var _react = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _apiUrls = __webpack_require__(/*! ./../constants/apiUrls */ "./constants/apiUrls.js");
+
+var _apiUrls2 = _interopRequireDefault(_apiUrls);
+
+var _chats = __webpack_require__(/*! ./../actions/chats.js */ "./actions/chats.js");
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "../node_modules/react-redux/es/index.js");
+
+var _redux = __webpack_require__(/*! redux */ "../node_modules/redux/es/redux.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ChatList = function (_React$Component) {
+    _inherits(ChatList, _React$Component);
+
+    function ChatList() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, ChatList);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ChatList.__proto__ || Object.getPrototypeOf(ChatList)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+            expanded: null
+        }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(ChatList, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.loadChats(_apiUrls2.default.chats);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            if (this.props.isLoading) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    'Loading...'
+                );
+            }
+
+            var chats = this.props.chatList.map(function (item) {
+                return _react2.default.createElement(_Chat2.default, { key: item, id: item });
+            });
+            return _react2.default.createElement(
+                'div',
+                { className: 'chat-list' },
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    '\u041C\u043E\u0438 \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u044F'
+                ),
+                chats
+            );
+        }
+    }]);
+
+    return ChatList;
+}(_react2.default.Component);
+
+ChatList.propTypes = {
+    isLoading: _propTypes2.default.bool,
+    chatList: _propTypes2.default.arrayOf(_propTypes2.default.number)
+};
+ChatList.defaultProps = {
+    chatList: [],
+    isLoading: false
+};
+
+
+var mapStateToProps = function mapStateToProps(_ref2) {
+    var chats = _ref2.chats;
+
+    return {
+        chatList: chats.chatList,
+        isLoading: chats.isLoading
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({ loadChats: _chats.loadChats }, dispatch);
+};
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ChatList);
 
 /***/ }),
 
@@ -74097,6 +76637,10 @@ var _Redirect = __webpack_require__(/*! react-router-dom/es/Redirect */ "../node
 
 var _Redirect2 = _interopRequireDefault(_Redirect);
 
+var _PostList = __webpack_require__(/*! ./PostList.jsx */ "./components/PostList.jsx");
+
+var _PostList2 = _interopRequireDefault(_PostList);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -74134,6 +76678,12 @@ var MyAccount = function (_React$Component) {
                 'email: ',
                 info.email,
                 _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    '\u041C\u043E\u0438 \u043F\u043E\u0441\u0442\u044B'
+                ),
+                _react2.default.createElement(_PostList2.default, null),
                 _react2.default.createElement(
                     _Button2.default,
                     { onClick: function onClick() {
@@ -74359,7 +76909,7 @@ var NavBar = function (_React$Component2) {
             scrollButtons: "on"
           },
           _react2.default.createElement(ListItemLink, { to: "/", primary: "News", icon: _react2.default.createElement(_Home2.default, null) }),
-          _react2.default.createElement(ListItemLink, { to: "/post_list/", primary: "Messages", icon: _react2.default.createElement(_Message2.default, null) }),
+          _react2.default.createElement(ListItemLink, { to: "/chat_list/", primary: "Messages", icon: _react2.default.createElement(_Message2.default, null) }),
           _react2.default.createElement(ListItemLink, { to: "/", primary: "Notifications", icon: _react2.default.createElement(_Notifications2.default, null) }),
           _react2.default.createElement(ListItemLink, { to: "/", primary: "Settings", icon: _react2.default.createElement(_Settings2.default, null) }),
           account
@@ -74419,6 +76969,78 @@ var _User = __webpack_require__(/*! ./User.jsx */ "./components/User.jsx");
 
 var _User2 = _interopRequireDefault(_User);
 
+var _Like = __webpack_require__(/*! ./Like.jsx */ "./components/Like.jsx");
+
+var _Like2 = _interopRequireDefault(_Like);
+
+var _styles = __webpack_require__(/*! @material-ui/core/styles */ "../node_modules/@material-ui/core/styles/index.js");
+
+var _classnames = __webpack_require__(/*! classnames */ "../node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _Card = __webpack_require__(/*! @material-ui/core/Card */ "../node_modules/@material-ui/core/Card/index.js");
+
+var _Card2 = _interopRequireDefault(_Card);
+
+var _CardHeader = __webpack_require__(/*! @material-ui/core/CardHeader */ "../node_modules/@material-ui/core/CardHeader/index.js");
+
+var _CardHeader2 = _interopRequireDefault(_CardHeader);
+
+var _CardMedia = __webpack_require__(/*! @material-ui/core/CardMedia */ "../node_modules/@material-ui/core/CardMedia/index.js");
+
+var _CardMedia2 = _interopRequireDefault(_CardMedia);
+
+var _CardContent = __webpack_require__(/*! @material-ui/core/CardContent */ "../node_modules/@material-ui/core/CardContent/index.js");
+
+var _CardContent2 = _interopRequireDefault(_CardContent);
+
+var _CardActions = __webpack_require__(/*! @material-ui/core/CardActions */ "../node_modules/@material-ui/core/CardActions/index.js");
+
+var _CardActions2 = _interopRequireDefault(_CardActions);
+
+var _Collapse = __webpack_require__(/*! @material-ui/core/Collapse */ "../node_modules/@material-ui/core/Collapse/index.js");
+
+var _Collapse2 = _interopRequireDefault(_Collapse);
+
+var _Avatar = __webpack_require__(/*! @material-ui/core/Avatar */ "../node_modules/@material-ui/core/Avatar/index.js");
+
+var _Avatar2 = _interopRequireDefault(_Avatar);
+
+var _IconButton = __webpack_require__(/*! @material-ui/core/IconButton */ "../node_modules/@material-ui/core/IconButton/index.js");
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _Typography = __webpack_require__(/*! @material-ui/core/Typography */ "../node_modules/@material-ui/core/Typography/index.js");
+
+var _Typography2 = _interopRequireDefault(_Typography);
+
+var _red = __webpack_require__(/*! @material-ui/core/colors/red */ "../node_modules/@material-ui/core/colors/red.js");
+
+var _red2 = _interopRequireDefault(_red);
+
+var _Favorite = __webpack_require__(/*! @material-ui/icons/Favorite */ "../node_modules/@material-ui/icons/Favorite.js");
+
+var _Favorite2 = _interopRequireDefault(_Favorite);
+
+var _Share = __webpack_require__(/*! @material-ui/icons/Share */ "../node_modules/@material-ui/icons/Share.js");
+
+var _Share2 = _interopRequireDefault(_Share);
+
+var _ExpandMore = __webpack_require__(/*! @material-ui/icons/ExpandMore */ "../node_modules/@material-ui/icons/ExpandMore.js");
+
+var _ExpandMore2 = _interopRequireDefault(_ExpandMore);
+
+var _Delete = __webpack_require__(/*! @material-ui/icons/Delete */ "../node_modules/@material-ui/icons/Delete.js");
+
+var _Delete2 = _interopRequireDefault(_Delete);
+
+var _Comment = __webpack_require__(/*! @material-ui/icons/Comment */ "../node_modules/@material-ui/icons/Comment.js");
+
+var _Comment2 = _interopRequireDefault(_Comment);
+
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "../node_modules/react-router-dom/es/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -74439,19 +77061,62 @@ var Post = function (_React$Component) {
     _createClass(Post, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
 
             return _react2.default.createElement(
                 'div',
-                { className: 'post' },
+                null,
                 _react2.default.createElement(
-                    'div',
-                    { className: 'post__author' },
-                    _react2.default.createElement(_User2.default, { id: this.props.author })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'post__content' },
-                    this.props.text
+                    _Card2.default,
+                    null,
+                    _react2.default.createElement(_CardHeader2.default, {
+                        avatar: _react2.default.createElement(
+                            _Avatar2.default,
+                            { 'aria-label': 'Recipe' },
+                            'R'
+                        ),
+                        action: _react2.default.createElement(
+                            _IconButton2.default,
+                            null,
+                            _react2.default.createElement(_Delete2.default, null)
+                        ),
+                        title: _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: "/user/1" },
+                            _react2.default.createElement(_User2.default, { id: this.props.author })
+                        ),
+                        subheader: new Date(this.props.created_at).toDateString()
+                    }),
+                    _react2.default.createElement(
+                        _CardContent2.default,
+                        null,
+                        _react2.default.createElement(
+                            _Typography2.default,
+                            { component: 'p' },
+                            this.props.text
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _CardActions2.default,
+                        { disableActionSpacing: true },
+                        _react2.default.createElement(
+                            _IconButton2.default,
+                            { 'aria-label': 'Like', onClick: function onClick() {
+                                    _this2.setState({ liked: true });
+                                } },
+                            _react2.default.createElement(_Favorite2.default, null)
+                        ),
+                        _react2.default.createElement(
+                            _IconButton2.default,
+                            { 'aria-label': 'Share' },
+                            _react2.default.createElement(_Share2.default, null)
+                        ),
+                        _react2.default.createElement(
+                            _IconButton2.default,
+                            { 'aria-label': 'Comment' },
+                            _react2.default.createElement(_Comment2.default, null)
+                        )
+                    )
                 )
             );
         }
@@ -74464,8 +77129,8 @@ Post.propTypes = {
     id: _propTypes2.default.number,
     author: _propTypes2.default.number,
     blog: _propTypes2.default.number
-
 };
+
 
 var mapStateToProps = function mapStateToProps(_ref, ownProps) {
     var posts = _ref.posts;
@@ -74514,6 +77179,30 @@ var _posts = __webpack_require__(/*! ../actions/posts */ "./actions/posts.js");
 
 var _redux = __webpack_require__(/*! redux */ "../node_modules/redux/es/redux.js");
 
+var _FormControl = __webpack_require__(/*! @material-ui/core/FormControl */ "../node_modules/@material-ui/core/FormControl/index.js");
+
+var _FormControl2 = _interopRequireDefault(_FormControl);
+
+var _InputLabel = __webpack_require__(/*! @material-ui/core/InputLabel */ "../node_modules/@material-ui/core/InputLabel/index.js");
+
+var _InputLabel2 = _interopRequireDefault(_InputLabel);
+
+var _Input = __webpack_require__(/*! @material-ui/core/Input */ "../node_modules/@material-ui/core/Input/index.js");
+
+var _Input2 = _interopRequireDefault(_Input);
+
+var _FormHelperText = __webpack_require__(/*! @material-ui/core/FormHelperText */ "../node_modules/@material-ui/core/FormHelperText/index.js");
+
+var _FormHelperText2 = _interopRequireDefault(_FormHelperText);
+
+var _Button = __webpack_require__(/*! @material-ui/core/Button */ "../node_modules/@material-ui/core/Button/index.js");
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _Icon = __webpack_require__(/*! @material-ui/core/Icon */ "../node_modules/@material-ui/core/Icon/index.js");
+
+var _Icon2 = _interopRequireDefault(_Icon);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -74555,35 +77244,62 @@ var PostForm = function (_React$Component) {
     _createClass(PostForm, [{
         key: 'render',
         value: function render() {
-            // const csrf = Cookies.get("csrftoken");
-            return _react2.default.createElement(
-                'div',
-                { className: 'create-form' },
+            return (
+                // <div>
+                //     <div>Create Post</div>
+                //         <FormControl >
+                //         <InputLabel htmlFor="name-simple">Blog</InputLabel>
+                //         <Input
+                //             id="name-simple"
+                //             value={this.state.blog}
+                //             onChange={this.onChange}
+                //         />
+                //         <InputLabel htmlFor="name-helper">Text</InputLabel>
+                //         <Input
+                //             id="name-helper"
+                //             value={this.state.text}
+                //             onChange={this.onChange}
+                //         />
+                //         <FormHelperText id="name-helper-text">
+                //             no more 256 symbols
+                //         </FormHelperText>
+
+                //         <Button color="primary" onClick={ this.onClick } >
+                //         Send
+                //         <Icon >send</Icon>
+                //         </Button>
+                //         </FormControl>
+                // </div>
+
                 _react2.default.createElement(
-                    'h2',
-                    null,
-                    'Create post'
-                ),
-                _react2.default.createElement(
-                    'form',
-                    null,
+                    'div',
+                    { className: 'create-form' },
                     _react2.default.createElement(
-                        'div',
-                        { className: 'form-field-wrapper' },
-                        _react2.default.createElement('textarea', { onChange: this.onChange, value: this.state.text, className: 'form-field', type: 'text', name: 'text', placeholder: 'Text' })
+                        'h2',
+                        null,
+                        'Create post'
                     ),
                     _react2.default.createElement(
-                        'div',
-                        { className: 'form-field-wrapper' },
-                        _react2.default.createElement('input', { onChange: this.onChange, value: this.state.blog, className: 'form-field', name: 'blog_id', placeholder: 'Blog' })
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'form-field-wrapper' },
+                        'form',
+                        null,
                         _react2.default.createElement(
-                            'button',
-                            { onClick: this.onClick },
-                            'Create'
+                            'div',
+                            { className: 'form-field-wrapper' },
+                            _react2.default.createElement('textarea', { onChange: this.onChange, value: this.state.text, className: 'form-field', type: 'text', name: 'text', placeholder: 'Text' })
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-field-wrapper' },
+                            _react2.default.createElement('input', { onChange: this.onChange, value: this.state.blog, className: 'form-field', name: 'blog_id', placeholder: 'Blog' })
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-field-wrapper' },
+                            _react2.default.createElement(
+                                'button',
+                                { onClick: this.onClick },
+                                'Create'
+                            )
                         )
                     )
                 )
@@ -74661,35 +77377,35 @@ exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(PostForm);
 
 //     return (
 
-//       <div className={classes.container}>
-//          <div>Create Post</div>
-//         <FormControl className={classes.formControl}>
-//           <InputLabel htmlFor="name-simple">Blog</InputLabel>
-//           <Input
-//             id="name-simple"
-//             value={this.state.blog}
-//             onChange={this.handleChange}
-//           />
-//         </FormControl>
-//         <FormControl
-//           className={classes.formControl}
-//           aria-describedby="name-helper-text"
-//         >
-//           <InputLabel htmlFor="name-helper">Text</InputLabel>
-//           <Input
-//             id="name-helper"
-//             value={this.state.text}
-//             onChange={this.handleChange}
-//           />
-//           <FormHelperText id="name-helper-text">
-//             no more 256 symbols
-//           </FormHelperText>
-//         </FormControl>
-//         <Button variant="contained" color="primary" className={classes.button}>
-//           Send
-//           <Icon className={classes.rightIcon}>send</Icon>
-//         </Button>
-//       </div>
+//   <div className={classes.container}>
+//      <div>Create Post</div>
+//     <FormControl className={classes.formControl}>
+//       <InputLabel htmlFor="name-simple">Blog</InputLabel>
+//       <Input
+//         id="name-simple"
+//         value={this.state.blog}
+//         onChange={this.handleChange}
+//       />
+//     </FormControl>
+//     <FormControl
+//       className={classes.formControl}
+//       aria-describedby="name-helper-text"
+//     >
+//       <InputLabel htmlFor="name-helper">Text</InputLabel>
+//       <Input
+//         id="name-helper"
+//         value={this.state.text}
+//         onChange={this.handleChange}
+//       />
+//       <FormHelperText id="name-helper-text">
+//         no more 256 symbols
+//       </FormHelperText>
+//     </FormControl>
+//     <Button variant="contained" color="primary" className={classes.button}>
+//       Send
+//       <Icon className={classes.rightIcon}>send</Icon>
+//     </Button>
+//   </div>
 //     );
 //   }
 // }
@@ -74698,7 +77414,10 @@ exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(PostForm);
 //   classes: PropTypes.object.isRequired
 // };
 
-// export default withStyles(styles)(PostForm);
+//  const mapDispatchToProps = (dispatch) => {
+//     return bindActionCreators({ send }, dispatch)
+// }
+// export default connect(null,mapDispatchToProps)(PostForm);
 
 /***/ }),
 
@@ -75026,6 +77745,7 @@ exports.default = {
     users: '/api/users/',
     comments: '/api/comments/',
     likes: '/api/likes/',
+    chats: '/api/chats/',
     blogs: '/api/blogs/',
     submissions: '/api/submissions/',
     sessionUserInfo: "/api/me",
@@ -75048,16 +77768,16 @@ Object.defineProperty(exports, "__esModule", {
      value: true
 });
 
-var _test = __webpack_require__(/*! ./test */ "./middlewares/test.js");
+var _logger = __webpack_require__(/*! ./logger */ "./middlewares/logger.js");
 
-exports.default = [_test.logger]; // import { apiMiddleware } from 'redux-api-middleware';
+exports.default = [_logger.logger];
 
 /***/ }),
 
-/***/ "./middlewares/test.js":
-/*!*****************************!*\
-  !*** ./middlewares/test.js ***!
-  \*****************************/
+/***/ "./middlewares/logger.js":
+/*!*******************************!*\
+  !*** ./middlewares/logger.js ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -75086,6 +77806,70 @@ var logger = exports.logger = function logger(store) {
         };
     };
 };
+
+/***/ }),
+
+/***/ "./reducers/chats.js":
+/*!***************************!*\
+  !*** ./reducers/chats.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = chats;
+
+var _reactAddonsUpdate = __webpack_require__(/*! react-addons-update */ "../node_modules/react-addons-update/index.js");
+
+var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
+
+__webpack_require__(/*! ./../actions/chats.js */ "./actions/chats.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {
+    chatList: [],
+    chats: {},
+    isLoading: false
+};
+
+function chats() {
+    var store = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+
+        case 'START_CHAT_LOADING':
+            {
+                return (0, _reactAddonsUpdate2.default)(store, {
+                    isLoading: { $set: true }
+                });
+            }
+
+        case 'SUCCESS_CHAT_LOADING':
+            {
+                return (0, _reactAddonsUpdate2.default)(store, {
+                    isLoading: { $set: false },
+                    chatList: { $set: action.payload.result },
+                    chats: { $merge: action.payload.entities.chats }
+                });
+            }
+
+        case 'ERROR_CHAT_LOADING':
+            {
+                return (0, _reactAddonsUpdate2.default)(store, {
+                    isLoading: { $set: false }
+                });
+            }
+        default:
+            return store;
+    }
+}
 
 /***/ }),
 
@@ -75185,6 +77969,10 @@ var _events = __webpack_require__(/*! ./events */ "./reducers/events.js");
 
 var _events2 = _interopRequireDefault(_events);
 
+var _chats = __webpack_require__(/*! ./chats */ "./reducers/chats.js");
+
+var _chats2 = _interopRequireDefault(_chats);
+
 var _reactReduxForm = __webpack_require__(/*! react-redux-form */ "../node_modules/react-redux-form/lib/index.js");
 
 var _loginReducers = __webpack_require__(/*! ./loginReducers */ "./reducers/loginReducers.js");
@@ -75203,7 +77991,8 @@ exports.default = (0, _redux.combineReducers)(_extends({
     sessionInfo: _session2.default,
     posts: _posts2.default,
     users: _users2.default,
-    events: _events2.default
+    events: _events2.default,
+    chats: _chats2.default
 }, (0, _reactReduxForm.createForms)({
     post: initialPost
 }), {
@@ -75592,12 +78381,16 @@ exports.default = store;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.event = exports.post = exports.blog = exports.user = undefined;
+exports.event = exports.post = exports.chat = exports.blog = exports.user = undefined;
 
 var _normalizr = __webpack_require__(/*! normalizr */ "../node_modules/normalizr/dist/src/index.js");
 
 var user = exports.user = new _normalizr.schema.Entity('users');
 var blog = exports.blog = new _normalizr.schema.Entity('blogs');
+var chat = exports.chat = new _normalizr.schema.Entity('chats', {
+    user_1: user,
+    user_2: user
+});
 //export const object = new schema.Entity('objects');
 var post = exports.post = new _normalizr.schema.Entity('posts', {
     author: user,
