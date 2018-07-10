@@ -54,7 +54,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
    # url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
-   #  url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+   # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^$', index.index, name='index_page'),
     url(r'^.*?/$', index.index),

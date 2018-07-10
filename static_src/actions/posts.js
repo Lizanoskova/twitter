@@ -8,7 +8,9 @@ export const ERROR_TASK_LOADING = 'ERROR_TASK_LOADING';
 export const START_POST_SENDING = 'START_POST_SENDING';
 export const SUCCESS_POST_SENDING = 'SUCCESS_POST_SENDING';
 export const ERROR_POST_SENDING = 'ERROR_POST_SENDING';
-
+export const START_POST_DELETING = 'START_POST_DELETING';
+export const SUCCESS_POST_DELETING = 'SUCCESS_POST_DELETING';
+export const ERROR_POST_DELETING = 'ERROR_POST_DELETING';
 
 export const loadPosts = (url) => {
     return {
@@ -34,6 +36,26 @@ export const loadPosts = (url) => {
     };
 };
 
+
+export const deletePost = (url,data) => {
+    console.log('Delete')
+    return {
+        [RSAA]: {
+            credentials: 'include',
+            endpoint: url,
+            method: 'PATCH',
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRFToken': Cookies.get("csrftoken")
+              },
+            types: [START_POST_DELETING, 
+                    SUCCESS_POST_DELETING,
+                    ERROR_POST_DELETING],
+        },
+    };
+};
 
 export const send = (url,data) => {
     console.log('SEND')

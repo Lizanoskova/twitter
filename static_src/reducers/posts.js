@@ -41,6 +41,17 @@ export default function posts(store = initialState, action){
         case 'ERROR_POST_SENDING':{
             return true;
         }
+        case 'START_POST_DELETING':{
+            return true;
+        }
+
+        case 'SUCCESS_POST_DELETING':{
+            return true;
+        }
+
+        case 'ERROR_POST_DELETING':{
+            return true;
+        }
         default:
             return store;
     }

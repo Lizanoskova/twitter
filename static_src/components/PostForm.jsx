@@ -1,5 +1,5 @@
 import React from 'react';
-import apiUrls from './../constants/apiUrls.js'
+import apiUrls from './../constants/apiUrls.js';
 import Cookies from 'js-cookie';
 import { connect } from 'react-redux';
 import { send } from '../actions/posts';

@@ -14,3 +14,7 @@ export const post = new schema.Entity('posts', {
 export const event = new schema.Entity('events', {
     author: user,
 });
+export const like = new schema.Entity('events', {
+    author: user,
+});
+

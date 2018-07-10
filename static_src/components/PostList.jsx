@@ -29,7 +29,10 @@ class PostList extends React.Component{
         }
        
         const posts = this.props.postList.map(
-            item =>  <Post key = { item } id = { item }/>,
+            // if (item.is_deleted = true)
+            //     item =>  <Post key = { item } id = { item }/>
+            // else
+                item =>  <Post key = { item } id = { item }/>,
         );
         return( 
             <div className="post-list">

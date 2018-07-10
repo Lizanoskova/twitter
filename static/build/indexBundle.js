@@ -75395,6 +75395,57 @@ var loadEvents = exports.loadEvents = function loadEvents(url) {
 
 /***/ }),
 
+/***/ "./actions/likes.js":
+/*!**************************!*\
+  !*** ./actions/likes.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.like_action = exports.ERROR_LIKING = exports.SUCCESS_LIKING = exports.START_LIKING = undefined;
+
+var _reduxApiMiddleware = __webpack_require__(/*! redux-api-middleware */ "../node_modules/redux-api-middleware/lib/index.js");
+
+var _normalizr = __webpack_require__(/*! normalizr */ "../node_modules/normalizr/dist/src/index.js");
+
+var _schemas = __webpack_require__(/*! ./../utils/schemas.jsx */ "./utils/schemas.jsx");
+
+var _jsCookie = __webpack_require__(/*! js-cookie */ "../node_modules/js-cookie/src/js.cookie.js");
+
+var _jsCookie2 = _interopRequireDefault(_jsCookie);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var START_LIKING = exports.START_LIKING = 'START_LIKING';
+var SUCCESS_LIKING = exports.SUCCESS_LIKING = 'SUCCESS_LIKING';
+var ERROR_LIKING = exports.ERROR_LIKING = 'ERROR_LIKING';
+
+var like_action = exports.like_action = function like_action(url, data) {
+    // console.log('LIKE')
+    return _defineProperty({}, _reduxApiMiddleware.RSAA, {
+        credentials: 'include',
+        endpoint: url,
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRFToken': _jsCookie2.default.get("csrftoken")
+        },
+        types: [START_LIKING, SUCCESS_LIKING, ERROR_LIKING]
+    });
+};
+
+/***/ }),
+
 /***/ "./actions/loginActions.js":
 /*!*********************************!*\
   !*** ./actions/loginActions.js ***!
@@ -75485,7 +75536,7 @@ exports.default = actionsList;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.send = exports.loadPosts = exports.ERROR_POST_SENDING = exports.SUCCESS_POST_SENDING = exports.START_POST_SENDING = exports.ERROR_TASK_LOADING = exports.SUCCESS_TASK_LOADING = exports.START_TASK_LOADING = undefined;
+exports.send = exports.deletePost = exports.loadPosts = exports.ERROR_POST_DELETING = exports.SUCCESS_POST_DELETING = exports.START_POST_DELETING = exports.ERROR_POST_SENDING = exports.SUCCESS_POST_SENDING = exports.START_POST_SENDING = exports.ERROR_TASK_LOADING = exports.SUCCESS_TASK_LOADING = exports.START_TASK_LOADING = undefined;
 
 var _reduxApiMiddleware = __webpack_require__(/*! redux-api-middleware */ "../node_modules/redux-api-middleware/lib/index.js");
 
@@ -75507,6 +75558,9 @@ var ERROR_TASK_LOADING = exports.ERROR_TASK_LOADING = 'ERROR_TASK_LOADING';
 var START_POST_SENDING = exports.START_POST_SENDING = 'START_POST_SENDING';
 var SUCCESS_POST_SENDING = exports.SUCCESS_POST_SENDING = 'SUCCESS_POST_SENDING';
 var ERROR_POST_SENDING = exports.ERROR_POST_SENDING = 'ERROR_POST_SENDING';
+var START_POST_DELETING = exports.START_POST_DELETING = 'START_POST_DELETING';
+var SUCCESS_POST_DELETING = exports.SUCCESS_POST_DELETING = 'SUCCESS_POST_DELETING';
+var ERROR_POST_DELETING = exports.ERROR_POST_DELETING = 'ERROR_POST_DELETING';
 
 var loadPosts = exports.loadPosts = function loadPosts(url) {
     return _defineProperty({}, _reduxApiMiddleware.CALL_API, {
@@ -75523,6 +75577,22 @@ var loadPosts = exports.loadPosts = function loadPosts(url) {
                 });
             }
         }, ERROR_TASK_LOADING]
+    });
+};
+
+var deletePost = exports.deletePost = function deletePost(url, data) {
+    console.log('Delete');
+    return _defineProperty({}, _reduxApiMiddleware.RSAA, {
+        credentials: 'include',
+        endpoint: url,
+        method: 'PATCH',
+        body: JSON.stringify(data),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRFToken': _jsCookie2.default.get("csrftoken")
+        },
+        types: [START_POST_DELETING, SUCCESS_POST_DELETING, ERROR_POST_DELETING]
     });
 };
 
@@ -76392,6 +76462,26 @@ var _User = __webpack_require__(/*! ./User.jsx */ "./components/User.jsx");
 
 var _User2 = _interopRequireDefault(_User);
 
+var _likes = __webpack_require__(/*! ../actions/likes */ "./actions/likes.js");
+
+var _redux = __webpack_require__(/*! redux */ "../node_modules/redux/es/redux.js");
+
+var _IconButton = __webpack_require__(/*! @material-ui/core/IconButton */ "../node_modules/@material-ui/core/IconButton/index.js");
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _Favorite = __webpack_require__(/*! @material-ui/icons/Favorite */ "../node_modules/@material-ui/icons/Favorite.js");
+
+var _Favorite2 = _interopRequireDefault(_Favorite);
+
+var _apiUrls = __webpack_require__(/*! ./../constants/apiUrls.js */ "./constants/apiUrls.js");
+
+var _apiUrls2 = _interopRequireDefault(_apiUrls);
+
+var _Settings = __webpack_require__(/*! @material-ui/icons/Settings */ "../node_modules/@material-ui/icons/Settings.js");
+
+var _Settings2 = _interopRequireDefault(_Settings);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -76415,24 +76505,34 @@ var Like = function (_React$Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Like.__proto__ || Object.getPrototypeOf(Like)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            liked: false
+            isActive: true,
+            object_id: '10',
+            content_type: 'post'
+        }, _this.onClick = function (e) {
+            console.log('onClick');
+            if (_this.state.isActive) _this.setState({ isActive: true });else _this.setState({ isActive: false });
+            // this.setState({ object_id: true });
+            // this.props.like_action(apiUrls.likes,{object_id:this.state.object_id,content_type:this.state.content_type });
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(Like, [{
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var like_icon = void 0;
+            if (this.state.isActive) {
+                like_icon = _react2.default.createElement(_Favorite2.default, null);
+            } else {
+                like_icon = _react2.default.createElement(_Settings2.default, null);
+            }
 
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
-                    IconButton,
-                    { 'aria-label': 'Like', onClick: function onClick() {
-                            _this2.setState({ liked: true });
-                        } },
-                    _react2.default.createElement(FavoriteIcon, null)
+                    _IconButton2.default,
+                    { 'aria-label': 'Like', onClick: this.onClick },
+                    like_icon
                 )
             );
         }
@@ -76440,21 +76540,25 @@ var Like = function (_React$Component) {
 
     return Like;
 }(_react2.default.Component);
-// const mapStateToProps = ({ likes }, ownProps ) => {
-//     return {
-//         ...likes.likes[ownProps.id],
-//     }
-// }
 
 Like.propTypes = {
     id: _propTypes2.default.number,
-    author: _propTypes2.default.number
+    author: _propTypes2.default.number,
+    isActive: _propTypes2.default.bool
 
 };
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {};
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        isActive: state.isActive
+    };
 };
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Like);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({ like_action: _likes.like_action }, dispatch);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Like);
 
 /***/ }),
 
@@ -77041,6 +77145,14 @@ var _Comment2 = _interopRequireDefault(_Comment);
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "../node_modules/react-router-dom/es/index.js");
 
+var _posts = __webpack_require__(/*! ../actions/posts */ "./actions/posts.js");
+
+var _redux = __webpack_require__(/*! redux */ "../node_modules/redux/es/redux.js");
+
+var _apiUrls = __webpack_require__(/*! ./../constants/apiUrls.js */ "./constants/apiUrls.js");
+
+var _apiUrls2 = _interopRequireDefault(_apiUrls);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -77053,20 +77165,28 @@ var Post = function (_React$Component) {
     _inherits(Post, _React$Component);
 
     function Post() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
         _classCallCheck(this, Post);
 
-        return _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).apply(this, arguments));
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Post.__proto__ || Object.getPrototypeOf(Post)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (e) {
+            console.log('onClick');
+            _this.props.deletePost(_apiUrls2.default.posts, { is_deleted: true });
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(Post, [{
         key: 'render',
         value: function render() {
-            var _this2 = this;
-
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
+            var post = void 0;
+            if (!this.props.is_deleted) {
+                post = _react2.default.createElement(
                     _Card2.default,
                     null,
                     _react2.default.createElement(_CardHeader2.default, {
@@ -77077,7 +77197,7 @@ var Post = function (_React$Component) {
                         ),
                         action: _react2.default.createElement(
                             _IconButton2.default,
-                            null,
+                            { onClick: this.onClick },
                             _react2.default.createElement(_Delete2.default, null)
                         ),
                         title: _react2.default.createElement(
@@ -77099,13 +77219,7 @@ var Post = function (_React$Component) {
                     _react2.default.createElement(
                         _CardActions2.default,
                         { disableActionSpacing: true },
-                        _react2.default.createElement(
-                            _IconButton2.default,
-                            { 'aria-label': 'Like', onClick: function onClick() {
-                                    _this2.setState({ liked: true });
-                                } },
-                            _react2.default.createElement(_Favorite2.default, null)
-                        ),
+                        _react2.default.createElement(_Like2.default, null),
                         _react2.default.createElement(
                             _IconButton2.default,
                             { 'aria-label': 'Share' },
@@ -77117,7 +77231,14 @@ var Post = function (_React$Component) {
                             _react2.default.createElement(_Comment2.default, null)
                         )
                     )
-                )
+                );
+            } else {
+                post = _react2.default.createElement('div', null);
+            }
+            return _react2.default.createElement(
+                'div',
+                null,
+                post
             );
         }
     }]);
@@ -77128,19 +77249,21 @@ var Post = function (_React$Component) {
 Post.propTypes = {
     id: _propTypes2.default.number,
     author: _propTypes2.default.number,
-    blog: _propTypes2.default.number
+    blog: _propTypes2.default.number,
+    is_deleted: _propTypes2.default.bool
 };
 
 
-var mapStateToProps = function mapStateToProps(_ref, ownProps) {
-    var posts = _ref.posts;
+var mapStateToProps = function mapStateToProps(_ref2, ownProps) {
+    var posts = _ref2.posts;
 
     return _extends({}, posts.posts[ownProps.id]);
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {};
+    return (0, _redux.bindActionCreators)({ deletePost: _posts.deletePost }, dispatch);
 };
+
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Post);
 
 /***/ }),
@@ -77492,7 +77615,11 @@ var PostList = function (_React$Component) {
                 );
             }
 
-            var posts = this.props.postList.map(function (item) {
+            var posts = this.props.postList.map(
+            // if (item.is_deleted = true)
+            //     item =>  <Post key = { item } id = { item }/>
+            // else
+            function (item) {
                 return _react2.default.createElement(_Post2.default, { key: item, id: item });
             });
             return _react2.default.createElement(
@@ -77969,6 +78096,10 @@ var _events = __webpack_require__(/*! ./events */ "./reducers/events.js");
 
 var _events2 = _interopRequireDefault(_events);
 
+var _likes = __webpack_require__(/*! ./likes */ "./reducers/likes.js");
+
+var _likes2 = _interopRequireDefault(_likes);
+
 var _chats = __webpack_require__(/*! ./chats */ "./reducers/chats.js");
 
 var _chats2 = _interopRequireDefault(_chats);
@@ -77992,12 +78123,68 @@ exports.default = (0, _redux.combineReducers)(_extends({
     posts: _posts2.default,
     users: _users2.default,
     events: _events2.default,
-    chats: _chats2.default
+    chats: _chats2.default,
+    likes: _likes2.default
 }, (0, _reactReduxForm.createForms)({
     post: initialPost
 }), {
     routing: _reactRouterRedux.routerReducer
 }));
+
+/***/ }),
+
+/***/ "./reducers/likes.js":
+/*!***************************!*\
+  !*** ./reducers/likes.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = posts;
+
+var _reactAddonsUpdate = __webpack_require__(/*! react-addons-update */ "../node_modules/react-addons-update/index.js");
+
+var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
+
+__webpack_require__(/*! ./../actions/likes.js */ "./actions/likes.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {
+
+    liked: false
+};
+
+function posts() {
+    var store = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+
+        case 'START_LIKING':
+            {
+                return true;
+            }
+
+        case 'SUCCESS_LIKING':
+            {
+                return true;
+            }
+
+        case 'ERROR_LIKING':
+            {
+                return true;
+            }
+        default:
+            return store;
+    }
+}
 
 /***/ }),
 
@@ -78143,6 +78330,20 @@ function posts() {
             }
 
         case 'ERROR_POST_SENDING':
+            {
+                return true;
+            }
+        case 'START_POST_DELETING':
+            {
+                return true;
+            }
+
+        case 'SUCCESS_POST_DELETING':
+            {
+                return true;
+            }
+
+        case 'ERROR_POST_DELETING':
             {
                 return true;
             }
@@ -78381,7 +78582,7 @@ exports.default = store;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.event = exports.post = exports.chat = exports.blog = exports.user = undefined;
+exports.like = exports.event = exports.post = exports.chat = exports.blog = exports.user = undefined;
 
 var _normalizr = __webpack_require__(/*! normalizr */ "../node_modules/normalizr/dist/src/index.js");
 
@@ -78397,6 +78598,9 @@ var post = exports.post = new _normalizr.schema.Entity('posts', {
     blog: blog
 });
 var event = exports.event = new _normalizr.schema.Entity('events', {
+    author: user
+});
+var like = exports.like = new _normalizr.schema.Entity('events', {
     author: user
 });
 
