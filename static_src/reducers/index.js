@@ -6,13 +6,11 @@ import events from './events';
 import likes from './likes';
 import chats from './chats';
 import { createForms } from 'react-redux-form';
-import loginReducer from './loginReducers';
 import session from './session.js';
 
 
 const initialPost = { text: '', author : 'admin', blog : '1'};
 export default combineReducers({
-    // login: loginReducer,
     sessionInfo: session,
     posts,
     users,
@@ -23,4 +21,5 @@ export default combineReducers({
         post: initialPost
       }),
     routing:routerReducer,
+    
 });

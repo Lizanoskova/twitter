@@ -14,9 +14,6 @@ class EventList extends React.Component{
         eventList: PropTypes.arrayOf(PropTypes.number), 
     }
   
-    state = {
-    expanded: null,
-  };
     static defaultProps = {
         eventList: [],
         isLoading: false,
@@ -30,7 +27,7 @@ class EventList extends React.Component{
         if(this.props.isLoading) {
             return (<div>Loading...</div>);
         }
-        
+     
         const events = this.props.eventList.map(
             item =>  <Event key = { item } id = { item }/>,
         );
@@ -44,7 +41,7 @@ class EventList extends React.Component{
     }
 }
 
-const mapStateToProps = ({ events }) => {
+const mapStateToProps = ({events}) => {
     return {
         eventList: events.eventList,
         isLoading: events.isLoading,

@@ -25,7 +25,6 @@ export const loadPosts = (url) => {
                         return getJSON(res).then(
                             (json) => {
                                 const normalizedData = normalize(json, [post]);
-                                // delete json;
                                 return Object.assign({}, json, normalizedData);
                             },
                         );

@@ -25,11 +25,6 @@ const initialState = {
 };
 
 const store = initStore(initialState);
-
-// store.dispatch(checkLogin());
-
-// if (store.getState().login)
-
 store.dispatch(loadSessionUserInfo(apiUrl.sessionUserInfo));
 
 ReactDOM.render(

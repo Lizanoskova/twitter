@@ -21,7 +21,6 @@ export const loadUsers = (url) => {
                         return getJSON(res).then(
                             (json) => {
                                 const normalizedData = normalize(json, [user]);
-                                // delete json;
                                 return Object.assign({}, json, normalizedData);
                             },
                         );

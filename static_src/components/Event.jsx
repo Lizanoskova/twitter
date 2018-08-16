@@ -29,7 +29,6 @@ class Event extends React.Component{
         author: PropTypes.number,
         content_type: PropTypes.string,
         object: PropTypes.object,
-         //maybe shape is better   
     }
     // state = {
     //     liked: false,
@@ -38,8 +37,6 @@ class Event extends React.Component{
         // const { liked } = this.state;
 
         return( 
-
-
             <div>
                 <Card >
                 <CardHeader
@@ -75,24 +72,6 @@ class Event extends React.Component{
                         <CommentIcon/>
                     </IconButton>
                 </CardActions>
-                {/* <CardActions className={classes.actions} disableActionSpacing>
-                    <IconButton aria-label="Add to favorites">
-                    <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="Share">
-                    <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                    className={classnames(classes.expand, {
-                        [classes.expandOpen]: this.state.expanded,
-                    })}
-                    onClick={this.handleExpandClick}
-                    aria-expanded={this.state.expanded}
-                    aria-label="Show more"
-                    >
-                    <ExpandMoreIcon />
-                    </IconButton>
-                </CardActions> */}
             </Card>
         </div>
     );

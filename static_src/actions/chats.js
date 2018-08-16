@@ -21,7 +21,6 @@ export const loadChats = (url) => {
                         return getJSON(res).then(
                             (json) => {
                                 const normalizedData = normalize(json, [chat]);
-                                // delete json;
                                 return Object.assign({}, json, normalizedData);
                             },
                         );

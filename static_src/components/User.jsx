@@ -12,7 +12,6 @@ class User extends React.Component{
 
         return( 
             <div className="user">
-                {/* <div className="user__id">{ this.props.id }</div>  */}
                 <div className="username">{ this.props.username}</div>
             </div>
         );

@@ -8,7 +8,6 @@ export const ERROR_LIKING = 'ERROR_LIKING';
 
 
 export const like_action = (url,data) => {
-    // console.log('LIKE')
     return {
         [RSAA]: {
             credentials: 'include',

@@ -5,6 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import HomeIcon from "@material-ui/icons/Home";
+import Button from '@material-ui/core/Button';
 import MessageIcon from '@material-ui/icons/Message';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -57,16 +58,27 @@ class NavBar extends React.Component {
 
   render() {
     let account;
+    let notifications;
+    let messages;
+    let news;
     if (this.props.sessionInfo.isLogined) {
         account =
           <ListItemLink to="/profile" primary="Profile" icon={<PersonIcon />} />
+        notifications =
+          <ListItemLink to="/notifications" primary="Notifications" icon={<Notifications />} />
+        messages =
+          <ListItemLink to="/chat_list/" primary="Messages" icon={<MessageIcon />} />
+        news =
+          <ListItemLink to="/" primary="News" icon={<HomeIcon />} />
     }
     else {
-        account =
-            (
-              <ListItemLink to="/login/" primary="Login/Registration" icon={<PersonIcon />} />
-            );
- }
+        account = <Button href = 'http://localhost:3000/login/'>Login/Registration</Button>
+        // <ListItemLink to="/login" primary="Login/Registration" icon={<PersonIcon />} />
+        notifications = <div></div>
+        messages = <div></div>
+        news = <ListItemLink to="/" primary="News" icon={<HomeIcon />} />
+        
+    }
     return (
         <AppBar position="sticky"
                 color="default"
@@ -79,13 +91,12 @@ class NavBar extends React.Component {
             textColor="primary"
             scrollButtons='on'
           >
-            <ListItemLink to="/" primary="News" icon={<HomeIcon />} />
-            <ListItemLink to="/chat_list/" primary="Messages" icon={<MessageIcon />} />
-            <ListItemLink to="/" primary="Notifications" icon={<Notifications />} />
-            <ListItemLink to="/" primary="Settings" icon={<SettingsIcon />} />
-            { account }
+              { news }
+              { notifications }
+              { messages }
+              { account }
+
           </Tabs>
-            
         </AppBar>
     );
   }
@@ -99,9 +110,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
       sessionInfo: state.sessionInfo,
-      // login: state.login
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
-// export default withStyles(styles)(NavBar);
+

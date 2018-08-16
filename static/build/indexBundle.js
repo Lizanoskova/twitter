@@ -75338,7 +75338,6 @@ var loadChats = exports.loadChats = function loadChats(url) {
             payload: function payload(action, state, res) {
                 return (0, _reduxApiMiddleware.getJSON)(res).then(function (json) {
                     var normalizedData = (0, _normalizr.normalize)(json, [_schemas.chat]);
-                    // delete json;
                     return Object.assign({}, json, normalizedData);
                 });
             }
@@ -75385,7 +75384,6 @@ var loadEvents = exports.loadEvents = function loadEvents(url) {
             payload: function payload(action, state, res) {
                 return (0, _reduxApiMiddleware.getJSON)(res).then(function (json) {
                     var normalizedData = (0, _normalizr.normalize)(json, [_schemas.event]);
-                    // delete json;
                     return Object.assign({}, json, normalizedData);
                 });
             }
@@ -75429,7 +75427,6 @@ var SUCCESS_LIKING = exports.SUCCESS_LIKING = 'SUCCESS_LIKING';
 var ERROR_LIKING = exports.ERROR_LIKING = 'ERROR_LIKING';
 
 var like_action = exports.like_action = function like_action(url, data) {
-    // console.log('LIKE')
     return _defineProperty({}, _reduxApiMiddleware.RSAA, {
         credentials: 'include',
         endpoint: url,
@@ -75460,17 +75457,14 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.loadSessionUserInfo = undefined;
-exports.checkLogin = checkLogin;
 exports.logIn = logIn;
 exports.logOut = logOut;
 
 var _reduxApiMiddleware = __webpack_require__(/*! redux-api-middleware */ "../node_modules/redux-api-middleware/lib/index.js");
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // import { RSAA } from 'redux-api-middleware';
-
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var actionsList = {
-    CHECK_LOG_IN: 'CHECK_LOG_IN',
     LOG_IN: 'LOG_IN',
     LOG_OUT: 'LOG_OUT',
     SUCCESS_SESSION_LOADING: 'SUCCESS_SESSION_LOADING',
@@ -75486,26 +75480,6 @@ var loadSessionUserInfo = exports.loadSessionUserInfo = function loadSessionUser
         types: [actionsList.START_SESSION_LOADING, actionsList.SUCCESS_SESSION_LOADING, actionsList.ERROR_SESSION_LOADING]
     });
 };
-// export function loadSessionUserInfo (url, method = 'GET') {
-
-//     return {
-//         [RSAA]:
-//             {
-//                 credentials: 'include',
-//                 endpoint: url,
-//                 method: method,
-//                 types: [
-//                     actionsList.SUCCESS_SESSION_LOADING,
-//                     actionsList.ERROR_SESSION_LOADING,
-//                 ],
-//             },
-//     };
-// }
-function checkLogin() {
-    return {
-        type: actionsList.CHECK_LOG_IN
-    };
-}
 
 function logIn() {
     return {
@@ -75572,7 +75546,6 @@ var loadPosts = exports.loadPosts = function loadPosts(url) {
             payload: function payload(action, state, res) {
                 return (0, _reduxApiMiddleware.getJSON)(res).then(function (json) {
                     var normalizedData = (0, _normalizr.normalize)(json, [_schemas.post]);
-                    // delete json;
                     return Object.assign({}, json, normalizedData);
                 });
             }
@@ -75651,7 +75624,6 @@ var loadUsers = exports.loadUsers = function loadUsers(url) {
             payload: function payload(action, state, res) {
                 return (0, _reduxApiMiddleware.getJSON)(res).then(function (json) {
                     var normalizedData = (0, _normalizr.normalize)(json, [_schemas.user]);
-                    // delete json;
                     return Object.assign({}, json, normalizedData);
                 });
             }
@@ -76213,6 +76185,10 @@ var Event = function (_React$Component) {
 
     _createClass(Event, [{
         key: 'render',
+
+        // state = {
+        //     liked: false,
+        //   };
         value: function render() {
             var _this2 = this;
 
@@ -76284,13 +76260,7 @@ Event.propTypes = {
     id: _propTypes2.default.number,
     author: _propTypes2.default.number,
     content_type: _propTypes2.default.string,
-    object: _propTypes2.default.object
-    //maybe shape is better   
-
-    // state = {
-    //     liked: false,
-    //   };
-};
+    object: _propTypes2.default.object };
 
 
 var mapStateToProps = function mapStateToProps(_ref, ownProps) {
@@ -76360,19 +76330,9 @@ var EventList = function (_React$Component) {
     _inherits(EventList, _React$Component);
 
     function EventList() {
-        var _ref;
-
-        var _temp, _this, _ret;
-
         _classCallCheck(this, EventList);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = EventList.__proto__ || Object.getPrototypeOf(EventList)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            expanded: null
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+        return _possibleConstructorReturn(this, (EventList.__proto__ || Object.getPrototypeOf(EventList)).apply(this, arguments));
     }
 
     _createClass(EventList, [{
@@ -76416,8 +76376,8 @@ EventList.defaultProps = {
 };
 
 
-var mapStateToProps = function mapStateToProps(_ref2) {
-    var events = _ref2.events;
+var mapStateToProps = function mapStateToProps(_ref) {
+    var events = _ref.events;
 
     return {
         eventList: events.eventList,
@@ -76745,6 +76705,8 @@ var _PostList = __webpack_require__(/*! ./PostList.jsx */ "./components/PostList
 
 var _PostList2 = _interopRequireDefault(_PostList);
 
+var _redux = __webpack_require__(/*! redux */ "../node_modules/redux/es/redux.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -76757,18 +76719,28 @@ var MyAccount = function (_React$Component) {
     _inherits(MyAccount, _React$Component);
 
     function MyAccount() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
         _classCallCheck(this, MyAccount);
 
-        return _possibleConstructorReturn(this, (MyAccount.__proto__ || Object.getPrototypeOf(MyAccount)).apply(this, arguments));
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = MyAccount.__proto__ || Object.getPrototypeOf(MyAccount)).call.apply(_ref, [this].concat(args))), _this), _this.onClick = function (e) {
+            console.log('onClick');
+            _this.props.logOut();
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(MyAccount, [{
         key: 'render',
         value: function render() {
-            // if (!this.props.sessionInfo.isLogined) {
-            //     return <Redirect push to="/" />
-
-            // }
+            if (!this.props.sessionInfo.isLogined) {
+                return _react2.default.createElement(_Redirect2.default, { push: true, to: '/' });
+            }
 
             var info = this.props.sessionInfo.data;
             return _react2.default.createElement(
@@ -76783,18 +76755,16 @@ var MyAccount = function (_React$Component) {
                 info.email,
                 _react2.default.createElement('br', null),
                 _react2.default.createElement(
+                    _Button2.default,
+                    { onClick: this.onClick },
+                    '\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430'
+                ),
+                _react2.default.createElement(
                     'h1',
                     null,
                     '\u041C\u043E\u0438 \u043F\u043E\u0441\u0442\u044B'
                 ),
-                _react2.default.createElement(_PostList2.default, null),
-                _react2.default.createElement(
-                    _Button2.default,
-                    { onClick: function onClick() {
-                            return _test2.default.dispatch((0, _loginActions.logOut)());
-                        } },
-                    '\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430'
-                )
+                _react2.default.createElement(_PostList2.default, null)
             );
         }
     }]);
@@ -76803,17 +76773,12 @@ var MyAccount = function (_React$Component) {
 }(_react2.default.Component);
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return {
-        logOut: function logOut() {
-            return dispatch(_loginActions.logOut);
-        }
-    };
+    return (0, _redux.bindActionCreators)({ logOut: _loginActions.logOut }, dispatch);
 };
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
         sessionInfo: state.sessionInfo
-        // login: state.login
     };
 };
 
@@ -76864,6 +76829,10 @@ var _Tab2 = _interopRequireDefault(_Tab);
 var _Home = __webpack_require__(/*! @material-ui/icons/Home */ "../node_modules/@material-ui/icons/Home.js");
 
 var _Home2 = _interopRequireDefault(_Home);
+
+var _Button = __webpack_require__(/*! @material-ui/core/Button */ "../node_modules/@material-ui/core/Button/index.js");
+
+var _Button2 = _interopRequireDefault(_Button);
 
 var _Message = __webpack_require__(/*! @material-ui/icons/Message */ "../node_modules/@material-ui/icons/Message.js");
 
@@ -76992,10 +76961,24 @@ var NavBar = function (_React$Component2) {
     key: "render",
     value: function render() {
       var account = void 0;
+      var notifications = void 0;
+      var messages = void 0;
+      var news = void 0;
       if (this.props.sessionInfo.isLogined) {
         account = _react2.default.createElement(ListItemLink, { to: "/profile", primary: "Profile", icon: _react2.default.createElement(_Person2.default, null) });
+        notifications = _react2.default.createElement(ListItemLink, { to: "/notifications", primary: "Notifications", icon: _react2.default.createElement(_Notifications2.default, null) });
+        messages = _react2.default.createElement(ListItemLink, { to: "/chat_list/", primary: "Messages", icon: _react2.default.createElement(_Message2.default, null) });
+        news = _react2.default.createElement(ListItemLink, { to: "/", primary: "News", icon: _react2.default.createElement(_Home2.default, null) });
       } else {
-        account = _react2.default.createElement(ListItemLink, { to: "/login/", primary: "Login/Registration", icon: _react2.default.createElement(_Person2.default, null) });
+        account = _react2.default.createElement(
+          _Button2.default,
+          { href: "http://localhost:3000/login/" },
+          "Login/Registration"
+        );
+        // <ListItemLink to="/login" primary="Login/Registration" icon={<PersonIcon />} />
+        notifications = _react2.default.createElement("div", null);
+        messages = _react2.default.createElement("div", null);
+        news = _react2.default.createElement(ListItemLink, { to: "/", primary: "News", icon: _react2.default.createElement(_Home2.default, null) });
       }
       return _react2.default.createElement(
         _AppBar2.default,
@@ -77012,10 +76995,9 @@ var NavBar = function (_React$Component2) {
             textColor: "primary",
             scrollButtons: "on"
           },
-          _react2.default.createElement(ListItemLink, { to: "/", primary: "News", icon: _react2.default.createElement(_Home2.default, null) }),
-          _react2.default.createElement(ListItemLink, { to: "/chat_list/", primary: "Messages", icon: _react2.default.createElement(_Message2.default, null) }),
-          _react2.default.createElement(ListItemLink, { to: "/", primary: "Notifications", icon: _react2.default.createElement(_Notifications2.default, null) }),
-          _react2.default.createElement(ListItemLink, { to: "/", primary: "Settings", icon: _react2.default.createElement(_Settings2.default, null) }),
+          news,
+          notifications,
+          messages,
           account
         )
       );
@@ -77032,12 +77014,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     sessionInfo: state.sessionInfo
-    // login: state.login
   };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(NavBar);
-// export default withStyles(styles)(NavBar);
 
 /***/ }),
 
@@ -77351,7 +77331,6 @@ var PostForm = function (_React$Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = PostForm.__proto__ || Object.getPrototypeOf(PostForm)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-            // author: 'admin',
             text: '',
             blog_id: '',
             isLoading: false
@@ -77367,62 +77346,38 @@ var PostForm = function (_React$Component) {
     _createClass(PostForm, [{
         key: 'render',
         value: function render() {
-            return (
-                // <div>
-                //     <div>Create Post</div>
-                //         <FormControl >
-                //         <InputLabel htmlFor="name-simple">Blog</InputLabel>
-                //         <Input
-                //             id="name-simple"
-                //             value={this.state.blog}
-                //             onChange={this.onChange}
-                //         />
-                //         <InputLabel htmlFor="name-helper">Text</InputLabel>
-                //         <Input
-                //             id="name-helper"
-                //             value={this.state.text}
-                //             onChange={this.onChange}
-                //         />
-                //         <FormHelperText id="name-helper-text">
-                //             no more 256 symbols
-                //         </FormHelperText>
 
-                //         <Button color="primary" onClick={ this.onClick } >
-                //         Send
-                //         <Icon >send</Icon>
-                //         </Button>
-                //         </FormControl>
-                // </div>
-
+            if (!this.props.sessionInfo.isLogined) {
+                return _react2.default.createElement('div', null);
+            }
+            return _react2.default.createElement(
+                'div',
+                { className: 'create-form' },
                 _react2.default.createElement(
-                    'div',
-                    { className: 'create-form' },
+                    'h2',
+                    null,
+                    'Create post'
+                ),
+                _react2.default.createElement(
+                    'form',
+                    null,
                     _react2.default.createElement(
-                        'h2',
-                        null,
-                        'Create post'
+                        'div',
+                        { className: 'form-field-wrapper' },
+                        _react2.default.createElement('textarea', { onChange: this.onChange, value: this.state.text, className: 'form-field', type: 'text', name: 'text', placeholder: 'Text' })
                     ),
                     _react2.default.createElement(
-                        'form',
-                        null,
+                        'div',
+                        { className: 'form-field-wrapper' },
+                        _react2.default.createElement('input', { onChange: this.onChange, value: this.state.blog, className: 'form-field', name: 'blog_id', placeholder: 'Blog' })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-field-wrapper' },
                         _react2.default.createElement(
-                            'div',
-                            { className: 'form-field-wrapper' },
-                            _react2.default.createElement('textarea', { onChange: this.onChange, value: this.state.text, className: 'form-field', type: 'text', name: 'text', placeholder: 'Text' })
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-field-wrapper' },
-                            _react2.default.createElement('input', { onChange: this.onChange, value: this.state.blog, className: 'form-field', name: 'blog_id', placeholder: 'Blog' })
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-field-wrapper' },
-                            _react2.default.createElement(
-                                'button',
-                                { onClick: this.onClick },
-                                'Create'
-                            )
+                            'button',
+                            { onClick: this.onClick },
+                            'Create'
                         )
                     )
                 )
@@ -77435,112 +77390,15 @@ var PostForm = function (_React$Component) {
 
 PostForm.propTypes = {};
 
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        sessionInfo: state.sessionInfo
+    };
+};
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({ send: _posts.send }, dispatch);
 };
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(PostForm);
-
-// url = apiUrls.posts;
-// data = {
-//   text: this.state.text,
-//   blog_id: this.state.blog_id,
-// };
-
-
-// export default connect(null,mapDispatchToProps)(PostForm);
-// const mapDispatchToProps = (dispatch) => {
-
-//   return {
-//       send: () => dispatch(send)
-//   };
-// };
-
-// export default PostForm;
-
-
-// import React from "react";
-// import PropTypes from "prop-types";
-// import { withStyles } from "@material-ui/core/styles";
-// import Input from "@material-ui/core/Input";
-// import Button from "@material-ui/core/Button";
-// import InputLabel from "@material-ui/core/InputLabel";
-// import FormHelperText from "@material-ui/core/FormHelperText";
-// import FormControl from "@material-ui/core/FormControl";
-// import Icon from "@material-ui/core/Icon";
-
-// const styles = theme => ({
-//   container: {
-//     display: "flex",
-//     flexWrap: "wrap"
-//   },
-//   formControl: {
-//     margin: theme.spacing.unit
-//   },
-//   rightIcon: {
-//     marginLeft: theme.spacing.unit
-//   }
-// });
-// class PostForm extends React.Component {
-
-//   handleChange = (e) => {
-//     this.setState({ [e.target.name]: e.target.value });
-//   };
-//   state = {
-//     text: '',
-//     blog_id: '',
-//     isLoading: false,
-// }
-
-// // onChange = (e) => {
-// //     this.setState({ [e.target.name]:e.target.value });
-// // }
-
-//   render() {
-//     const { classes } = this.props;
-
-//     return (
-
-//   <div className={classes.container}>
-//      <div>Create Post</div>
-//     <FormControl className={classes.formControl}>
-//       <InputLabel htmlFor="name-simple">Blog</InputLabel>
-//       <Input
-//         id="name-simple"
-//         value={this.state.blog}
-//         onChange={this.handleChange}
-//       />
-//     </FormControl>
-//     <FormControl
-//       className={classes.formControl}
-//       aria-describedby="name-helper-text"
-//     >
-//       <InputLabel htmlFor="name-helper">Text</InputLabel>
-//       <Input
-//         id="name-helper"
-//         value={this.state.text}
-//         onChange={this.handleChange}
-//       />
-//       <FormHelperText id="name-helper-text">
-//         no more 256 symbols
-//       </FormHelperText>
-//     </FormControl>
-//     <Button variant="contained" color="primary" className={classes.button}>
-//       Send
-//       <Icon className={classes.rightIcon}>send</Icon>
-//     </Button>
-//   </div>
-//     );
-//   }
-// }
-
-// PostForm.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
-
-//  const mapDispatchToProps = (dispatch) => {
-//     return bindActionCreators({ send }, dispatch)
-// }
-// export default connect(null,mapDispatchToProps)(PostForm);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PostForm);
 
 /***/ }),
 
@@ -78106,10 +77964,6 @@ var _chats2 = _interopRequireDefault(_chats);
 
 var _reactReduxForm = __webpack_require__(/*! react-redux-form */ "../node_modules/react-redux-form/lib/index.js");
 
-var _loginReducers = __webpack_require__(/*! ./loginReducers */ "./reducers/loginReducers.js");
-
-var _loginReducers2 = _interopRequireDefault(_loginReducers);
-
 var _session = __webpack_require__(/*! ./session.js */ "./reducers/session.js");
 
 var _session2 = _interopRequireDefault(_session);
@@ -78118,7 +77972,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var initialPost = { text: '', author: 'admin', blog: '1' };
 exports.default = (0, _redux.combineReducers)(_extends({
-    // login: loginReducer,
     sessionInfo: _session2.default,
     posts: _posts2.default,
     users: _users2.default,
@@ -78129,6 +77982,7 @@ exports.default = (0, _redux.combineReducers)(_extends({
     post: initialPost
 }), {
     routing: _reactRouterRedux.routerReducer
+
 }));
 
 /***/ }),
@@ -78185,80 +78039,6 @@ function posts() {
             return store;
     }
 }
-
-/***/ }),
-
-/***/ "./reducers/loginReducers.js":
-/*!***********************************!*\
-  !*** ./reducers/loginReducers.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _loginActions = __webpack_require__(/*! ../actions/loginActions */ "./actions/loginActions.js");
-
-var _loginActions2 = _interopRequireDefault(_loginActions);
-
-var _jsCookie = __webpack_require__(/*! js-cookie */ "../node_modules/js-cookie/src/js.cookie.js");
-
-var _jsCookie2 = _interopRequireDefault(_jsCookie);
-
-var _reactAddonsUpdate = __webpack_require__(/*! react-addons-update */ "../node_modules/react-addons-update/index.js");
-
-var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var initialState = {
-    isLogined: false
-};
-function loginReducer() {
-    var store = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-    var action = arguments[1];
-
-
-    switch (action.type) {
-
-        case _loginActions2.default.CHECK_LOG_IN:
-            var jsId = _jsCookie2.default.get('sessionid');
-            // const jsId = document.cookie.match(/JSESSIONID=[^;]+/);
-            console.log('loginReducer');
-            if (jsId !== undefined) {
-                console.log('logined');
-                return (0, _reactAddonsUpdate2.default)(store, {
-                    isLogined: { $set: true }
-                });
-            } else {
-                console.log('need to login');
-                return (0, _reactAddonsUpdate2.default)(store, {
-                    isLogined: { $set: false }
-
-                });
-            }
-
-        case _loginActions2.default.LOG_IN:
-
-            return (0, _reactAddonsUpdate2.default)(store, {
-                isLogined: { $set: true }
-            });
-
-        case _loginActions2.default.LOG_OUT:
-            return (0, _reactAddonsUpdate2.default)(store, {
-                isLogined: { $set: false }
-            });
-        default:
-            return store;
-    }
-}
-
-exports.default = loginReducer;
 
 /***/ }),
 
@@ -78375,19 +78155,40 @@ var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
 
 __webpack_require__(/*! ./../actions/loginActions.js */ "./actions/loginActions.js");
 
+var _jsCookie = __webpack_require__(/*! js-cookie */ "../node_modules/js-cookie/src/js.cookie.js");
+
+var _jsCookie2 = _interopRequireDefault(_jsCookie);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import actionList from "../actions/loginActions";
 var initialState = {
     isLogined: false,
     data: {}
-};
-
+}; // import actionList from "../actions/loginActions";
 function session() {
     var store = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
 
     switch (action.type) {
+
+        case 'LOG_IN':
+
+            return (0, _reactAddonsUpdate2.default)(store, {
+                isLogined: { $set: true }
+            });
+
+        case 'LOG_OUT':
+            {
+                console.log('logout');
+                _jsCookie2.default.set('sessionid', '', {
+                    expires: -1
+                });
+                return (0, _reactAddonsUpdate2.default)(store, {
+                    isLogined: { $set: false },
+                    data: { $set: {} }
+                });
+            }
+
         case 'START_SESSION_LOADING':
             {
                 return store;
@@ -78544,11 +78345,6 @@ var initialState = {
 };
 
 var store = (0, _store2.default)(initialState);
-
-// store.dispatch(checkLogin());
-
-// if (store.getState().login)
-
 store.dispatch((0, _loginActions.loadSessionUserInfo)(_apiUrls2.default.sessionUserInfo));
 
 _reactDom2.default.render(_react2.default.createElement(
@@ -78592,7 +78388,6 @@ var chat = exports.chat = new _normalizr.schema.Entity('chats', {
     user_1: user,
     user_2: user
 });
-//export const object = new schema.Entity('objects');
 var post = exports.post = new _normalizr.schema.Entity('posts', {
     author: user,
     blog: blog
@@ -78649,10 +78444,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function initStore(initialState) {
-    // const initialStore = {};
-    return (0, _redux.createStore)(_reducers2.default, initialState, (0, _reduxDevtoolsExtension.composeWithDevTools)(_redux.applyMiddleware.apply(undefined, [_reduxApiMiddleware.apiMiddleware].concat(_toConsumableArray(_middlewares4.default), [_reduxThunk2.default])))
-    // compose(applyMiddleware(...additionalMiddlewares, ...middlewares), window.__REDUX_DEVTOOLS_EXTENSION__()),
-    );
+    return (0, _redux.createStore)(_reducers2.default, initialState, (0, _reduxDevtoolsExtension.composeWithDevTools)(_redux.applyMiddleware.apply(undefined, [_reduxApiMiddleware.apiMiddleware].concat(_toConsumableArray(_middlewares4.default), [_reduxThunk2.default]))));
 }
 exports.default = initStore;
 

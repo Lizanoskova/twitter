@@ -8,12 +8,10 @@ import { apiMiddleware } from 'redux-api-middleware';
 import myMiddlewares from '../middlewares';
 
 function initStore(initialState){
-    // const initialStore = {};
     return createStore(
         initReducers,
         initialState,
         composeWithDevTools(applyMiddleware(apiMiddleware, ...myMiddlewares, thunk)),
-        // compose(applyMiddleware(...additionalMiddlewares, ...middlewares), window.__REDUX_DEVTOOLS_EXTENSION__()),
     );
 }
 export default initStore;

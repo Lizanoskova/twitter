@@ -19,7 +19,6 @@ export const loadEvents = (url) => {
                         return getJSON(res).then(
                             (json) => {
                                 const normalizedData = normalize(json, [event]);
-                                // delete json;
                                 return Object.assign({}, json, normalizedData);
                             },
                         );
