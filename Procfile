@@ -1,2 +1,1 @@
-web: npm run start:dev
-worker: node app.js
+worker: npm run start:dev
