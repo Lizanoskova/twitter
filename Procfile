@@ -1,2 +1,2 @@
 web: gunicorn twitter.wsgi --log-file -
-worker: npm start:dev
+worker: npm run start:dev
