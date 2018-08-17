@@ -41,7 +41,7 @@ REST_FRAMEWORK = {
 
    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAdminUser'
-   ),twwitter.herokuapp.com
+   ),
 }
 # Application definition
 
