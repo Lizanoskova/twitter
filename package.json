@@ -118,7 +118,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node_modules/.bin/webpack",
-    "start:dev": "webpack-dev-server -d --config webpack.dev.config.js --content-base public/ --progress --colors",
+    "start:dev": "webpack-dev-server",
     "build": "NODE_ENV=build node_modules/.bin/webpack",
     "development": "NODE_ENV=development node_modules/.bin/webpack"
   },
@@ -132,9 +132,8 @@
     "url": "https://github.com/Lizanoskova/Twitter/issues"
   },
   "homepage": "https://github.com/Lizanoskova/Twitter#readme",
-
-"engines": {
-  "node": ">=0.10.22",
-  "npm": ">=1.3.14"
-}
+  "engines": {
+    "node": ">=0.10.22",
+    "npm": ">=1.3.14"
+  }
 }
