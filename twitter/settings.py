@@ -29,7 +29,9 @@ SECRET_KEY = 'az=%52dw(=ygiw^3w62*6)sj%d@34dgi&o2rtyg0g%ty81p0zi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+'twwitter.herokuapp.com',
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -39,7 +41,7 @@ REST_FRAMEWORK = {
 
    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAdminUser'
-   ),
+   ),twwitter.herokuapp.com
 }
 # Application definition
 
