@@ -21,7 +21,7 @@ module.exports = {
   devServer: {
     disableHostCheck: true,
     host: '0.0.0.0',
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 3030,
   },
 
   watch: NODE_ENV === 'development',

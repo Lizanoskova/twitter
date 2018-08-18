@@ -118,7 +118,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node_modules/.bin/webpack",
-    "start:dev": "node_modules/.bin/webpack-dev-server",
+    "start:dev": "webpack-dev-server",
     "build": "NODE_ENV=build node_modules/.bin/webpack",
     "development": "NODE_ENV=development node_modules/.bin/webpack"
   },
