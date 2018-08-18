@@ -30,7 +30,7 @@ SECRET_KEY = 'az=%52dw(=ygiw^3w62*6)sj%d@34dgi&o2rtyg0g%ty81p0zi'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost', '0.0.0.0', 'https://twwitter.herokuapp.com']
+    'localhost', '0.0.0.0', 'https://twwitter.herokuapp.com'
 ]
 
 REST_FRAMEWORK = {
